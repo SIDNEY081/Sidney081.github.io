@@ -10,7 +10,6 @@
     --bg-color: #f5f5f5;
     --text-color: #000;
     --heading-color: #1f1f1f;
-    --card-shadow: rgba(0,0,0,0.1);
   }
   body {
     font-family: 'Roboto', sans-serif;
@@ -57,12 +56,36 @@
   .stats img:hover, .graph-container img:hover {transform: scale(1.03);}
   .animate-on-scroll {opacity:0; transform: translateY(40px); transition: all 0.8s ease-out;}
   .animate-on-scroll.visible {opacity:1; transform:translateY(0);}
-  .theme-toggle {position:fixed; top:20px; right:20px; padding:10px 15px; border:none; border-radius:8px; cursor:pointer; background:#58a6ff; color:#fff; font-size:14px; font-weight:bold; box-shadow:0 2px 6px rgba(0,0,0,0.5); transition: background 0.3s ease, transform 0.2s ease; z-index:1000;}
+
+  /* Dark/Light Toggle Button */
+  .theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #58a6ff;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    transition: background 0.3s ease, transform 0.2s ease, top 0.3s ease;
+    z-index: 1100;
+  }
   .theme-toggle:hover {transform: scale(1.05);}
   #themeIcon {display:inline-block; transition: transform 0.5s ease; margin-right:8px;}
   .theme-toggle.rotate #themeIcon {transform: rotate(360deg) scale(1.2);}
-  @media(max-width:600px){ nav {flex-direction:column;} }
-  @media(min-width:768px){ .stats img{flex:1 1 30%; max-width:30%;} .graph-container img{max-width:90%;} }
+
+  @media(max-width:600px){
+    nav {flex-direction:column;}
+    .theme-toggle {top:70px;} /* below nav */
+  }
+  @media(min-width:768px){
+    .stats img{flex:1 1 30%; max-width:30%;}
+    .graph-container img{max-width:90%;}
+  }
 </style>
 </head>
 <body>
@@ -187,15 +210,10 @@
   toggleBtn.addEventListener("click", () => {
     document.body.classList.toggle("light");
     const isLight = document.body.classList.contains("light");
-
-    // Animate icon
     themeIcon.classList.add("rotate");
     setTimeout(() => themeIcon.classList.remove("rotate"), 500);
-
-    // Update icon and text
     themeIcon.textContent = isLight ? "☀️" : "🌙";
     toggleBtn.textContent = `${themeIcon.textContent} ${isLight ? "Light Mode" : "Dark Mode"}`;
-    
     const theme = isLight ? "default" : "radical";
     githubStats.src = `https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&theme=${theme}`;
     topLangs.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUsername}&layout=compact&theme=${theme}`;
