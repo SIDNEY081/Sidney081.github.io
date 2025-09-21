@@ -23,6 +23,7 @@
     <a href="#projects">Projects</a>
     <a href="#stats">GitHub Stats</a>
     <a href="#current">Currently Learning</a>
+    <a href="#completed">Completed Projects</a>
     <a href="#contact">Contact</a>
 </nav>
 
@@ -75,6 +76,14 @@
     <div class="current-work" id="current-work"></div>
 </section>
 
+<section id="completed">
+    <h2>Completed Projects</h2>
+    <ul>
+        <li>Blog Website (HTML/CSS/PHP)</li>
+        <li>MICT SETA Recruitment System (PHP + MySQL)</li>
+    </ul>
+</section>
+
 <section id="contact">
     <h2>Contact</h2>
     <div class="contact-info">
@@ -90,17 +99,20 @@
 </footer>
 
 <script>
-  // Current Work
+  // Current Work (In Progress)
   const currentWorkData = {
     learning: ["Embedded C", "Real-Time Systems", "Advanced Java"],
-    workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "Blog Website (HTML/CSS/PHP)"],
-    exploring: ["IoT projects with Arduino & Raspberry Pi"]
+    workingOn: [
+      "SafeShell (Android Kotlin + Jetpack Compose)", 
+      "Chatbot (School Project)", 
+      "VCU Prototype Project (MATLAB + Embedded C)", 
+      "IoT projects with Arduino & Raspberry Pi"
+    ]
   };
   const currentWorkContainer = document.getElementById("current-work");
   currentWorkContainer.innerHTML = `
     <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
     <p><strong>Working On:</strong> ${currentWorkData.workingOn.join(", ")}</p>
-    <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
   `;
 
   // Fetch GitHub Projects
