@@ -7,38 +7,31 @@ body {
 }
 body.light { background: #f9f9f9; color: #222; }
 
-/* ---------- Header ---------- */
-header {
-    text-align: center; padding: 30px 20px;
-    background: #1f1f1f; transition: background 0.3s, color 0.3s;
-}
+/* Header */
+header { text-align: center; padding: 30px 20px; background: #1f1f1f; transition: background 0.3s, color 0.3s; }
 body.light header { background: #eaeaea; color: #222; }
 header img { width: 150px; border-radius: 50%; border: 3px solid #555; transition: border-color 0.3s; }
 body.light header img { border-color: #aaa; }
 header h1 { margin: 12px 0 6px; font-size: 2rem; }
 header p { margin: 0; font-size: 1rem; font-weight: 400; }
 
-/* ---------- Navigation ---------- */
+/* Nav */
 nav { text-align: center; padding: 10px 0; background: #1a1a1a; transition: background 0.3s; }
 body.light nav { background: #ddd; }
 nav a { margin: 0 12px; text-decoration: none; color: inherit; font-weight: 500; transition: color 0.3s; }
 nav a:hover { color: #4fc3f7; }
 
-/* ---------- Sections ---------- */
+/* Sections */
 section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
 section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 24px; position: relative; }
 section h2::after { content: ''; display: block; width: 60px; height: 3px; background: #4fc3f7; margin: 8px auto 0; border-radius: 2px; }
 
-/* ---------- Skills ---------- */
+/* Skills */
 .skills { display: flex; flex-wrap: wrap; justify-content: center; }
-.skills div {
-    border-radius: 8px; padding: 8px 16px; margin: 6px;
-    font-weight: 500; transition: transform 0.2s;
-    cursor: default; text-align: center;
-}
+.skills div { border-radius: 8px; padding: 8px 16px; margin: 6px; font-weight: 500; text-align: center; cursor: default; transition: transform 0.2s; }
 .skills div:hover { transform: translateY(-4px); }
 
-/* ---------- Colorful Skills ---------- */
+/* Skill colors */
 .skills div.C { background: #A8B9CC; color: #222; }
 .skills div.Cpp { background: #00599C; color: #fff; }
 .skills div.Java { background: #f89820; color: #fff; }
@@ -56,7 +49,7 @@ section h2::after { content: ''; display: block; width: 60px; height: 3px; backg
 .skills div.VSCode { background: #007ACC; color: #fff; }
 .skills div.NotepadPP { background: #9BCC7E; color: #000; }
 
-/* ---------- Projects ---------- */
+/* Projects */
 .projects { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
 .project-card {
     position: relative;
@@ -68,56 +61,31 @@ section h2::after { content: ''; display: block; width: 60px; height: 3px; backg
 body.light .project-card { background: #fff; color: #222; }
 .project-card.show { opacity: 1; transform: translateY(0); }
 
-/* ---------- Screenshot Overlay ---------- */
+/* Screenshot overlay */
 .screenshot-container { position: relative; width: 100%; overflow: hidden; border-radius: 8px; margin-bottom: 8px; }
 .project-screenshot { width: 100%; display: block; transition: transform 0.3s; }
 .screenshot-container:hover .project-screenshot { transform: scale(1.05); }
-.overlay-link {
-    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(0,0,0,0.5);
-    color: #fff; font-weight: 600;
-    text-decoration: none;
-    opacity: 0; transition: opacity 0.3s; font-size: 1.1rem;
-}
-.screenshot-container:hover .overlay-link { opacity: 1; }
+.overlay-link { position: absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); color:#fff; font-weight:600; text-decoration:none; opacity:0; transition: opacity 0.3s; font-size:1.1rem; }
+.screenshot-container:hover .overlay-link { opacity:1; }
 
-/* ---------- Badge ---------- */
-.badge {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #ff9800;
-    color: #fff;
-    font-weight: bold;
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    z-index: 10;
-}
+/* Badge */
+.badge { position:absolute; top:10px; right:10px; background:#ff9800; color:#fff; font-weight:bold; padding:4px 8px; border-radius:8px; font-size:0.85rem; z-index:10; }
 
-/* ---------- Current Work ---------- */
-.current-work p { text-align: center; font-size: 1rem; margin: 6px 0; }
+/* Current work */
+.current-work p { text-align:center; font-size:1rem; margin:6px 0; }
 
-/* ---------- Contact ---------- */
-.contact-info { text-align: center; }
-.contact-info a { color: #4fc3f7; text-decoration: none; }
-.contact-info a:hover { text-decoration: underline; }
+/* Contact */
+.contact-info { text-align:center; }
+.contact-info a { color:#4fc3f7; text-decoration:none; }
+.contact-info a:hover { text-decoration:underline; }
 
-/* ---------- Footer ---------- */
-footer { text-align: center; padding: 16px; background: #222; margin-top: 20px; }
-body.light footer { background: #ddd; color: #222; }
+/* Footer */
+footer { text-align:center; padding:16px; background:#222; margin-top:20px; }
+body.light footer { background:#ddd; color:#222; }
 
-/* ---------- Toggle Button ---------- */
-.theme-toggle {
-    position: fixed; top: 20px; right: 20px;
-    padding: 8px 14px; border: none; border-radius: 24px;
-    font-size: 1rem; cursor: pointer;
-    background: #4fc3f7; color: #fff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-    transition: all 0.3s;
-}
+/* Toggle button */
+.theme-toggle { position: fixed; top: 20px; right: 20px; padding: 8px 14px; border: none; border-radius: 24px; font-size: 1rem; cursor: pointer; background: #4fc3f7; color:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s; }
 .theme-toggle:hover { transform: scale(1.1); }
 
-/* ---------- GitHub Stats ---------- */
-.stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
+/* GitHub Stats */
+.stats { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:20px; }
