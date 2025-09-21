@@ -5,14 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sidney Mpenyana Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>
+  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; }
+  header { text-align: center; padding: 20px; }
+  nav { text-align: center; margin-bottom: 20px; }
+  nav a { margin: 0 10px; text-decoration: none; color: #000; }
+  section { padding: 20px; }
+  .projects, .skills, .contact-info, .current-work { display: flex; flex-wrap: wrap; justify-content: center; }
+  .project-card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px; text-align: center; max-width: 320px; }
+  .project-card img.project-screenshot { width: 100%; border-radius: 6px; margin-bottom: 8px; cursor: pointer; }
+  #projects h2 { margin-top: 32px; font-size: 1.8rem; text-align: center; }
+  .skills div { border: 1px solid #ddd; border-radius: 6px; padding: 8px 12px; margin: 6px; text-align: center; }
+  footer { text-align: center; padding: 12px; background: #f1f1f1; margin-top: 20px; }
+</style>
 </head>
 <body>
 
-<button class="theme-toggle" id="themeToggle"><span id="themeIcon">🌙</span> Dark Mode</button>
-
 <header>
-    <img src="assets/profile.jpg" alt="Sidney Mpenyana">
+    <img src="assets/profile.jpg" alt="Sidney Mpenyana" width="150">
     <h1>Sidney Mpenyana</h1>
     <p>Final-year IT Student | Software Development & Embedded Systems</p>
 </header>
@@ -34,43 +44,42 @@
 <section id="skills">
     <h2>Skills</h2>
     <div class="skills">
-        <div class="skill C"><span>C</span></div>
-        <div class="skill Cpp"><span>C++</span></div>
-        <div class="skill Java"><span>Java</span></div>
-        <div class="skill Python"><span>Python</span></div>
-        <div class="skill PHP"><span>PHP</span></div>
-        <div class="skill HTML5"><span>HTML5</span></div>
-        <div class="skill CSS3"><span>CSS3</span></div>
-        <div class="skill SQL"><span>SQL</span></div>
-        <div class="skill Arduino"><span>Arduino</span></div>
-        <div class="skill Raspberry"><span>Raspberry Pi</span></div>
-        <div class="skill MATLAB"><span>MATLAB</span></div>
-        <div class="skill Linux"><span>Linux</span></div>
-        <div class="skill Git"><span>Git</span></div>
-        <div class="skill NetBeans"><span>NetBeans</span></div>
-        <div class="skill VSCode"><span>VS Code</span></div>
-        <div class="skill NotepadPP"><span>Notepad++</span></div>
+        <div>C</div>
+        <div>C++</div>
+        <div>Java</div>
+        <div>Python</div>
+        <div>PHP</div>
+        <div>HTML5</div>
+        <div>CSS3</div>
+        <div>SQL</div>
+        <div>Arduino</div>
+        <div>Raspberry Pi</div>
+        <div>MATLAB</div>
+        <div>Linux</div>
+        <div>Git</div>
+        <div>NetBeans</div>
+        <div>VS Code</div>
+        <div>Notepad++</div>
     </div>
 </section>
 
 <section id="projects">
-    <h2>Projects</h2>
-    <h3>In Progress</h3>
-    <div class="projects" id="inProgress-list"></div>
+    <h2>Completed Projects</h2>
+    <div class="projects" id="completed-projects"></div>
 
-    <h3>Completed</h3>
-    <div class="projects" id="completed-list"></div>
+    <h2>In-Progress Projects</h2>
+    <div class="projects" id="inprogress-projects"></div>
 </section>
 
 <section id="stats">
     <h2>GitHub Stats</h2>
     <div class="stats">
-        <img class="animate-on-scroll" id="githubStats" src="https://github-readme-stats.vercel.app/api?username=Sidney081&show_icons=true&theme=radical" alt="GitHub Stats">
-        <img class="animate-on-scroll" id="topLangs" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sidney081&layout=compact&theme=radical" alt="Top GitHub Languages">
-        <img class="animate-on-scroll" id="streak" src="https://github-readme-streak-stats.herokuapp.com/?user=Sidney081&theme=radical" alt="GitHub Streak">
+        <img id="githubStats" src="https://github-readme-stats.vercel.app/api?username=Sidney081&show_icons=true&theme=radical" alt="GitHub Stats">
+        <img id="topLangs" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sidney081&layout=compact&theme=radical" alt="Top GitHub Languages">
+        <img id="streak" src="https://github-readme-streak-stats.herokuapp.com/?user=Sidney081&theme=radical" alt="GitHub Streak">
     </div>
     <div class="graph-container">
-        <img class="animate-on-scroll" id="contribGraph" src="https://github-readme-activity-graph.vercel.app/graph?username=Sidney081&theme=radical&hide_border=true" alt="GitHub Contribution Graph">
+        <img id="contribGraph" src="https://github-readme-activity-graph.vercel.app/graph?username=Sidney081&theme=radical&hide_border=true" alt="GitHub Contribution Graph">
     </div>
 </section>
 
@@ -94,82 +103,56 @@
 </footer>
 
 <script>
-  // Currently Learning & Working On (manual)
+  // Current Work
   const currentWorkData = {
     learning: ["Embedded C", "Real-Time Systems", "Advanced Java"],
-    workingOn: [
-      "SafeShell (Android Kotlin + Jetpack Compose)", 
-      "Chatbot (School Project)", 
-      "VCU Prototype Project (MATLAB + Embedded C)", 
-      "IoT projects with Arduino & Raspberry Pi"
-    ]
+    workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App"],
+    exploring: ["IoT projects with Arduino & Raspberry Pi"]
   };
   const currentWorkContainer = document.getElementById("current-work");
   currentWorkContainer.innerHTML = `
     <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
     <p><strong>Working On:</strong> ${currentWorkData.workingOn.join(", ")}</p>
+    <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
   `;
 
-  // Dynamic GitHub Projects Separation
+  // Completed Projects from GitHub
   const githubUsername = "Sidney081";
-  const completedProjectNames = [
-    "BlogWebsite",
-    "MICTSETA-Recruitment"
-  ];
-  const inProgressList = document.getElementById("inProgress-list");
-  const completedList = document.getElementById("completed-list");
-
-  fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=50`)
-    .then(response => response.json())
-    .then(repos => {
-      repos.forEach(repo => {
+  const completedContainer = document.getElementById("completed-projects");
+  const completedProjects = ["Python_Learning", "BlogWebsite", "MICTSETA_Recruitment"];
+  completedProjects.forEach(repoName => {
+    fetch(`https://api.github.com/repos/${githubUsername}/${repoName}`)
+      .then(res => res.json())
+      .then(repo => {
         const card = document.createElement("div");
         card.className = "project-card";
-        card.innerHTML = `<h4>${repo.name}</h4><p>${repo.description || "No description provided."}</p><a href="${repo.html_url}" target="_blank">View Project</a>`;
+        card.innerHTML = `
+          <h3>${repo.name}</h3>
+          <p>${repo.description || "No description provided."}</p>
+          <a href="${repo.html_url}" target="_blank">View Project</a>
+        `;
+        completedContainer.appendChild(card);
+      })
+      .catch(err => console.error("Error fetching repo:", err));
+  });
 
-        if(completedProjectNames.includes(repo.name)){
-          completedList.appendChild(card);
-        } else {
-          inProgressList.appendChild(card);
-        }
-      });
-    }).catch(err => console.error("Error fetching GitHub repos:", err));
-
-  // Scroll Animation
-  const elements = document.querySelectorAll(".animate-on-scroll");
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        const children = entry.target.parentElement.querySelectorAll(".animate-on-scroll");
-        children.forEach((el,index)=>{ el.style.transitionDelay = `${index*0.3}s`; el.classList.add("visible"); });
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {threshold:0.2});
-  elements.forEach(el => observer.observe(el));
-
-  // Dark/Light Theme Toggle
-  const toggleBtn = document.getElementById("themeToggle");
-  const githubStats = document.getElementById("githubStats");
-  const topLangs = document.getElementById("topLangs");
-  const streak = document.getElementById("streak");
-  const contribGraph = document.getElementById("contribGraph");
-  const themeIcon = document.getElementById("themeIcon");
-
-  toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    const isLight = document.body.classList.contains("light");
-    themeIcon.classList.add("rotate");
-    setTimeout(() => themeIcon.classList.remove("rotate"), 500);
-    themeIcon.textContent = isLight ? "☀️" : "🌙";
-    toggleBtn.textContent = `${themeIcon.textContent} ${isLight ? "Light Mode" : "Dark Mode"}`;
-    const theme = isLight ? "default" : "radical";
-    githubStats.src = `https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&theme=${theme}`;
-    topLangs.src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUsername}&layout=compact&theme=${theme}`;
-    streak.src = `https://github-readme-streak-stats.herokuapp.com/?user=${githubUsername}&theme=${theme}`;
-    contribGraph.src = `https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${theme}&hide_border=true`;
+  // In-Progress Projects (clickable Coming Soon)
+  const inprogressContainer = document.getElementById("inprogress-projects");
+  const inProgressProjects = [
+    { name: "SafeShell", screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", link: "#" },
+    { name: "VCU Prototype", screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", link: "#" },
+    { name: "Chatbot", screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", link: "#" }
+  ];
+  inProgressProjects.forEach(proj => {
+    const card = document.createElement("div");
+    card.className = "project-card";
+    card.innerHTML = `
+      <h3>${proj.name}</h3>
+      <a href="${proj.link}" target="_blank">
+        <img src="${proj.screenshot}" alt="${proj.name} Screenshot" class="project-screenshot">
+      </a>
+      <p>${proj.description}</p>
+    `;
+    inprogressContainer.appendChild(card);
   });
 </script>
-
-</body>
-</html>
