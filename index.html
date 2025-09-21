@@ -23,7 +23,6 @@
     <a href="#projects">Projects</a>
     <a href="#stats">GitHub Stats</a>
     <a href="#current">Currently Learning</a>
-    <a href="#completed">Completed Projects</a>
     <a href="#contact">Contact</a>
 </nav>
 
@@ -56,7 +55,11 @@
 
 <section id="projects">
     <h2>Projects</h2>
-    <div class="projects" id="project-list"></div>
+    <h3>In Progress</h3>
+    <div class="projects" id="inProgress-list"></div>
+
+    <h3>Completed</h3>
+    <div class="projects" id="completed-list"></div>
 </section>
 
 <section id="stats">
@@ -76,14 +79,6 @@
     <div class="current-work" id="current-work"></div>
 </section>
 
-<section id="completed">
-    <h2>Completed Projects</h2>
-    <ul>
-        <li><a href="https://github.com/Sidney081/BlogWebsite" target="_blank">Blog Website (HTML/CSS/PHP)</a></li>
-        <li><a href="https://github.com/Sidney081/MICTSETA-Recruitment" target="_blank">MICT SETA Recruitment System (PHP + MySQL)</a></li>
-    </ul>
-</section>
-
 <section id="contact">
     <h2>Contact</h2>
     <div class="contact-info">
@@ -99,7 +94,7 @@
 </footer>
 
 <script>
-  // Current Work (In Progress)
+  // Currently Learning & Working On (manual)
   const currentWorkData = {
     learning: ["Embedded C", "Real-Time Systems", "Advanced Java"],
     workingOn: [
@@ -115,17 +110,28 @@
     <p><strong>Working On:</strong> ${currentWorkData.workingOn.join(", ")}</p>
   `;
 
-  // Fetch GitHub Projects
+  // Dynamic GitHub Projects Separation
   const githubUsername = "Sidney081";
-  const projectList = document.getElementById("project-list");
-  fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=6`)
+  const completedProjectNames = [
+    "BlogWebsite",
+    "MICTSETA-Recruitment"
+  ];
+  const inProgressList = document.getElementById("inProgress-list");
+  const completedList = document.getElementById("completed-list");
+
+  fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=50`)
     .then(response => response.json())
     .then(repos => {
       repos.forEach(repo => {
         const card = document.createElement("div");
         card.className = "project-card";
-        card.innerHTML = `<h3>${repo.name}</h3><p>${repo.description || "No description provided."}</p><a href="${repo.html_url}" target="_blank">View Project</a>`;
-        projectList.appendChild(card);
+        card.innerHTML = `<h4>${repo.name}</h4><p>${repo.description || "No description provided."}</p><a href="${repo.html_url}" target="_blank">View Project</a>`;
+
+        if(completedProjectNames.includes(repo.name)){
+          completedList.appendChild(card);
+        } else {
+          inProgressList.appendChild(card);
+        }
       });
     }).catch(err => console.error("Error fetching GitHub repos:", err));
 
