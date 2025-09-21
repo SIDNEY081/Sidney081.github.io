@@ -6,18 +6,19 @@
 <title>Sidney Mpenyana Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; }
+  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; background: #222; color: #f9f9f9; }
   body.light { background: #f9f9f9; color: #222; }
   header { text-align: center; padding: 20px; }
   nav { text-align: center; margin-bottom: 20px; }
   nav a { margin: 0 10px; text-decoration: none; color: inherit; }
   section { padding: 20px; }
   .projects, .skills, .contact-info, .current-work { display: flex; flex-wrap: wrap; justify-content: center; }
-  .project-card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px; text-align: center; max-width: 320px; transition: background 0.3s, color 0.3s; }
+  .project-card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px; text-align: center; transition: background 0.3s, color 0.3s; max-width: 320px; }
   .project-card img.project-screenshot { width: 100%; border-radius: 6px; margin-bottom: 8px; cursor: pointer; }
   #projects h2 { margin-top: 32px; font-size: 1.8rem; text-align: center; }
   .skills div { border: 1px solid #ddd; border-radius: 6px; padding: 8px 12px; margin: 6px; text-align: center; }
-  footer { text-align: center; padding: 12px; background: #f1f1f1; margin-top: 20px; }
+  footer { text-align: center; padding: 12px; background: #333; margin-top: 20px; }
+  body.light footer { background: #f1f1f1; color: #222; }
   .theme-toggle { position: fixed; top: 20px; right: 20px; cursor: pointer; padding: 6px 12px; border-radius: 6px; border: none; background: #ddd; font-size: 1rem; }
 </style>
 </head>
@@ -142,46 +143,55 @@
   `;
 
   // -----------------------
-  // Completed Projects (GitHub)
+  // Completed Projects + In-Progress (Auto-Move SafeShell)
   // -----------------------
-  const githubUsername = "Sidney081";
   const completedContainer = document.getElementById("completed-projects");
-  const completedProjects = ["Python_Learning", "BlogWebsite", "MICTSETA_Recruitment"];
-  completedProjects.forEach(repoName => {
-    fetch(`https://api.github.com/repos/${githubUsername}/${repoName}`)
-      .then(res => res.json())
-      .then(repo => {
-        const card = document.createElement("div");
-        card.className = "project-card";
-        card.innerHTML = `
-          <h3>${repo.name}</h3>
-          <p>${repo.description || "No description provided."}</p>
-          <a href="${repo.html_url}" target="_blank">View Project</a>
-        `;
-        completedContainer.appendChild(card);
-      })
-      .catch(err => console.error("Error fetching repo:", err));
-  });
-
-  // -----------------------
-  // In-Progress Projects
-  // -----------------------
-  const inprogressContainer = document.getElementById("inprogress-projects");
-  const inProgressProjects = [
+  let inProgressProjects = [
     { name: "SafeShell", screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", link: "#" },
-    { name: "VCU Prototype", screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", link: "#" },
+    { name: "VCU_Prototype", screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", link: "#" },
     { name: "Chatbot", screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", link: "#" }
   ];
-  inProgressProjects.forEach(proj => {
+
+  // Helper to create card
+  function createProjectCard(proj, isCompleted = false) {
     const card = document.createElement("div");
     card.className = "project-card";
     card.innerHTML = `
       <h3>${proj.name}</h3>
-      <a href="${proj.link}" target="_blank">
-        <img src="${proj.screenshot}" alt="${proj.name} Screenshot" class="project-screenshot">
-      </a>
-      <p>${proj.description}</p>
+      ${proj.screenshot ? `<a href="${proj.link}" target="_blank"><img src="${proj.screenshot}" class="project-screenshot" alt="${proj.name} Screenshot"></a>` : ""}
+      <p>${proj.description || "No description provided."}</p>
+      ${isCompleted && proj.link ? `<a href="${proj.link}" target="_blank">View Project</a>` : ""}
     `;
-    inprogressContainer.appendChild(card);
+    return card;
+  }
+
+  function renderInProgressProjects() {
+    const container = document.getElementById("inprogress-projects");
+    container.innerHTML = "";
+    inProgressProjects.forEach(proj => {
+      if (!proj.moved) container.appendChild(createProjectCard(proj, false));
+    });
+  }
+
+  // Check GitHub for each in-progress project
+  const githubUsername = "Sidney081";
+  inProgressProjects.forEach((proj, index) => {
+    fetch(`https://api.github.com/repos/${githubUsername}/${proj.name}`)
+      .then(res => {
+        if (res.status === 200) {
+          res.json().then(repo => {
+            const card = createProjectCard({ name: repo.name, description: repo.description, link: repo.html_url }, true);
+            completedContainer.appendChild(card);
+            inProgressProjects[index].moved = true;
+            renderInProgressProjects();
+          });
+        } else {
+          renderInProgressProjects();
+        }
+      })
+      .catch(err => console.error(err));
   });
+
+  // Initial render
+  renderInProgressProjects();
 </script>
