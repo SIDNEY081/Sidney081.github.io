@@ -10,7 +10,7 @@
 <body>
 
 <button class="theme-toggle" id="themeToggle">
-  <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+    <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
 </button>
 
 <header>
@@ -36,42 +36,48 @@
 <section id="skills">
     <h2>Skills</h2>
     <div class="skills">
-        <div class="C">C</div>
-        <div class="Cpp">C++</div>
-        <div class="Java">Java</div>
-        <div class="Python">Python</div>
-        <div class="PHP">PHP</div>
-        <div class="HTML5">HTML5</div>
-        <div class="CSS3">CSS3</div>
-        <div class="SQL">SQL</div>
-        <div class="Arduino">Arduino</div>
-        <div class="Raspberry">Raspberry Pi</div>
-        <div class="MATLAB">MATLAB</div>
-        <div class="Linux">Linux</div>
-        <div class="Git">Git</div>
-        <div class="NetBeans">NetBeans</div>
-        <div class="VSCode">VS Code</div>
-        <div class="NotepadPP">Notepad++</div>
+        <div class="skill C"><span>C</span></div>
+        <div class="skill Cpp"><span>C++</span></div>
+        <div class="skill Java"><span>Java</span></div>
+        <div class="skill Python"><span>Python</span></div>
+        <div class="skill PHP"><span>PHP</span></div>
+        <div class="skill HTML5"><span>HTML5</span></div>
+        <div class="skill CSS3"><span>CSS3</span></div>
+        <div class="skill SQL"><span>SQL</span></div>
+        <div class="skill Arduino"><span>Arduino</span></div>
+        <div class="skill Raspberry"><span>Raspberry Pi</span></div>
+        <div class="skill MATLAB"><span>MATLAB</span></div>
+        <div class="skill Linux"><span>Linux</span></div>
+        <div class="skill Git"><span>Git</span></div>
+        <div class="skill NetBeans"><span>NetBeans</span></div>
+        <div class="skill VSCode"><span>VS Code</span></div>
+        <div class="skill NotepadPP"><span>Notepad++</span></div>
     </div>
 </section>
 
 <section id="projects">
-    <h2>Completed Projects</h2>
-    <div class="projects" id="completed-projects"></div>
+    <h2>Projects</h2>
 
-    <h2>In-Progress Projects</h2>
-    <div class="projects" id="inprogress-projects"></div>
+    <h3>In Progress</h3>
+    <div class="projects" id="inprogress-projects">
+        <!-- In-progress projects will be dynamically added here -->
+    </div>
+
+    <h3>Completed</h3>
+    <div class="projects" id="completed-projects">
+        <!-- Completed projects will be dynamically added here -->
+    </div>
 </section>
 
 <section id="stats">
     <h2>GitHub Stats</h2>
     <div class="stats">
-        <img id="githubStats" src="https://github-readme-stats.vercel.app/api?username=Sidney081&show_icons=true&theme=radical" alt="GitHub Stats">
-        <img id="topLangs" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sidney081&layout=compact&theme=radical" alt="Top GitHub Languages">
-        <img id="streak" src="https://github-readme-streak-stats.herokuapp.com/?user=Sidney081&theme=radical" alt="GitHub Streak">
+        <img class="animate-on-scroll" id="githubStats" src="https://github-readme-stats.vercel.app/api?username=Sidney081&show_icons=true&theme=radical" alt="GitHub Stats">
+        <img class="animate-on-scroll" id="topLangs" src="https://github-readme-stats.vercel.app/api/top-langs/?username=Sidney081&layout=compact&theme=radical" alt="Top GitHub Languages">
+        <img class="animate-on-scroll" id="streak" src="https://github-readme-streak-stats.herokuapp.com/?user=Sidney081&theme=radical" alt="GitHub Streak">
     </div>
     <div class="graph-container">
-        <img id="contribGraph" src="https://github-readme-activity-graph.vercel.app/graph?username=Sidney081&theme=radical&hide_border=true" alt="GitHub Contribution Graph">
+        <img class="animate-on-scroll" id="contribGraph" src="https://github-readme-activity-graph.vercel.app/graph?username=Sidney081&theme=radical&hide_border=true" alt="GitHub Contribution Graph">
     </div>
 </section>
 
