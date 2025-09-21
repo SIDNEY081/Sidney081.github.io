@@ -5,29 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sidney Mpenyana Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  body { font-family: 'Roboto', sans-serif; margin: 0; padding: 0; transition: background 0.3s, color 0.3s; background: #222; color: #f9f9f9; }
-  body.light { background: #f9f9f9; color: #222; }
-  header { text-align: center; padding: 20px; }
-  nav { text-align: center; margin-bottom: 20px; }
-  nav a { margin: 0 10px; text-decoration: none; color: inherit; }
-  section { padding: 20px; }
-  .projects, .skills, .contact-info, .current-work { display: flex; flex-wrap: wrap; justify-content: center; }
-  .project-card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; margin: 12px; text-align: center; transition: background 0.3s, color 0.3s; max-width: 320px; }
-  .project-card img.project-screenshot { width: 100%; border-radius: 6px; margin-bottom: 8px; cursor: pointer; }
-  #projects h2 { margin-top: 32px; font-size: 1.8rem; text-align: center; }
-  .skills div { border: 1px solid #ddd; border-radius: 6px; padding: 8px 12px; margin: 6px; text-align: center; }
-  footer { text-align: center; padding: 12px; background: #333; margin-top: 20px; }
-  body.light footer { background: #f1f1f1; color: #222; }
-  .theme-toggle { position: fixed; top: 20px; right: 20px; cursor: pointer; padding: 6px 12px; border-radius: 6px; border: none; background: #ddd; font-size: 1rem; }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <button class="theme-toggle" id="themeToggle"><span id="themeIcon">🌙</span> Dark Mode</button>
 
 <header>
-    <img src="assets/profile.jpg" alt="Sidney Mpenyana" width="150">
+    <img src="assets/profile.jpg" alt="Sidney Mpenyana">
     <h1>Sidney Mpenyana</h1>
     <p>Final-year IT Student | Software Development & Embedded Systems</p>
 </header>
@@ -49,22 +34,10 @@
 <section id="skills">
     <h2>Skills</h2>
     <div class="skills">
-        <div>C</div>
-        <div>C++</div>
-        <div>Java</div>
-        <div>Python</div>
-        <div>PHP</div>
-        <div>HTML5</div>
-        <div>CSS3</div>
-        <div>SQL</div>
-        <div>Arduino</div>
-        <div>Raspberry Pi</div>
-        <div>MATLAB</div>
-        <div>Linux</div>
-        <div>Git</div>
-        <div>NetBeans</div>
-        <div>VS Code</div>
-        <div>Notepad++</div>
+        <div>C</div><div>C++</div><div>Java</div><div>Python</div>
+        <div>PHP</div><div>HTML5</div><div>CSS3</div><div>SQL</div>
+        <div>Arduino</div><div>Raspberry Pi</div><div>MATLAB</div><div>Linux</div>
+        <div>Git</div><div>NetBeans</div><div>VS Code</div><div>Notepad++</div>
     </div>
 </section>
 
@@ -107,91 +80,6 @@
     &copy; 2025 Sidney Mpenyana | Always building, always learning.
 </footer>
 
-<script>
-  // -----------------------
-  // Dark/Light Toggle
-  // -----------------------
-  const toggleBtn = document.getElementById("themeToggle");
-  const themeIcon = document.getElementById("themeIcon");
-  toggleBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    const isLight = document.body.classList.contains("light");
-    themeIcon.textContent = isLight ? "☀️" : "🌙";
-    toggleBtn.textContent = `${themeIcon.textContent} ${isLight ? "Light Mode" : "Dark Mode"}`;
-    toggleBtn.prepend(themeIcon);
-    // Change GitHub stats theme
-    const theme = isLight ? "default" : "radical";
-    document.getElementById("githubStats").src = `https://github-readme-stats.vercel.app/api?username=Sidney081&show_icons=true&theme=${theme}`;
-    document.getElementById("topLangs").src = `https://github-readme-stats.vercel.app/api/top-langs/?username=Sidney081&layout=compact&theme=${theme}`;
-    document.getElementById("streak").src = `https://github-readme-streak-stats.herokuapp.com/?user=Sidney081&theme=${theme}`;
-    document.getElementById("contribGraph").src = `https://github-readme-activity-graph.vercel.app/graph?username=Sidney081&theme=${theme}&hide_border=true`;
-  });
-
-  // -----------------------
-  // Current Work
-  // -----------------------
-  const currentWorkData = {
-    learning: ["Embedded C", "Real-Time Systems", "Advanced Java"],
-    workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App"],
-    exploring: ["IoT projects with Arduino & Raspberry Pi"]
-  };
-  const currentWorkContainer = document.getElementById("current-work");
-  currentWorkContainer.innerHTML = `
-    <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
-    <p><strong>Working On:</strong> ${currentWorkData.workingOn.join(", ")}</p>
-    <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
-  `;
-
-  // -----------------------
-  // Completed Projects + In-Progress (Auto-Move SafeShell)
-  // -----------------------
-  const completedContainer = document.getElementById("completed-projects");
-  let inProgressProjects = [
-    { name: "SafeShell", screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", link: "#" },
-    { name: "VCU_Prototype", screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", link: "#" },
-    { name: "Chatbot", screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", link: "#" }
-  ];
-
-  // Helper to create card
-  function createProjectCard(proj, isCompleted = false) {
-    const card = document.createElement("div");
-    card.className = "project-card";
-    card.innerHTML = `
-      <h3>${proj.name}</h3>
-      ${proj.screenshot ? `<a href="${proj.link}" target="_blank"><img src="${proj.screenshot}" class="project-screenshot" alt="${proj.name} Screenshot"></a>` : ""}
-      <p>${proj.description || "No description provided."}</p>
-      ${isCompleted && proj.link ? `<a href="${proj.link}" target="_blank">View Project</a>` : ""}
-    `;
-    return card;
-  }
-
-  function renderInProgressProjects() {
-    const container = document.getElementById("inprogress-projects");
-    container.innerHTML = "";
-    inProgressProjects.forEach(proj => {
-      if (!proj.moved) container.appendChild(createProjectCard(proj, false));
-    });
-  }
-
-  // Check GitHub for each in-progress project
-  const githubUsername = "Sidney081";
-  inProgressProjects.forEach((proj, index) => {
-    fetch(`https://api.github.com/repos/${githubUsername}/${proj.name}`)
-      .then(res => {
-        if (res.status === 200) {
-          res.json().then(repo => {
-            const card = createProjectCard({ name: repo.name, description: repo.description, link: repo.html_url }, true);
-            completedContainer.appendChild(card);
-            inProgressProjects[index].moved = true;
-            renderInProgressProjects();
-          });
-        } else {
-          renderInProgressProjects();
-        }
-      })
-      .catch(err => console.error(err));
-  });
-
-  // Initial render
-  renderInProgressProjects();
-</script>
+<script src="script.js"></script>
+</body>
+</html>
