@@ -1,91 +1,106 @@
-/* ---------- General ---------- */
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0; padding: 0;
-    background: #121212; color: #f9f9f9;
-    transition: background 0.3s, color 0.3s;
+// ---------- Dark/Light Toggle ----------
+const toggleBtn = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+const themeText = document.getElementById("themeText");
+const githubUsername = "SIDNEY081";
+
+let isLight = localStorage.getItem("theme") === "light";
+document.body.classList.toggle("light", isLight);
+updateTheme();
+
+function updateTheme() {
+    themeIcon.textContent = isLight ? "☀️" : "🌙";
+    themeText.textContent = isLight ? "Light Mode" : "Dark Mode";
+
+    const theme = isLight ? "default" : "radical";
+    document.getElementById("githubStats").src = `https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&theme=${theme}`;
+    document.getElementById("topLangs").src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUsername}&layout=compact&theme=${theme}`;
+    document.getElementById("streak").src = `https://github-readme-streak-stats.herokuapp.com/?user=${githubUsername}&theme=${theme}`;
+    document.getElementById("contribGraph").src = `https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${theme}&hide_border=true`;
 }
-body.light { background: #f9f9f9; color: #222; }
 
-/* Header */
-header { text-align: center; padding: 30px 20px; background: #1f1f1f; transition: background 0.3s, color 0.3s; }
-body.light header { background: #eaeaea; color: #222; }
-header img { width: 150px; border-radius: 50%; border: 3px solid #555; transition: border-color 0.3s; }
-body.light header img { border-color: #aaa; }
-header h1 { margin: 12px 0 6px; font-size: 2rem; }
-header p { margin: 0; font-size: 1rem; font-weight: 400; }
+toggleBtn.addEventListener("click", () => {
+    isLight = !isLight;
+    document.body.classList.toggle("light", isLight);
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    updateTheme();
+});
 
-/* Nav */
-nav { text-align: center; padding: 10px 0; background: #1a1a1a; transition: background 0.3s; }
-body.light nav { background: #ddd; }
-nav a { margin: 0 12px; text-decoration: none; color: inherit; font-weight: 500; transition: color 0.3s; }
-nav a:hover { color: #4fc3f7; }
+// ---------- Current Work ----------
+const currentWorkData = {
+    learning: ["C++", "Embedded C", "Real-Time Systems", "Advanced Java"],
+    workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App"],
+    exploring: ["AI projects with Python", "IoT projects with Arduino & Raspberry Pi"]
+};
+const currentWorkContainer = document.getElementById("current-work");
+currentWorkContainer.innerHTML = `
+    <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
+    <p><strong>Working On:</strong> ${currentWorkData.workingOn.join(", ")}</p>
+    <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
+`;
 
-/* Sections */
-section { padding: 40px 20px; max-width: 1000px; margin: 0 auto; }
-section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 24px; position: relative; }
-section h2::after { content: ''; display: block; width: 60px; height: 3px; background: #4fc3f7; margin: 8px auto 0; border-radius: 2px; }
+// ---------- Projects ----------
+const completedContainer = document.getElementById("completed-projects");
+const inProgressContainer = document.getElementById("inprogress-projects");
+const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-/* Skills */
-.skills { display: flex; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
-.skills div { border-radius: 8px; padding: 8px 16px; margin: 6px; font-weight: 500; text-align: center; cursor: default; transition: transform 0.2s; }
-.skills div:hover { transform: translateY(-4px); }
+// Fetch all repos including organizations
+async function fetchAllRepos(username) {
+    const userRepos = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`).then(r => r.json());
+    const orgs = await fetch(`https://api.github.com/users/${username}/orgs`).then(r => r.json());
+    let orgRepos = [];
 
-/* Skill colors */
-.C { background: #A8B9CC; color: #222; }
-.Cpp { background: #00599C; color: #fff; }
-.Java { background: #f89820; color: #fff; }
-.Python { background: #306998; color: #fff; }
-.PHP { background: #777BB4; color: #fff; }
-.SQL { background: #f29111; color: #fff; }
-.HTML5 { background: #E34F26; color: #fff; }
-.CSS3 { background: #264DE4; color: #fff; }
-.Arduino { background: #00979D; color: #fff; }
-.Raspberry { background: #C51A4A; color: #fff; }
-.MATLAB { background: #0076A8; color: #fff; }
-.Linux { background: #FCC624; color: #000; }
-.Git { background: #F1502F; color: #fff; }
-.NetBeans { background: #0070AD; color: #fff; }
-.VSCode { background: #007ACC; color: #fff; }
-.NotepadPP { background: #9BCC7E; color: #000; }
+    for (let org of orgs) {
+        const repos = await fetch(`https://api.github.com/orgs/${org.login}/repos?per_page=100`).then(r => r.json());
+        orgRepos = orgRepos.concat(repos);
+    }
 
-/* Projects */
-.projects { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; }
-.project-card {
-    position: relative;
-    background: #1f1f1f; border-radius: 12px;
-    padding: 16px; width: 300px; text-align: center;
-    opacity: 0; transform: translateY(30px);
-    transition: all 0.6s ease;
+    return userRepos.concat(orgRepos);
 }
-body.light .project-card { background: #fff; color: #222; }
-.project-card.show { opacity: 1; transform: translateY(0); }
 
-/* Screenshot overlay */
-.screenshot-container { position: relative; width: 100%; overflow: hidden; border-radius: 8px; margin-bottom: 8px; }
-.project-screenshot { width: 100%; display: block; transition: transform 0.3s; }
-.screenshot-container:hover .project-screenshot { transform: scale(1.05); }
-.overlay-link { position: absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); color:#fff; font-weight:600; text-decoration:none; opacity:0; transition: opacity 0.3s; font-size:1.1rem; }
-.screenshot-container:hover .overlay-link { opacity:1; }
+// Check repo topic for categorization
+async function getRepoTopics(owner, repo) {
+    const topicsRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/topics`, {
+        headers: { Accept: "application/vnd.github.mercy-preview+json" }
+    });
+    const data = await topicsRes.json();
+    return data.names || [];
+}
 
-/* Badge */
-.badge { position:absolute; top:10px; right:10px; background:#ff9800; color:#fff; font-weight:bold; padding:4px 8px; border-radius:8px; font-size:0.85rem; z-index:10; }
+// Render project card
+function renderProjectCard(repo, inProgress = false) {
+    const card = document.createElement("div");
+    card.className = "project-card";
+    card.innerHTML = `
+        ${inProgress ? '<div class="badge">In Progress</div>' : ''}
+        <h3>${repo.name}</h3>
+        <div class="screenshot-container">
+            <img class="project-screenshot" src="${placeholderScreenshot}" alt="${repo.name} Screenshot">
+            <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
+        </div>
+        <p>${repo.description || "No description provided."}</p>
+    `;
+    return card;
+}
 
-/* Current work */
-.current-work p { text-align:center; font-size:1rem; margin:6px 0; }
+// Main function to load and categorize repos
+async function loadProjects() {
+    try {
+        const repos = await fetchAllRepos(githubUsername);
 
-/* Contact */
-.contact-info { text-align:center; }
-.contact-info a { color:#4fc3f7; text-decoration:none; }
-.contact-info a:hover { text-decoration:underline; }
+        for (let repo of repos) {
+            const topics = await getRepoTopics(repo.owner.login, repo.name);
+            const inProgress = topics.includes("in-progress");
+            const card = renderProjectCard(repo, inProgress);
 
-/* Footer */
-footer { text-align:center; padding:16px; background:#222; margin-top:20px; }
-body.light footer { background:#ddd; color:#222; }
+            if (inProgress) inProgressContainer.appendChild(card);
+            else completedContainer.appendChild(card);
 
-/* Toggle button */
-.theme-toggle { position: fixed; top: 20px; right: 20px; padding: 8px 14px; border: none; border-radius: 24px; font-size: 1rem; cursor: pointer; background: #4fc3f7; color:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.3); transition: all 0.3s; }
-.theme-toggle:hover { transform: scale(1.1); }
+            setTimeout(() => card.classList.add("show"), 100);
+        }
+    } catch (err) {
+        console.error("Error fetching GitHub projects:", err);
+    }
+}
 
-/* GitHub Stats */
-.stats { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:20px; }
+loadProjects();
