@@ -45,13 +45,13 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Repositories categorized
+// Correct project categorization
 const inProgressRepos = [
     "AI-Stroke-Shield",
-    "SafeShell",
     "ckc_project",
     "School-Database-System",
-    "ChatTTS"
+    "ChatTTS",
+    "SafeShell"
 ];
 
 const completedRepos = [
@@ -94,14 +94,20 @@ async function loadProjects() {
         repos.forEach(repo => {
             const repoNameNormalized = repo.name.toLowerCase().replace(/\s+/g, '-');
 
-            const inProgress = inProgressRepos.some(name => name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized);
-            const completedNotLaunched = completedRepos.some(name => name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized);
+            const inProgress = inProgressRepos.some(name =>
+                name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized
+            );
+
+            const completed = completedRepos.some(name =>
+                name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized
+            );
 
             const card = createProjectCard(repo, inProgress);
 
             if (inProgress) inProgressContainer.appendChild(card);
-            else completedContainer.appendChild(card); // Completed repos (including not launched)
-            
+            else if (completed) completedContainer.appendChild(card);
+            // skip any repo not in either array if desired
+
             setTimeout(() => card.classList.add("show"), 100);
         });
     } catch (err) {
