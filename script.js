@@ -4,13 +4,13 @@ const themeIcon = document.getElementById("themeIcon");
 const themeText = document.getElementById("themeText");
 const githubUsername = "SIDNEY081";
 
-// Load theme from localStorage or default
+// Load theme from localStorage
 let isLight = localStorage.getItem("theme") === "light" ? true : false;
 document.body.classList.toggle("light", isLight);
-updateToggleText();
+updateTheme();
 
 // Function to update toggle button text and GitHub stats
-function updateToggleText() {
+function updateTheme() {
     themeIcon.textContent = isLight ? "☀️" : "🌙";
     themeText.textContent = isLight ? "Light Mode" : "Dark Mode";
 
@@ -26,7 +26,7 @@ toggleBtn.addEventListener("click", () => {
     isLight = !isLight;
     document.body.classList.toggle("light", isLight);
     localStorage.setItem("theme", isLight ? "light" : "dark");
-    updateToggleText();
+    updateTheme();
 });
 
 // ---------- Current Work ----------
@@ -45,26 +45,24 @@ currentWorkContainer.innerHTML = `
 // ---------- Projects ----------
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
-
-// You can add more repos here manually if needed
-let completedProjects = [
-    { name: "MICT SETA Recruitment System", description: "Recruitment system project developed for VUT learning program.", link: "https://github.com/SIDNEY081/mictseta_recruitment_system-1" },
-    { name: "Python Learning", description: "A project to teach Python basics.", link: "https://github.com/SIDNEY081/Python_Learning" }
-];
-
-let inProgressProjects = [
-    { name: "SafeShell", description: "Android app to hide banking apps.", link: "https://github.com/SIDNEY081/SafeShell" },
-    { name: "AI Stroke Detector", description: "AI project for stroke detection.", link: "https://github.com/SIDNEY081/AI-Stroke-Shield" }
-];
-
-// Placeholder screenshot if missing
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Function to create project cards
+// Completed projects
+let completedProjects = [
+    { name: "MICT SETA Recruitment System", link: "https://github.com/SIDNEY081/mictseta_recruitment_system-1", description: "Recruitment system project developed for VUT learning program." },
+    { name: "Python Learning", link: "https://github.com/SIDNEY081/Python_Learning", description: "A project to teach Python basics." }
+];
+
+// In-progress projects
+let inProgressProjects = [
+    { name: "SafeShell", link: "https://github.com/SIDNEY081/SafeShell", description: "Android app to hide banking apps." },
+    { name: "AI Stroke Detector", link: "https://github.com/SIDNEY081/AI-Stroke-Shield", description: "AI project for stroke detection." }
+];
+
+// Create project cards
 function createProjectCard(proj, isInProgress = false) {
     const card = document.createElement("div");
     card.className = "project-card";
-
     card.innerHTML = `
         ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
         <h3>${proj.name}</h3>
