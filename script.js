@@ -47,44 +47,37 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Completed projects
-let completedProjects = [
-    { name: "MICT SETA Recruitment System", link: "https://github.com/SIDNEY081/mictseta_recruitment_system-1", description: "Recruitment system project developed for VUT learning program." },
-    { name: "Python Learning", link: "https://github.com/SIDNEY081/Python_Learning", description: "A project to teach Python basics." }
-];
+// Keywords to classify projects
+const inProgressKeywords = ["SafeShell", "AI", "Chatbot"];
+const completedKeywords = ["Python", "MICT", "School"];
 
-// In-progress projects
-let inProgressProjects = [
-    { name: "SafeShell", link: "https://github.com/SIDNEY081/SafeShell", description: "Android app to hide banking apps." },
-    { name: "AI Stroke Detector", link: "https://github.com/SIDNEY081/AI-Stroke-Shield", description: "AI project for stroke detection." }
-];
+// Fetch repos from GitHub
+fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`)
+    .then(res => res.json())
+    .then(repos => {
+        repos.forEach(repo => {
+            // Decide project category
+            let isInProgress = inProgressKeywords.some(kw => repo.name.toLowerCase().includes(kw.toLowerCase()));
+            let isCompleted = completedKeywords.some(kw => repo.name.toLowerCase().includes(kw.toLowerCase()));
 
-// Create project cards
-function createProjectCard(proj, isInProgress = false) {
-    const card = document.createElement("div");
-    card.className = "project-card";
-    card.innerHTML = `
-        ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
-        <h3>${proj.name}</h3>
-        <div class="screenshot-container">
-            <img class="project-screenshot" src="${proj.screenshot || placeholderScreenshot}" alt="${proj.name} Screenshot">
-            <a class="overlay-link" href="${proj.link}" target="_blank">View Project</a>
-        </div>
-        <p>${proj.description}</p>
-    `;
-    return card;
-}
+            if (!isInProgress && !isCompleted) return; // skip unrelated repos
 
-// Render Completed Projects
-completedProjects.forEach(proj => {
-    const card = createProjectCard(proj, false);
-    completedContainer.appendChild(card);
-    setTimeout(() => card.classList.add("show"), 100);
-});
+            const card = document.createElement("div");
+            card.className = "project-card";
+            card.innerHTML = `
+                ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
+                <h3>${repo.name}</h3>
+                <div class="screenshot-container">
+                    <img class="project-screenshot" src="${placeholderScreenshot}" alt="${repo.name} Screenshot">
+                    <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
+                </div>
+                <p>${repo.description || "No description provided."}</p>
+            `;
 
-// Render In-Progress Projects
-inProgressProjects.forEach(proj => {
-    const card = createProjectCard(proj, true);
-    inProgressContainer.appendChild(card);
-    setTimeout(() => card.classList.add("show"), 100);
-});
+            if (isInProgress) inProgressContainer.appendChild(card);
+            if (isCompleted) completedContainer.appendChild(card);
+
+            setTimeout(() => card.classList.add("show"), 100);
+        });
+    })
+    .catch(err => console.error("Failed to fetch GitHub repos:", err));
