@@ -2,7 +2,7 @@
 const toggleBtn = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 const themeText = document.getElementById("themeText");
-const githubUsername = "Sidney081";
+const githubUsername = "SIDNEY081";
 
 toggleBtn.addEventListener("click", () => {
     document.body.classList.toggle("light");
@@ -20,8 +20,8 @@ toggleBtn.addEventListener("click", () => {
 
 // ---------- Current Work ----------
 const currentWorkData = {
-    learning: ["Embedded C", "Real-Time Systems", "Advanced Java"],
-    workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App"],
+    learning: ["C++", "Embedded C", "Real-Time Systems", "Advanced Java"],
+    workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App", "AI Stroke Detector Project"],
     exploring: ["IoT projects with Arduino & Raspberry Pi"]
 };
 const currentWorkContainer = document.getElementById("current-work");
@@ -31,17 +31,18 @@ currentWorkContainer.innerHTML = `
     <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
 `;
 
-// ---------- Projects (Dynamic + Custom Screenshots + InProgress Badges) ----------
-const completedContainer = document.getElementById("projects");
-const inProgressContainer = document.getElementById("in-progress");
+// ---------- Projects ----------
+const completedContainer = document.getElementById("completed-projects");
+const inProgressContainer = document.getElementById("inprogress-projects");
 
 // Custom projects with explicit inProgress flag
 const customProjects = {
     SafeShell: { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", inProgress: true },
     VCU_Prototype: { screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", inProgress: true },
     Chatbot: { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", inProgress: true },
-    BlogWebsite: { screenshot: "assets/screenshots/blog_home.png", description: "A blog-style website to teach Python basics." },
-    MICT_SETA_Project: { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." }
+    AI_Stroke_Detector: { screenshot: "assets/screenshots/ai_stroke_detector.png", description: "AI project for stroke detection using C++.", inProgress: true },
+    BlogWebsite: { screenshot: "assets/screenshots/blog_home.png", description: "Python learning blog project" }, // Completed
+    MICT_SETA_Project: { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." } // Completed
 };
 
 async function fetchRepos() {
@@ -67,11 +68,9 @@ async function fetchRepos() {
 
         // 4. Render
         allRepos.forEach(repo => {
-            if (repo.fork) return;
+            if (repo.fork) return; // Skip forks
 
             const custom = customProjects[repo.name] || {};
-
-            // Use inProgress flag from customProjects OR GitHub topics
             const isInProgress = custom.inProgress || repo.topics?.includes("in-progress");
 
             const card = document.createElement("div");
@@ -99,8 +98,8 @@ async function fetchRepos() {
         });
     } catch (err) {
         console.error("Error loading repos:", err);
-        completedContainer.innerHTML = "<p>Could not load projects.</p>";
-        inProgressContainer.innerHTML = "<p>Could not load projects.</p>";
+        completedContainer.innerHTML = "<p>Could not load completed projects.</p>";
+        inProgressContainer.innerHTML = "<p>Could not load in-progress projects.</p>";
     }
 }
 
