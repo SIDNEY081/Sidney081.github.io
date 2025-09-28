@@ -44,7 +44,7 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Manually set completed and in-progress repo names
+// Define completed and in-progress repo names manually
 const completedRepos = ["Python_Learning", "mictseta_recruitment_system"];
 const inProgressRepos = ["SafeShell", "AI-Stroke-Shield", "ChatTTS", "School-Databse-System"];
 
@@ -61,7 +61,7 @@ async function fetchAllRepos() {
     }
 }
 
-// Create project card
+// Create project card with working link
 function createProjectCard(repo, inProgress = false) {
     const card = document.createElement("div");
     card.className = "project-card";
@@ -70,7 +70,7 @@ function createProjectCard(repo, inProgress = false) {
         <h3>${repo.name}</h3>
         <div class="screenshot-container">
             <img class="project-screenshot" src="${repo.screenshot || placeholderScreenshot}" alt="${repo.name} Screenshot">
-            <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
+            <a class="overlay-link" href="${repo.html_url || `https://github.com/${githubUsername}/${repo.name}`}" target="_blank">View Project</a>
         </div>
         <p>${repo.description || "No description provided."}</p>
     `;
