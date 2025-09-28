@@ -70,7 +70,7 @@ nav a:hover {
 section {
     padding: 2rem;
     max-width: 1200px;
-    margin: auto; /* center sections */
+    margin: auto;
 }
 section h2 {
     margin-bottom: 1rem;
@@ -183,12 +183,19 @@ body.light .project-card { background: #fff; color: #121212; }
     flex-wrap: wrap; 
     gap: 1rem; 
     justify-content: center; 
+    align-items: center; 
     margin-bottom: 2rem; 
 }
 .stats img, .graph-container img { 
     width: 100%; 
     max-width: 500px; 
     border-radius: 10px; 
+}
+
+/* Align all GitHub graphs in row on desktop */
+@media(min-width: 1024px) {
+    .stats { flex-wrap: nowrap; }
+    .graph-container { display: inline-block; }
 }
 
 /* ---------- Current Work ---------- */
@@ -208,6 +215,9 @@ body.light footer { background: #e0e0e0; color: #121212; }
 .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
 
 /* ---------- Responsive ---------- */
+@media(max-width:1024px) {
+    .stats { flex-wrap: wrap; }
+}
 @media(max-width:600px) {
     nav { flex-direction: column; gap: 0.5rem; }
     header img { width: 120px; height: 120px; }
