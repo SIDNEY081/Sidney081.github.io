@@ -94,7 +94,7 @@ section h2 {
     padding-bottom: 0.2rem;
 }
 
-/* ---------- Skills ---------- */
+/* ---------- Skills (Restored Colors) ---------- */
 .skills {
     display: flex;
     flex-wrap: wrap;
@@ -102,17 +102,30 @@ section h2 {
     margin-bottom: 1rem;
 }
 
+.C { background: #f0db4f; color: #000; }
+.Cpp { background: #00599C; color: #fff; }
+.Java { background: #f89820; color: #fff; }
+.Python { background: #306998; color: #fff; }
+.PHP { background: #8892be; color: #fff; }
+.SQL { background: #e38c00; color: #fff; }
+.MATLAB { background: #0076a8; color: #fff; }
+
+.HTML5 { background: #e34c26; color: #fff; }
+.CSS3 { background: #264de4; color: #fff; }
+
+.Arduino { background: #00979D; color: #fff; }
+.Raspberry { background: #C51A4A; color: #fff; }
+.Linux { background: #FCC624; color: #000; }
+
+.Git { background: #F05032; color: #fff; }
+.NetBeans { background: #007396; color: #fff; }
+.VSCode { background: #007ACC; color: #fff; }
+.NotepadPP { background: #9BCF00; color: #000; }
+
 .skills div {
     padding: 0.5rem 1rem;
     border-radius: 8px;
-    background: #1e1e1e;
-    color: #fff;
     font-weight: 500;
-}
-
-body.light .skills div {
-    background: #f0f0f0;
-    color: #121212;
 }
 
 /* ---------- Projects ---------- */
