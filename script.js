@@ -45,8 +45,19 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Manual list of in-progress repo names (update with your actual repos)
-const inProgressRepos = ["SafeShell", "VCU-Prototype-Project", "Chatbot"];
+// Repositories categorized
+const inProgressRepos = [
+    "AI-Stroke-Shield",
+    "SafeShell",
+    "ckc_project",
+    "School-Database-System",
+    "ChatTTS"
+];
+
+const completedRepos = [
+    "Python_Learning",
+    "mictseta_recruitment_system"
+];
 
 async function fetchAllRepos(username) {
     const userRepos = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`).then(r => r.json());
@@ -81,17 +92,16 @@ async function loadProjects() {
         const repos = await fetchAllRepos(githubUsername);
 
         repos.forEach(repo => {
-            // Case-insensitive check for in-progress repos
-            const inProgress = inProgressRepos.some(name =>
-                name.toLowerCase() === repo.name.toLowerCase()
-            );
+            const repoNameNormalized = repo.name.toLowerCase().replace(/\s+/g, '-');
+
+            const inProgress = inProgressRepos.some(name => name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized);
+            const completedNotLaunched = completedRepos.some(name => name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized);
 
             const card = createProjectCard(repo, inProgress);
 
             if (inProgress) inProgressContainer.appendChild(card);
-            else completedContainer.appendChild(card);
-
-            // Smooth fade-in
+            else completedContainer.appendChild(card); // Completed repos (including not launched)
+            
             setTimeout(() => card.classList.add("show"), 100);
         });
     } catch (err) {
