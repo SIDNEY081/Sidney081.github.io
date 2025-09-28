@@ -6,7 +6,6 @@ body {
     background: #121212;
     color: #f9f9f9;
     transition: all 0.3s ease;
-    text-align: center;
 }
 body.light {
     background: #f9f9f9;
@@ -16,20 +15,21 @@ body.light {
 /* ---------- Header ---------- */
 header {
     text-align: center;
-    padding: 2rem;
+    padding: 3rem 1rem 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 header img {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
     margin-bottom: 1rem;
 }
-header p {
-    color: #ccc;
-}
-body.light header p {
-    color: #555;
-}
+header h1 { margin: 0.5rem 0; }
+header p { color: #ccc; text-align: center; max-width: 600px; }
+body.light header p { color: #555; }
 
 /* ---------- Toggle ---------- */
 .theme-toggle {
@@ -43,6 +43,7 @@ body.light header p {
     background: none;
     color: inherit;
     font-weight: bold;
+    z-index: 1000;
 }
 
 /* ---------- Navigation ---------- */
@@ -50,30 +51,28 @@ nav {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 1.5rem;
     background: #1e1e1e;
     padding: 1rem 0;
+    margin-bottom: 2rem;
 }
-body.light nav {
-    background: #e0e0e0;
-}
+body.light nav { background: #e0e0e0; }
 nav a {
     color: inherit;
     text-decoration: none;
     font-weight: 500;
+    transition: color 0.3s ease;
 }
-nav a:hover {
-    color: #ff9800;
-}
+nav a:hover { color: #ff9800; }
 
 /* ---------- Sections ---------- */
 section {
-    padding: 2rem;
+    padding: 2rem 1rem;
     max-width: 1200px;
     margin: auto;
 }
 section h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     border-bottom: 2px solid #ff9800;
     display: inline-block;
     padding-bottom: 0.2rem;
@@ -85,7 +84,7 @@ section h2 {
     flex-wrap: wrap;
     gap: 0.5rem;
     justify-content: center;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 .skills div {
     padding: 0.5rem 1rem;
@@ -111,10 +110,13 @@ section h2 {
 .skills div.NotepadPP { background:#9BCF00; color:#000; }
 
 /* ---------- Projects ---------- */
+.projects-section {
+    margin-bottom: 3rem;
+}
 .projects { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 1.5rem; 
+    gap: 2rem; 
     justify-items: center; 
 }
 .project-card { 
@@ -181,7 +183,7 @@ body.light .project-card { background: #fff; color: #121212; }
 .stats { 
     display: flex; 
     flex-wrap: wrap; 
-    gap: 1rem; 
+    gap: 1.5rem; 
     justify-content: center; 
     align-items: center; 
     margin-bottom: 2rem; 
@@ -192,8 +194,8 @@ body.light .project-card { background: #fff; color: #121212; }
     border-radius: 10px; 
 }
 
-/* Align all GitHub graphs in row on desktop */
-@media(min-width: 1024px) {
+/* Align GitHub graphs in row on desktop */
+@media(min-width:1024px) {
     .stats { flex-wrap: nowrap; }
     .graph-container { display: inline-block; }
 }
@@ -207,7 +209,13 @@ body.light .project-card { background: #fff; color: #121212; }
 .contact-info a:hover { text-decoration: underline; }
 
 /* ---------- Footer ---------- */
-footer { text-align: center; padding: 1rem; background: #1e1e1e; color: #fff; margin-top: 2rem; }
+footer { 
+    text-align: center; 
+    padding: 1.5rem; 
+    background: #1e1e1e; 
+    color: #fff; 
+    margin-top: 2rem; 
+}
 body.light footer { background: #e0e0e0; color: #121212; }
 
 /* ---------- Animate ---------- */
