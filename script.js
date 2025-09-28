@@ -61,11 +61,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     projects.forEach(proj => {
         const card = createProjectCard(proj, proj.inProgress);
-        if (proj.inProgress) {
-            inProgressContainer.appendChild(card);
-        } else {
-            completedContainer.appendChild(card);
-        }
+        if (proj.inProgress) inProgressContainer.appendChild(card);
+        else completedContainer.appendChild(card);
     });
 
 });
