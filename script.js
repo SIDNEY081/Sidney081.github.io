@@ -44,9 +44,30 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Manually set completed and in-progress projects
+// Manual project categories
 const completedRepos = ["Python_Learning", "mictseta_recruitment_system"];
 const inProgressRepos = ["SafeShell", "AI-Stroke-Shield", "ChatTTS", "School-Databse-System"];
+
+// Fetch repo info from GitHub API
+async function fetchRepoData(repoName) {
+    try {
+        const res = await fetch(`https://api.github.com/repos/${githubUsername}/${repoName}`);
+        if (!res.ok) throw new Error("Repo not found");
+        const data = await res.json();
+        return {
+            name: data.name,
+            html_url: data.html_url,
+            description: data.description || "No description provided."
+        };
+    } catch (err) {
+        console.warn(`Error fetching ${repoName}:`, err);
+        return {
+            name: repoName,
+            html_url: "#",
+            description: "No description provided."
+        };
+    }
+}
 
 function createProjectCard(repo, inProgress = false) {
     const card = document.createElement("div");
@@ -58,24 +79,24 @@ function createProjectCard(repo, inProgress = false) {
             <img class="project-screenshot" src="${placeholderScreenshot}" alt="${repo.name} Screenshot">
             <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
         </div>
-        <p>${repo.description || "No description provided."}</p>
+        <p>${repo.description}</p>
     `;
     return card;
 }
 
-function loadProjects() {
+async function loadProjects() {
     // Completed projects
     for (let name of completedRepos) {
-        const repo = { name, html_url: "#", description: "No description provided." };
-        const card = createProjectCard(repo, false);
+        const repoData = await fetchRepoData(name);
+        const card = createProjectCard(repoData, false);
         completedContainer.appendChild(card);
         setTimeout(() => card.classList.add("show"), 100);
     }
 
     // In-progress projects
     for (let name of inProgressRepos) {
-        const repo = { name, html_url: "#", description: "No description provided." };
-        const card = createProjectCard(repo, true);
+        const repoData = await fetchRepoData(name);
+        const card = createProjectCard(repoData, true);
         inProgressContainer.appendChild(card);
         setTimeout(() => card.classList.add("show"), 100);
     }
