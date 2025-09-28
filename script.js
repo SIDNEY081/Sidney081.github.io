@@ -31,27 +31,53 @@ currentWorkContainer.innerHTML = `
     <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
 `;
 
+// ---------- Helper to create project cards ----------
+function createProjectCard(proj, isInProgress = false) {
+    const card = document.createElement("div");
+    card.className = "project-card";
+    card.innerHTML = `
+        ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
+        <h3>${proj.name}</h3>
+        <div class="screenshot-container">
+            ${proj.screenshot ? `<img class="project-screenshot" src="${proj.screenshot}" alt="${proj.name} Screenshot">` : ''}
+            <a class="overlay-link" href="${proj.link || '#'}" target="_blank">View Project</a>
+        </div>
+        <p>${proj.description || "No description provided."}</p>
+    `;
+    return card;
+}
+
 // ---------- Projects ----------
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 
-// Custom projects with explicit inProgress flag
+// Exact repo names including orgs
 const customProjects = {
-    SafeShell: { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", inProgress: true },
-    VCU_Prototype: { screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", inProgress: true },
-    Chatbot: { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", inProgress: true },
-    AI_Stroke_Shield: { screenshot: "assets/screenshots/ai_stroke_detector.png", description: "AI project for stroke detection using Python.", inProgress: true },
-    Python_Learning: { screenshot: "assets/screenshots/blog_home.png", description: "Python learning blog project" }, // Completed
-    mictseta-recruitment-system/mictseta_recruitment_system: { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." } // Completed
+    "SafeShell": { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", inProgress: true },
+    "AI-Stroke-Shield": { screenshot: "assets/screenshots/ai_stroke_detector.png", description: "AI project for stroke detection using C++.", inProgress: true },
+    "Chatbot": { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", inProgress: true },
+    "mictseta_recruitment_system": { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." },
+    "Python_Learning": { screenshot: "assets/screenshots/blog_home.png", description: "Python learning blog project" }
 };
 
+// Render Completed Projects from customProjects first
+Object.keys(customProjects).forEach(key => {
+    const proj = customProjects[key];
+    if (!proj.inProgress) {
+        const card = createProjectCard({ name: key, ...proj }, false);
+        completedContainer.appendChild(card);
+        setTimeout(() => card.classList.add("show"), 100);
+    }
+});
+
+// Fetch all GitHub repos (personal + orgs) for In Progress projects
 async function fetchRepos() {
     try {
-        // 1. Personal repos
+        // Personal repos
         const userRes = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
         const userRepos = await userRes.json();
 
-        // 2. Organizations
+        // Organizations
         const orgsRes = await fetch(`https://api.github.com/users/${githubUsername}/orgs`);
         const orgs = await orgsRes.json();
 
@@ -62,46 +88,28 @@ async function fetchRepos() {
             orgRepos.push(...repos);
         }
 
-        // 3. Merge and sort by updated_at
         const allRepos = [...userRepos, ...orgRepos];
-        allRepos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
-
-        // 4. Render
         allRepos.forEach(repo => {
-            if (repo.fork) return; // Skip forks
+            if (repo.fork) return;
 
             const custom = customProjects[repo.name] || {};
             const isInProgress = custom.inProgress || repo.topics?.includes("in-progress");
 
-            const card = document.createElement("div");
-            card.className = "project-card";
-
-            card.innerHTML = `
-                ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
-                <h3>${repo.name}</h3>
-                <div class="screenshot-container">
-                    ${custom.screenshot ? `<img class="project-screenshot" src="${custom.screenshot}" alt="${repo.name} Screenshot">` : ''}
-                    <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
-                </div>
-                <p>${custom.description || repo.description || "No description provided."}</p>
-                <p><strong>Language:</strong> ${repo.language || "N/A"}</p>
-                <p><strong>Last Updated:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</p>
-            `;
-
             if (isInProgress) {
+                const card = createProjectCard({
+                    name: repo.name,
+                    screenshot: custom.screenshot,
+                    description: custom.description || repo.description,
+                    link: repo.html_url
+                }, true);
                 inProgressContainer.appendChild(card);
-            } else {
-                completedContainer.appendChild(card);
+                setTimeout(() => card.classList.add("show"), 100);
             }
-
-            setTimeout(() => card.classList.add("show"), 100);
         });
     } catch (err) {
         console.error("Error loading repos:", err);
-        completedContainer.innerHTML = "<p>Could not load completed projects.</p>";
         inProgressContainer.innerHTML = "<p>Could not load in-progress projects.</p>";
     }
 }
 
-// Load all repos
 fetchRepos();
