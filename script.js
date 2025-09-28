@@ -24,6 +24,7 @@ const currentWorkData = {
     workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App", "AI Stroke Detector Project"],
     exploring: ["IoT projects with Arduino & Raspberry Pi"]
 };
+
 const currentWorkContainer = document.getElementById("current-work");
 currentWorkContainer.innerHTML = `
     <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
@@ -35,6 +36,7 @@ currentWorkContainer.innerHTML = `
 function createProjectCard(proj, isInProgress = false) {
     const card = document.createElement("div");
     card.className = "project-card";
+
     card.innerHTML = `
         ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
         <h3>${proj.name}</h3>
@@ -51,23 +53,25 @@ function createProjectCard(proj, isInProgress = false) {
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 
-// All projects (exact repo names, screenshots, descriptions)
+// All projects (no screenshots required)
 const customProjects = {
-    "SafeShell": { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", inProgress: true },
-    "AI-Stroke-Shield": { screenshot: "assets/screenshots/ai_stroke_detector.png", description: "AI project for stroke detection using C++.", inProgress: true },
-    "Chatbot": { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", inProgress: true },
-    "mictseta_recruitment_system": { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." },
-    "Python_Learning": { screenshot: "assets/screenshots/blog_home.png", description: "Python learning blog project" }
+    "SafeShell": { description: "Android app to hide banking apps.", inProgress: true },
+    "AI-Stroke-Shield": { description: "AI project for stroke detection using C++.", inProgress: true },
+    "Chatbot": { description: "School project chatbot.", inProgress: true },
+    "mictseta_recruitment_system": { description: "Recruitment system project developed for VUT learning program." },
+    "Python_Learning": { description: "Python learning blog project" }
 };
 
 // Render all projects immediately
 Object.keys(customProjects).forEach(key => {
     const proj = customProjects[key];
     const card = createProjectCard({ name: key, ...proj }, proj.inProgress || false);
+
     if (proj.inProgress) {
         inProgressContainer.appendChild(card);
     } else {
         completedContainer.appendChild(card);
     }
+
     setTimeout(() => card.classList.add("show"), 100);
 });
