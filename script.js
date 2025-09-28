@@ -51,7 +51,7 @@ function createProjectCard(proj, isInProgress = false) {
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 
-// Exact repo names including orgs
+// Custom projects with exact repo names
 const customProjects = {
     "SafeShell": { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", inProgress: true },
     "AI-Stroke-Shield": { screenshot: "assets/screenshots/ai_stroke_detector.png", description: "AI project for stroke detection using C++.", inProgress: true },
@@ -60,17 +60,19 @@ const customProjects = {
     "Python_Learning": { screenshot: "assets/screenshots/blog_home.png", description: "Python learning blog project" }
 };
 
-// Render Completed Projects from customProjects first
+// Render all custom projects immediately
 Object.keys(customProjects).forEach(key => {
     const proj = customProjects[key];
-    if (!proj.inProgress) {
-        const card = createProjectCard({ name: key, ...proj }, false);
+    const card = createProjectCard({ name: key, ...proj }, proj.inProgress || false);
+    if (proj.inProgress) {
+        inProgressContainer.appendChild(card);
+    } else {
         completedContainer.appendChild(card);
-        setTimeout(() => card.classList.add("show"), 100);
     }
+    setTimeout(() => card.classList.add("show"), 100);
 });
 
-// Fetch all GitHub repos (personal + orgs) for In Progress projects
+// Fetch GitHub repos for future dynamic In Progress projects
 async function fetchRepos() {
     try {
         // Personal repos
@@ -91,15 +93,13 @@ async function fetchRepos() {
         const allRepos = [...userRepos, ...orgRepos];
         allRepos.forEach(repo => {
             if (repo.fork) return;
+            if (customProjects[repo.name]?.inProgress) return; // Already rendered
 
-            const custom = customProjects[repo.name] || {};
-            const isInProgress = custom.inProgress || repo.topics?.includes("in-progress");
-
+            const isInProgress = repo.topics?.includes("in-progress");
             if (isInProgress) {
                 const card = createProjectCard({
                     name: repo.name,
-                    screenshot: custom.screenshot,
-                    description: custom.description || repo.description,
+                    description: repo.description,
                     link: repo.html_url
                 }, true);
                 inProgressContainer.appendChild(card);
@@ -107,9 +107,9 @@ async function fetchRepos() {
             }
         });
     } catch (err) {
-        console.error("Error loading repos:", err);
-        inProgressContainer.innerHTML = "<p>Could not load in-progress projects.</p>";
+        console.error("Error loading GitHub repos:", err);
     }
 }
 
+// Load dynamic repos
 fetchRepos();
