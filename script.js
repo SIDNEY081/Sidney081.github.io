@@ -8,6 +8,13 @@ let isLight = localStorage.getItem("theme") === "light";
 document.body.classList.toggle("light", isLight);
 updateTheme();
 
+toggleBtn.addEventListener("click", () => {
+    isLight = !isLight;
+    document.body.classList.toggle("light", isLight);
+    localStorage.setItem("theme", isLight ? "light" : "dark");
+    updateTheme();
+});
+
 function updateTheme() {
     themeIcon.textContent = isLight ? "☀️" : "🌙";
     themeText.textContent = isLight ? "Light Mode" : "Dark Mode";
@@ -18,13 +25,6 @@ function updateTheme() {
     document.getElementById("streak").src = `https://github-readme-streak-stats.herokuapp.com/?user=${githubUsername}&theme=${theme}`;
     document.getElementById("contribGraph").src = `https://github-readme-activity-graph.vercel.app/graph?username=${githubUsername}&theme=${theme}&hide_border=true`;
 }
-
-toggleBtn.addEventListener("click", () => {
-    isLight = !isLight;
-    document.body.classList.toggle("light", isLight);
-    localStorage.setItem("theme", isLight ? "light" : "dark");
-    updateTheme();
-});
 
 // ---------- Current Work ----------
 const currentWorkData = {
@@ -44,12 +44,11 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Fetch all repos including organizations
 async function fetchAllRepos(username) {
     const userRepos = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`).then(r => r.json());
     const orgs = await fetch(`https://api.github.com/users/${username}/orgs`).then(r => r.json());
-    let orgRepos = [];
 
+    let orgRepos = [];
     for (let org of orgs) {
         const repos = await fetch(`https://api.github.com/orgs/${org.login}/repos?per_page=100`).then(r => r.json());
         orgRepos = orgRepos.concat(repos);
@@ -58,17 +57,20 @@ async function fetchAllRepos(username) {
     return userRepos.concat(orgRepos);
 }
 
-// Check repo topic for categorization
 async function getRepoTopics(owner, repo) {
-    const topicsRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/topics`, {
-        headers: { Accept: "application/vnd.github.mercy-preview+json" }
-    });
-    const data = await topicsRes.json();
-    return data.names || [];
+    try {
+        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/topics`, {
+            headers: { Accept: "application/vnd.github.mercy-preview+json" }
+        });
+        const data = await res.json();
+        return data.names || [];
+    } catch (err) {
+        console.error("Error fetching topics for", repo, err);
+        return [];
+    }
 }
 
-// Render project card
-function renderProjectCard(repo, inProgress = false) {
+function createProjectCard(repo, inProgress = false) {
     const card = document.createElement("div");
     card.className = "project-card";
     card.innerHTML = `
@@ -83,7 +85,6 @@ function renderProjectCard(repo, inProgress = false) {
     return card;
 }
 
-// Main function to load and categorize repos
 async function loadProjects() {
     try {
         const repos = await fetchAllRepos(githubUsername);
@@ -91,7 +92,7 @@ async function loadProjects() {
         for (let repo of repos) {
             const topics = await getRepoTopics(repo.owner.login, repo.name);
             const inProgress = topics.includes("in-progress");
-            const card = renderProjectCard(repo, inProgress);
+            const card = createProjectCard(repo, inProgress);
 
             if (inProgress) inProgressContainer.appendChild(card);
             else completedContainer.appendChild(card);
@@ -99,7 +100,7 @@ async function loadProjects() {
             setTimeout(() => card.classList.add("show"), 100);
         }
     } catch (err) {
-        console.error("Error fetching GitHub projects:", err);
+        console.error("Error loading projects:", err);
     }
 }
 
