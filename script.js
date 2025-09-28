@@ -35,11 +35,11 @@ currentWorkContainer.innerHTML = `
 const completedContainer = document.getElementById("projects");
 const inProgressContainer = document.getElementById("in-progress");
 
-// Custom screenshots / descriptions
+// Custom projects with explicit inProgress flag
 const customProjects = {
-    SafeShell: { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps." },
-    VCU_Prototype: { screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB." },
-    Chatbot: { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot." },
+    SafeShell: { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", inProgress: true },
+    VCU_Prototype: { screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", inProgress: true },
+    Chatbot: { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", inProgress: true },
     BlogWebsite: { screenshot: "assets/screenshots/blog_home.png", description: "A blog-style website to teach Python basics." },
     MICT_SETA_Project: { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." }
 };
@@ -69,13 +69,13 @@ async function fetchRepos() {
         allRepos.forEach(repo => {
             if (repo.fork) return;
 
-            const isInProgress = repo.topics?.includes("in-progress");
-            const isCompleted = repo.topics?.includes("completed");
+            const custom = customProjects[repo.name] || {};
+
+            // Use inProgress flag from customProjects OR GitHub topics
+            const isInProgress = custom.inProgress || repo.topics?.includes("in-progress");
 
             const card = document.createElement("div");
             card.className = "project-card";
-
-            const custom = customProjects[repo.name] || {};
 
             card.innerHTML = `
                 ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
@@ -89,10 +89,10 @@ async function fetchRepos() {
                 <p><strong>Last Updated:</strong> ${new Date(repo.updated_at).toLocaleDateString()}</p>
             `;
 
-            if (isCompleted || !isInProgress) {
-                completedContainer.appendChild(card);
-            } else if (isInProgress) {
+            if (isInProgress) {
                 inProgressContainer.appendChild(card);
+            } else {
+                completedContainer.appendChild(card);
             }
 
             setTimeout(() => card.classList.add("show"), 100);
