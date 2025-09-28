@@ -60,16 +60,21 @@ const completedRepos = [
 ];
 
 async function fetchAllRepos(username) {
-    const userRepos = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`).then(r => r.json());
-    const orgs = await fetch(`https://api.github.com/users/${username}/orgs`).then(r => r.json());
+    try {
+        const userRepos = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`).then(r => r.json());
+        const orgs = await fetch(`https://api.github.com/users/${username}/orgs`).then(r => r.json());
 
-    let orgRepos = [];
-    for (let org of orgs) {
-        const repos = await fetch(`https://api.github.com/orgs/${org.login}/repos?per_page=100`).then(r => r.json());
-        orgRepos = orgRepos.concat(repos);
+        let orgRepos = [];
+        for (let org of orgs) {
+            const repos = await fetch(`https://api.github.com/orgs/${org.login}/repos?per_page=100`).then(r => r.json());
+            orgRepos = orgRepos.concat(repos);
+        }
+
+        return userRepos.concat(orgRepos);
+    } catch (err) {
+        console.error("Error fetching repos:", err);
+        return [];
     }
-
-    return userRepos.concat(orgRepos);
 }
 
 function createProjectCard(repo, inProgress = false) {
@@ -88,31 +93,19 @@ function createProjectCard(repo, inProgress = false) {
 }
 
 async function loadProjects() {
-    try {
-        const repos = await fetchAllRepos(githubUsername);
+    const repos = await fetchAllRepos(githubUsername);
 
-        repos.forEach(repo => {
-            const repoNameNormalized = repo.name.toLowerCase().replace(/\s+/g, '-');
+    repos.forEach(repo => {
+        const card = createProjectCard(
+            repo,
+            inProgressRepos.includes(repo.name)
+        );
 
-            const inProgress = inProgressRepos.some(name =>
-                name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized
-            );
+        if (inProgressRepos.includes(repo.name)) inProgressContainer.appendChild(card);
+        else if (completedRepos.includes(repo.name)) completedContainer.appendChild(card);
 
-            const completed = completedRepos.some(name =>
-                name.toLowerCase().replace(/\s+/g, '-') === repoNameNormalized
-            );
-
-            const card = createProjectCard(repo, inProgress);
-
-            if (inProgress) inProgressContainer.appendChild(card);
-            else if (completed) completedContainer.appendChild(card);
-            // skip any repo not in either array if desired
-
-            setTimeout(() => card.classList.add("show"), 100);
-        });
-    } catch (err) {
-        console.error("Error loading projects:", err);
-    }
+        setTimeout(() => card.classList.add("show"), 100);
+    });
 }
 
 loadProjects();
