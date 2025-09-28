@@ -32,6 +32,7 @@ const currentWorkData = {
     workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App"],
     exploring: ["AI projects with Python", "IoT projects with Arduino & Raspberry Pi"]
 };
+
 const currentWorkContainer = document.getElementById("current-work");
 currentWorkContainer.innerHTML = `
     <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
@@ -44,6 +45,9 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
+// Manual list of in-progress repo names
+const inProgressRepos = ["SafeShell", "VCU-Prototype-Project", "Chatbot"]; // update with your repos
+
 async function fetchAllRepos(username) {
     const userRepos = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`).then(r => r.json());
     const orgs = await fetch(`https://api.github.com/users/${username}/orgs`).then(r => r.json());
@@ -55,19 +59,6 @@ async function fetchAllRepos(username) {
     }
 
     return userRepos.concat(orgRepos);
-}
-
-async function getRepoTopics(owner, repo) {
-    try {
-        const res = await fetch(`https://api.github.com/repos/${owner}/${repo}/topics`, {
-            headers: { Accept: "application/vnd.github.mercy-preview+json" }
-        });
-        const data = await res.json();
-        return data.names || [];
-    } catch (err) {
-        console.error("Error fetching topics for", repo, err);
-        return [];
-    }
 }
 
 function createProjectCard(repo, inProgress = false) {
@@ -89,16 +80,16 @@ async function loadProjects() {
     try {
         const repos = await fetchAllRepos(githubUsername);
 
-        for (let repo of repos) {
-            const topics = await getRepoTopics(repo.owner.login, repo.name);
-            const inProgress = topics.includes("in-progress");
+        repos.forEach(repo => {
+            const inProgress = inProgressRepos.includes(repo.name);
             const card = createProjectCard(repo, inProgress);
 
             if (inProgress) inProgressContainer.appendChild(card);
             else completedContainer.appendChild(card);
 
+            // Smooth fade-in animation
             setTimeout(() => card.classList.add("show"), 100);
-        }
+        });
     } catch (err) {
         console.error("Error loading projects:", err);
     }
