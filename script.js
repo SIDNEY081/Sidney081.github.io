@@ -32,7 +32,6 @@ const currentWorkData = {
     workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App"],
     exploring: ["AI projects with Python", "IoT projects with Arduino & Raspberry Pi"]
 };
-
 const currentWorkContainer = document.getElementById("current-work");
 currentWorkContainer.innerHTML = `
     <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
@@ -40,42 +39,23 @@ currentWorkContainer.innerHTML = `
     <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
 `;
 
-// ---------- Projects ----------
-const completedContainer = document.getElementById("completed-projects");
-const inProgressContainer = document.getElementById("inprogress-projects");
-const placeholderScreenshot = "assets/screenshots/placeholder.png";
-
-// Correct project categorization
+// ---------- Projects (Manual Arrays) ----------
 const inProgressRepos = [
-    "AI-Stroke-Shield",
-    "ckc_project",
-    "School-Database-System",
-    "ChatTTS",
-    "SafeShell"
+    { name: "AI-Stroke-Shield", url: "#", description: "AI stroke detection project" },
+    { name: "ckc_project", url: "#", description: "CKC school project" },
+    { name: "School-Database-System", url: "#", description: "School database system" },
+    { name: "ChatTTS", url: "#", description: "Text-to-speech chatbot" },
+    { name: "SafeShell", url: "#", description: "Android app to hide apps" }
 ];
 
 const completedRepos = [
-    "Python_Learning",
-    "mictseta_recruitment_system"
+    { name: "Python_Learning", url: "#", description: "Python learning exercises" },
+    { name: "mictseta_recruitment_system", url: "#", description: "VUT MICT SETA recruitment system" }
 ];
 
-async function fetchAllRepos(username) {
-    try {
-        const userRepos = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`).then(r => r.json());
-        const orgs = await fetch(`https://api.github.com/users/${username}/orgs`).then(r => r.json());
-
-        let orgRepos = [];
-        for (let org of orgs) {
-            const repos = await fetch(`https://api.github.com/orgs/${org.login}/repos?per_page=100`).then(r => r.json());
-            orgRepos = orgRepos.concat(repos);
-        }
-
-        return userRepos.concat(orgRepos);
-    } catch (err) {
-        console.error("Error fetching repos:", err);
-        return [];
-    }
-}
+const completedContainer = document.getElementById("completed-projects");
+const inProgressContainer = document.getElementById("inprogress-projects");
+const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
 function createProjectCard(repo, inProgress = false) {
     const card = document.createElement("div");
@@ -84,28 +64,20 @@ function createProjectCard(repo, inProgress = false) {
         ${inProgress ? '<div class="badge">In Progress</div>' : ''}
         <h3>${repo.name}</h3>
         <div class="screenshot-container">
-            <img class="project-screenshot" src="${placeholderScreenshot}" alt="${repo.name} Screenshot">
-            <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
+            <img class="project-screenshot" src="${placeholderScreenshot}" alt="${repo.name}">
+            <a class="overlay-link" href="${repo.url}" target="_blank">View Project</a>
         </div>
-        <p>${repo.description || "No description provided."}</p>
+        <p>${repo.description}</p>
     `;
     return card;
 }
 
-async function loadProjects() {
-    const repos = await fetchAllRepos(githubUsername);
+function loadProjects() {
+    inProgressRepos.forEach(repo => inProgressContainer.appendChild(createProjectCard(repo, true)));
+    completedRepos.forEach(repo => completedContainer.appendChild(createProjectCard(repo, false)));
 
-    repos.forEach(repo => {
-        const card = createProjectCard(
-            repo,
-            inProgressRepos.includes(repo.name)
-        );
-
-        if (inProgressRepos.includes(repo.name)) inProgressContainer.appendChild(card);
-        else if (completedRepos.includes(repo.name)) completedContainer.appendChild(card);
-
-        setTimeout(() => card.classList.add("show"), 100);
-    });
+    // Animate cards
+    document.querySelectorAll('.project-card').forEach(card => setTimeout(() => card.classList.add('show'), 100));
 }
 
 loadProjects();
