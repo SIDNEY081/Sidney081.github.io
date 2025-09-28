@@ -40,9 +40,9 @@ const customProjects = {
     SafeShell: { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", inProgress: true },
     VCU_Prototype: { screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", inProgress: true },
     Chatbot: { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", inProgress: true },
-    AI_Stroke_Detector: { screenshot: "assets/screenshots/ai_stroke_detector.png", description: "AI project for stroke detection using C++.", inProgress: true },
-    BlogWebsite: { screenshot: "assets/screenshots/blog_home.png", description: "Python learning blog project" }, // Completed
-    MICT_SETA_Project: { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." } // Completed
+    AI_Stroke_Shield: { screenshot: "assets/screenshots/ai_stroke_detector.png", description: "AI project for stroke detection using Python.", inProgress: true },
+    Python_Learning: { screenshot: "assets/screenshots/blog_home.png", description: "Python learning blog project" }, // Completed
+    mictseta-recruitment-system/mictseta_recruitment_system: { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." } // Completed
 };
 
 async function fetchRepos() {
