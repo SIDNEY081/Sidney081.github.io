@@ -31,48 +31,68 @@ currentWorkContainer.innerHTML = `
     <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
 `;
 
-// ---------- Projects ----------
+// ---------- Projects (Mix of GitHub + Custom) ----------
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 
-let completedProjects = [
-    { name: "Blog Website", screenshot: "assets/screenshots/blog_home.png", description: "A blog-style website to teach Python basics.", link: "https://github.com/SIDNEY081/BlogWebsite" },
-    { name: "MICT SETA Recruitment System", screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program.", link: "https://github.com/SIDNEY081/MICT_SETA_Project" }
-];
-
-let inProgressProjects = [
-    { name: "SafeShell", screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps.", link: "#" },
-    { name: "VCU_Prototype", screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB.", link: "#" },
-    { name: "Chatbot", screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot.", link: "#" }
-];
+// Custom projects with screenshots
+const customProjects = {
+    SafeShell: { screenshot: "assets/screenshots/safeshell_home.png", description: "Android app to hide banking apps." },
+    VCU_Prototype: { screenshot: "assets/screenshots/vcu_dashboard.png", description: "Vehicle Control Unit prototype in MATLAB." },
+    Chatbot: { screenshot: "assets/screenshots/chatbot_ui.png", description: "School project chatbot." },
+    BlogWebsite: { screenshot: "assets/screenshots/blog_home.png", description: "A blog-style website to teach Python basics." },
+    MICT_SETA_Project: { screenshot: "assets/screenshots/mictseta_home.png", description: "Recruitment system project developed for VUT learning program." }
+};
 
 // Function to create project cards
-function createProjectCard(proj, isInProgress = false) {
+function createProjectCard(repo, isInProgress = false) {
     const card = document.createElement("div");
     card.className = "project-card";
 
+    // If repo name matches custom, use screenshot & description
+    const custom = customProjects[repo.name] || {};
+
     card.innerHTML = `
         ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
-        <h3>${proj.name}</h3>
+        <h3>${repo.name}</h3>
         <div class="screenshot-container">
-            <img class="project-screenshot" src="${proj.screenshot}" alt="${proj.name} Screenshot">
-            <a class="overlay-link" href="${proj.link}" target="_blank">View Project</a>
+            ${custom.screenshot ? `<img class="project-screenshot" src="${custom.screenshot}" alt="${repo.name} Screenshot">` : ""}
+            <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
         </div>
-        <p>${proj.description}</p>
+        <p>${custom.description || repo.description || "No description provided."}</p>
+        <p><strong>Language:</strong> ${repo.language || "N/A"}</p>
     `;
     return card;
 }
 
-// Render Completed Projects
-completedProjects.forEach(proj => {
-    const card = createProjectCard(proj, false);
-    completedContainer.appendChild(card);
-    setTimeout(() => card.classList.add("show"), 100);
-});
+// Fetch GitHub repos
+fetch(`https://api.github.com/users/${githubUsername}/repos?sort=updated&per_page=100`)
+    .then(response => response.json())
+    .then(repos => {
+        repos.forEach(repo => {
+            if (repo.fork) return; // Skip forks
 
-// Render In-Progress Projects
-inProgressProjects.forEach(proj => {
-    const card = createProjectCard(proj, true);
-    inProgressContainer.appendChild(card);
-    setTimeout(() => card.classList.add("show"), 100);
-});
+            // Check topics for classification
+            const isInProgress = repo.topics?.includes("in-progress");
+            const isCompleted = repo.topics?.includes("completed");
+
+            const card = createProjectCard(repo, isInProgress);
+
+            if (isCompleted) {
+                completedContainer.appendChild(card);
+            } else if (isInProgress) {
+                inProgressContainer.appendChild(card);
+            } else {
+                // Default → Completed
+                completedContainer.appendChild(card);
+            }
+
+            // Fade-in animation
+            setTimeout(() => card.classList.add("show"), 100);
+        });
+    })
+    .catch(error => {
+        console.error("Error fetching repos:", error);
+        inProgressContainer.innerHTML = "<p>Could not load projects.</p>";
+        completedContainer.innerHTML = "<p>Could not load projects.</p>";
+    });
