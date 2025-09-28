@@ -1,4 +1,4 @@
-/* ---------- General ---------- */
+/* General */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
@@ -7,282 +7,83 @@ body {
     color: #f9f9f9;
     transition: all 0.3s ease;
 }
+body.light { background: #f9f9f9; color: #121212; }
 
-body.light {
-    background: #f9f9f9;
-    color: #121212;
-}
+/* Header */
+header { text-align:center; padding:2rem; }
+header img { width:150px; height:150px; border-radius:50%; margin-bottom:1rem; }
+header p { color:#ccc; }
+body.light header p { color:#555; }
 
-/* ---------- Header ---------- */
-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem;
-    text-align: center;
-}
+/* Toggle */
+.theme-toggle { position:fixed; top:20px; right:20px; cursor:pointer; border:2px solid; padding:0.5rem 1rem; border-radius:8px; }
 
-header img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-}
+/* Nav */
+nav { display:flex; justify-content:center; flex-wrap:wrap; gap:1rem; background:#1e1e1e; padding:1rem 0; }
+body.light nav { background:#e0e0e0; }
+nav a { color:inherit; text-decoration:none; font-weight:500; }
+nav a:hover { color:#ff9800; }
 
-header h1 {
-    margin-top: 0.5rem;
-}
+/* Sections */
+section { padding:2rem; }
+section h2 { margin-bottom:1rem; border-bottom:2px solid #ff9800; display:inline-block; padding-bottom:0.2rem; }
 
-header p {
-    margin: 0;
-    font-size: 1rem;
-    color: #cccccc;
-}
+/* Skills Colors */
+.skills { display:flex; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem; }
+.skills div { padding:0.5rem 1rem; border-radius:8px; font-weight:500; }
+.skills div.C { background:#f0db4f; color:#000; }
+.skills div.Cpp { background:#00599C; color:#fff; }
+.skills div.Java { background:#f89820; color:#fff; }
+.skills div.Python { background:#306998; color:#fff; }
+.skills div.PHP { background:#8892be; color:#fff; }
+.skills div.SQL { background:#e38c00; color:#fff; }
+.skills div.MATLAB { background:#0076a8; color:#fff; }
+.skills div.HTML5 { background:#e34c26; color:#fff; }
+.skills div.CSS3 { background:#264de4; color:#fff; }
+.skills div.Arduino { background:#00979D; color:#fff; }
+.skills div.Raspberry { background:#C51A4A; color:#fff; }
+.skills div.Linux { background:#FCC624; color:#000; }
+.skills div.Git { background:#F05032; color:#fff; }
+.skills div.NetBeans { background:#007396; color:#fff; }
+.skills div.VSCode { background:#007ACC; color:#fff; }
+.skills div.NotepadPP { background:#9BCF00; color:#000; }
 
-body.light header p {
-    color: #555555;
-}
+/* Projects */
+.projects { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1.5rem; }
+.project-card { background:#1e1e1e; padding:1rem; border-radius:12px; opacity:0; transform:translateY(10px); transition:all 0.3s ease; position:relative; }
+body.light .project-card { background:#fff; color:#121212; }
+.project-card.show { opacity:1; transform:translateY(0); }
+.project-card h3 { margin-top:0; }
+.project-card .screenshot-container { position:relative; margin:1rem 0; }
+.project-card img { width:100%; border-radius:8px; transition:transform 0.3s ease; }
+.project-card:hover img { transform:scale(1.05); }
+.overlay-link { position:absolute; top:0; left:0; width:100%; height:100%; text-decoration:none; }
+.badge { background:#ff9800; color:#fff; padding:2px 8px; font-size:0.8rem; border-radius:4px; position:absolute; top:10px; right:10px; font-weight:bold; }
 
-/* ---------- Theme Toggle ---------- */
-.theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: none;
-    border: 2px solid currentColor;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    z-index: 1000;
-}
+/* GitHub Stats */
+.stats { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; margin-bottom:2rem; }
+.stats img, .graph-container img { max-width:300px; width:100%; border-radius:10px; }
 
-/* ---------- Navigation ---------- */
-nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-    background: #1e1e1e;
-    padding: 1rem 0;
-}
+/* Current Work */
+.current-work p { margin:0.5rem 0; }
 
-body.light nav {
-    background: #e0e0e0;
-}
+/* Contact */
+.contact-info p { margin:0.3rem 0; }
+.contact-info a { color:#ff9800; text-decoration:none; }
+.contact-info a:hover { text-decoration:underline; }
 
-nav a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
+/* Footer */
+footer { text-align:center; padding:1rem; background:#1e1e1e; color:#fff; margin-top:2rem; }
+body.light footer { background:#e0e0e0; color:#121212; }
 
-nav a:hover {
-    color: #ff9800;
-}
+/* Animate */
+.animate-on-scroll { opacity:0; transform:translateY(20px); transition:all 0.5s ease; }
+.animate-on-scroll.visible { opacity:1; transform:translateY(0); }
 
-/* ---------- Sections ---------- */
-section {
-    padding: 2rem;
-}
-
-section h2 {
-    margin-bottom: 1rem;
-    border-bottom: 2px solid #ff9800;
-    display: inline-block;
-    padding-bottom: 0.2rem;
-}
-
-/* ---------- Skills (Restored Colors) ---------- */
-.skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.C { background: #f0db4f; color: #000; }
-.Cpp { background: #00599C; color: #fff; }
-.Java { background: #f89820; color: #fff; }
-.Python { background: #306998; color: #fff; }
-.PHP { background: #8892be; color: #fff; }
-.SQL { background: #e38c00; color: #fff; }
-.MATLAB { background: #0076a8; color: #fff; }
-
-.HTML5 { background: #e34c26; color: #fff; }
-.CSS3 { background: #264de4; color: #fff; }
-
-.Arduino { background: #00979D; color: #fff; }
-.Raspberry { background: #C51A4A; color: #fff; }
-.Linux { background: #FCC624; color: #000; }
-
-.Git { background: #F05032; color: #fff; }
-.NetBeans { background: #007396; color: #fff; }
-.VSCode { background: #007ACC; color: #fff; }
-.NotepadPP { background: #9BCF00; color: #000; }
-
-.skills div {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 500;
-}
-
-/* ---------- Projects ---------- */
-.projects-section {
-    margin-bottom: 2rem;
-}
-
-.projects-category {
-    margin-bottom: 1rem;
-}
-
-.projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-}
-
-/* ---------- Project Cards ---------- */
-.project-card {
-    position: relative;
-    background: #1e1e1e;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease, transform 0.3s ease;
-}
-
-body.light .project-card {
-    background: #ffffff;
-    color: #121212;
-}
-
-.project-card.show {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.project-card h3 {
-    margin-top: 0;
-}
-
-.screenshot-container {
-    position: relative;
-    margin: 1rem 0;
-}
-
-.project-screenshot {
-    width: 100%;
-    border-radius: 8px;
-    transition: transform 0.3s ease;
-}
-
-.project-card:hover .project-screenshot {
-    transform: scale(1.05);
-}
-
-.overlay-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-}
-
-/* ---------- Badge ---------- */
-.badge {
-    background: #ff9800;
-    color: #fff;
-    padding: 2px 8px;
-    font-size: 0.8rem;
-    border-radius: 4px;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-weight: bold;
-}
-
-/* ---------- GitHub Stats ---------- */
-.stats {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.stats img, .graph-container img {
-    max-width: 300px;
-    width: 100%;
-    border-radius: 10px;
-}
-
-/* ---------- Current Work ---------- */
-.current-work p {
-    margin: 0.5rem 0;
-}
-
-/* ---------- Contact ---------- */
-.contact-info p {
-    margin: 0.3rem 0;
-}
-
-.contact-info a {
-    color: #ff9800;
-    text-decoration: none;
-}
-
-.contact-info a:hover {
-    text-decoration: underline;
-}
-
-/* ---------- Footer ---------- */
-footer {
-    text-align: center;
-    padding: 1rem;
-    background: #1e1e1e;
-    color: #fff;
-    margin-top: 2rem;
-}
-
-body.light footer {
-    background: #e0e0e0;
-    color: #121212;
-}
-
-/* ---------- Animations ---------- */
-.animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
-}
-
-.animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ---------- Responsive ---------- */
-@media (max-width: 600px) {
-    nav {
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    header img {
-        width: 120px;
-        height: 120px;
-    }
-
-    .projects {
-        grid-template-columns: 1fr;
-    }
-
-    .stats img, .graph-container img {
-        max-width: 100%;
-    }
+/* Responsive */
+@media(max-width:600px) {
+    nav { flex-direction:column; gap:0.5rem; }
+    header img { width:120px; height:120px; }
+    .projects { grid-template-columns:1fr; }
+    .stats img, .graph-container img { max-width:100%; }
 }
