@@ -8,7 +8,12 @@ body {
 body.light { background: #f9f9f9; color: #222; }
 
 /* Header */
-header { text-align: center; padding: 30px 20px; background: #1f1f1f; transition: background 0.3s, color 0.3s; }
+header { 
+    text-align: center; 
+    padding: 30px 20px; 
+    background: #1f1f1f; 
+    transition: background 0.3s, color 0.3s; 
+}
 body.light header { background: #eaeaea; color: #222; }
 header img { width: 150px; border-radius: 50%; border: 3px solid #555; transition: border-color 0.3s; }
 body.light header img { border-color: #aaa; }
@@ -27,9 +32,11 @@ section h2 { text-align: center; font-size: 1.8rem; margin-bottom: 24px; positio
 section h2::after { content: ''; display: block; width: 60px; height: 3px; background: #4fc3f7; margin: 8px auto 0; border-radius: 2px; }
 
 /* Skills */
-.skills { display: flex; flex-wrap: wrap; justify-content: center; }
-.skills div { border-radius: 8px; padding: 8px 16px; margin: 6px; font-weight: 500; text-align: center; cursor: default; transition: transform 0.2s; }
-.skills div:hover { transform: translateY(-4px); }
+.skills-category { margin-bottom: 24px; }
+.skills-category h3 { text-align:center; margin-bottom: 12px; font-size: 1.2rem; color: #4fc3f7; }
+.skills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.skills div { border-radius: 8px; padding: 8px 16px; font-weight: 500; text-align: center; cursor: default; transition: transform 0.2s, box-shadow 0.2s; }
+.skills div:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
 
 /* Skill colors */
 .skills div.C { background: #A8B9CC; color: #222; }
@@ -37,9 +44,9 @@ section h2::after { content: ''; display: block; width: 60px; height: 3px; backg
 .skills div.Java { background: #f89820; color: #fff; }
 .skills div.Python { background: #306998; color: #fff; }
 .skills div.PHP { background: #777BB4; color: #fff; }
+.skills div.SQL { background: #f29111; color: #fff; }
 .skills div.HTML5 { background: #E34F26; color: #fff; }
 .skills div.CSS3 { background: #264DE4; color: #fff; }
-.skills div.SQL { background: #f29111; color: #fff; }
 .skills div.Arduino { background: #00979D; color: #fff; }
 .skills div.Raspberry { background: #C51A4A; color: #fff; }
 .skills div.MATLAB { background: #0076A8; color: #fff; }
@@ -56,16 +63,18 @@ section h2::after { content: ''; display: block; width: 60px; height: 3px; backg
     background: #1f1f1f; border-radius: 12px;
     padding: 16px; width: 300px; text-align: center;
     opacity: 0; transform: translateY(30px);
-    transition: all 0.6s ease;
+    transition: all 0.6s ease, box-shadow 0.3s;
 }
 body.light .project-card { background: #fff; color: #222; }
 .project-card.show { opacity: 1; transform: translateY(0); }
+.project-card h3 { margin: 10px 0; }
+.project-card p { font-size: 0.95rem; margin: 6px 0; }
 
 /* Screenshot overlay */
 .screenshot-container { position: relative; width: 100%; overflow: hidden; border-radius: 8px; margin-bottom: 8px; }
-.project-screenshot { width: 100%; display: block; transition: transform 0.3s; }
+.project-screenshot { width: 100%; display: block; transition: transform 0.3s; border-radius:8px; }
 .screenshot-container:hover .project-screenshot { transform: scale(1.05); }
-.overlay-link { position: absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); color:#fff; font-weight:600; text-decoration:none; opacity:0; transition: opacity 0.3s; font-size:1.1rem; }
+.overlay-link { position: absolute; top:0; left:0; right:0; bottom:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.5); color:#fff; font-weight:600; text-decoration:none; opacity:0; transition: opacity 0.3s; font-size:1.1rem; border-radius:8px; }
 .screenshot-container:hover .overlay-link { opacity:1; }
 
 /* Badge */
