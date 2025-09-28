@@ -38,15 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
     function createProjectCard(proj, isInProgress = false) {
         const card = document.createElement("div");
         card.className = "project-card";
-
         card.innerHTML = `
             ${isInProgress ? '<div class="badge">In Progress</div>' : ''}
             <h3>${proj.name}</h3>
-            <div class="screenshot-container">
-                ${proj.screenshot ? `<img class="project-screenshot" src="${proj.screenshot}" alt="${proj.name} Screenshot">` : ''}
-                <a class="overlay-link" href="${proj.link || '#'}" target="_blank">View Project</a>
-            </div>
             <p>${proj.description || "No description provided."}</p>
+            <a href="${proj.link || '#'}" target="_blank">View Project</a>
         `;
         return card;
     }
@@ -55,27 +51,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const completedContainer = document.getElementById("completed-projects");
     const inProgressContainer = document.getElementById("inprogress-projects");
 
-    // All projects (no screenshots required)
-    const customProjects = {
-        "SafeShell": { description: "Android app to hide banking apps.", inProgress: true },
-        "AI-Stroke-Shield": { description: "AI project for stroke detection using C++.", inProgress: true },
-        "Chatbot": { description: "School project chatbot.", inProgress: true },
-        "mictseta_recruitment_system": { description: "Recruitment system project developed for VUT learning program." },
-        "Python_Learning": { description: "Python learning blog project" }
-    };
+    const projects = [
+        { name: "SafeShell", description: "Android app to hide banking apps", inProgress: true },
+        { name: "AI Stroke Detector", description: "AI project for stroke detection using C++", inProgress: true },
+        { name: "Chatbot", description: "School project chatbot", inProgress: true },
+        { name: "MICT SETA Recruitment System", description: "Recruitment system project developed for VUT learning program", inProgress: false },
+        { name: "Python Learning", description: "Python learning blog project", inProgress: false }
+    ];
 
-    // Render all projects immediately
-    Object.keys(customProjects).forEach(key => {
-        const proj = customProjects[key];
-        const card = createProjectCard({ name: key, ...proj }, proj.inProgress || false);
-
+    projects.forEach(proj => {
+        const card = createProjectCard(proj, proj.inProgress);
         if (proj.inProgress) {
             inProgressContainer.appendChild(card);
         } else {
             completedContainer.appendChild(card);
         }
-
-        setTimeout(() => card.classList.add("show"), 100);
     });
 
 });
