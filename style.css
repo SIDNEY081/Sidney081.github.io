@@ -1,93 +1,121 @@
 /* ---------- General ---------- */
 body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background: #121212;
-    color: #f9f9f9;
-    transition: all 0.3s ease;
-    text-align: center;
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #121212;
+  color: #f9f9f9;
+  transition: all 0.3s ease;
+  text-align: center;
 }
-body.light { background: #f9f9f9; color: #121212; }
+body.light {
+  background: #f9f9f9;
+  color: #121212;
+}
 
 /* ---------- Header ---------- */
 header {
-    text-align: center;
-    padding: 3rem 1rem 2rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  text-align: center;
+  padding: 3rem 1rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 header img {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
 }
-header p { color: #ccc; text-align: center; max-width: 600px; }
-body.light header p { color: #555; }
+header p {
+  color: #ccc;
+  text-align: center;
+  max-width: 600px;
+}
+body.light header p {
+  color: #555;
+}
 
 /* ---------- Toggle ---------- */
 .theme-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    border: 2px solid;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    background: none;
-    color: inherit;
-    font-weight: bold;
-    z-index: 1000;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  border: 2px solid;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: none;
+  color: inherit;
+  font-weight: bold;
+  z-index: 1000;
 }
 
 /* ---------- Navigation ---------- */
 nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    background: #1e1e1e;
-    padding: 1rem 0;
-    margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  background: #1e1e1e;
+  padding: 1rem 0;
+  margin-bottom: 2rem;
 }
-body.light nav { background: #e0e0e0; }
+body.light nav {
+  background: #e0e0e0;
+}
 nav a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
-nav a:hover { color: #ff9800; }
+nav a:hover {
+  color: #ff9800;
+}
 
 /* ---------- Sections ---------- */
-section { padding: 2rem 1rem; max-width: 1200px; margin: auto; }
+section {
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: auto;
+}
 section h2 {
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid #ff9800;
-    display: inline-block;
-    padding-bottom: 0.2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #ff9800;
+  display: inline-block;
+  padding-bottom: 0.2rem;
 }
 
 /* ---------- Skills ---------- */
 .skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    justify-content: center;
-    margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 .skills div {
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-weight: 500;
+  padding: 0.6rem 1.2rem;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
-/* Skill colors */
+.skills div:hover {
+  transform: scale(1.1);
+  background-color: #ff9800 !important;
+  color: #fff !important;
+}
+
+/* ---------- Individual Skill Colors ---------- */
 .skills div.C { background:#f0db4f; color:#000; }
 .skills div.Cpp { background:#00599C; color:#fff; }
 .skills div.Java { background:#f89820; color:#fff; }
+.skills div.JavaScript { background:#f0db4f; color:#000; }
 .skills div.Python { background:#306998; color:#fff; }
 .skills div.PHP { background:#8892be; color:#fff; }
 .skills div.SQL { background:#e38c00; color:#fff; }
@@ -102,122 +130,160 @@ section h2 {
 .skills div.VSCode { background:#007ACC; color:#fff; }
 .skills div.NotepadPP { background:#9BCF00; color:#000; }
 
+/* ---------- Language Description ---------- */
+.lang-description {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  border-left: 4px solid #ff9800;
+  border-radius: 8px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  display: none;
+  font-size: 0.95rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.lang-description.show {
+  display: block;
+  opacity: 1;
+}
+body.light .lang-description {
+  background-color: #f0f0f0;
+  color: #121212;
+  border-left-color: #ff9800;
+}
+
 /* ---------- Projects ---------- */
-.projects-section { margin-bottom: 3rem; }
-.projects { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 2rem; 
-    justify-items: center; 
+.projects-section {
+  margin-bottom: 3rem;
 }
-.project-card { 
-    background: #1e1e1e; 
-    padding: 1rem; 
-    border-radius: 12px; 
-    opacity: 0; 
-    transform: translateY(10px); 
-    transition: all 0.3s ease; 
-    position: relative; 
-    width: 100%; 
-    max-width: 350px;
-    text-align: left;
-    min-height: 360px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  justify-items: center;
 }
-body.light .project-card { background: #fff; color: #121212; }
-.project-card.show { opacity: 1; transform: translateY(0); }
-.project-card h3 { margin-top: 0; }
-.project-card .screenshot-container { position: relative; margin: 1rem 0; }
-.project-card img { width: 100%; border-radius: 8px; transition: transform 0.3s ease; }
-.project-card:hover img { transform: scale(1.05); }
+.project-card {
+  background: #1e1e1e;
+  padding: 1rem;
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  text-align: left;
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+body.light .project-card {
+  background: #fff;
+  color: #121212;
+}
+.project-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.project-card h3 {
+  margin-top: 0;
+}
+.project-card .screenshot-container {
+  position: relative;
+  margin: 1rem 0;
+}
+.project-card img {
+  width: 100%;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.project-card:hover img {
+  transform: scale(1.05);
+}
 .overlay-link {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #ff9800;
-    color: #fff;
-    padding: 0.4rem 0.8rem;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: bold;
-    opacity: 0.9;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff9800;
+  color: #fff;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  opacity: 0.9;
 }
-.overlay-link:hover { opacity: 1; }
-.badge { 
-    padding: 2px 8px; 
-    font-size: 0.8rem; 
-    border-radius: 4px; 
-    position: absolute; 
-    top: 10px; 
-    right: 10px; 
-    font-weight: bold; 
+.overlay-link:hover {
+  opacity: 1;
+}
+.badge {
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: bold;
 }
 
-/* In Progress & Completed Styles */
+/* ---------- Project Status Styles ---------- */
 #inprogress-projects .project-card {
-    border: 2px solid #ff9800; 
-    box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+  border: 2px solid #ff9800;
+  box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
 }
-#inprogress-projects .badge { background: #ff9800; }
+#inprogress-projects .badge {
+  background: #ff9800;
+}
 #completed-projects .project-card {
-    border: 2px solid #4caf50; 
-    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+  border: 2px solid #4caf50;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
-#completed-projects .badge { background: #4caf50; }
-
-/* ---------- GitHub Stats ---------- */
-.stats { 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 1.5rem; 
-    justify-content: center; 
-    align-items: center; 
-    margin-bottom: 2rem; 
-}
-.stats img, .graph-container img { 
-    width: 100%; 
-    max-width: 500px; 
-    border-radius: 10px; 
+#completed-projects .badge {
+  background: #4caf50;
 }
 
-/* Align GitHub graphs in row on desktop */
-@media(min-width:1024px) {
-    .stats { flex-wrap: nowrap; }
-    .graph-container { display: inline-block; }
+/* ---------- Project Filters & Search ---------- */
+.project-filters {
+  text-align: center;
+  margin-bottom: 2rem;
 }
-
-/* ---------- Current Work ---------- */
-.current-work p { margin: 0.5rem 0; }
-
-/* ---------- Contact ---------- */
-.contact-info p { margin: 0.3rem 0; }
-.contact-info a { color: #ff9800; text-decoration: none; }
-.contact-info a:hover { text-decoration: underline; }
-
-/* ---------- Footer ---------- */
-footer { 
-    text-align: center; 
-    padding: 1.5rem; 
-    background: #1e1e1e; 
-    color: #fff; 
-    margin-top: 2rem; 
+.project-filters input {
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  border: none;
+  width: 250px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  background-color: #1e1e1e;
+  color: #fff;
 }
-body.light footer { background: #e0e0e0; color: #121212; }
-
-/* ---------- Animate ---------- */
-.animate-on-scroll { opacity: 0; transform: translateY(20px); transition: all 0.5s ease; }
-.animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
-
-/* ---------- Responsive ---------- */
-@media(max-width:1024px) {
-    .stats { flex-wrap: wrap; }
+body.light .project-filters input {
+  background-color: #f0f0f0;
+  color: #121212;
 }
-@media(max-width:600px) {
-    nav { flex-direction: column; gap: 0.5rem; }
-    header img { width: 120px; height: 120px; }
-    .projects { grid-template-columns: 1fr; }
-    .stats img, .graph-container img { max-width: 100%; }
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
+.filter-buttons button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  background-color: #ff9800;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+.filter-buttons button:hover {
+  background-color: #e67e00;
+  transform: scale(1.05);
+}
+.filter-buttons button.active {
+  background-color: #e67e00;
+  box-shadow: 0

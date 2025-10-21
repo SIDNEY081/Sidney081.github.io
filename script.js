@@ -1,4 +1,4 @@
-// ---------- Dark/Light Toggle ----------
+// ---------- Theme Toggle ----------
 const toggleBtn = document.getElementById("themeToggle");
 const themeIcon = document.getElementById("themeIcon");
 const themeText = document.getElementById("themeText");
@@ -39,62 +39,106 @@ currentWorkContainer.innerHTML = `
     <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
 `;
 
+// Descriptions for each programming language
+const langDescriptions = {
+  "C": "Low-level language used for system programming and embedded systems.",
+  "C++": "Object-oriented extension of C, great for performance-critical applications.",
+  "Java": "Versatile language used in Android development and enterprise systems.",
+  "JavaScript": "Core language of the web, used for dynamic front-end behavior.",
+  "Python": "Popular for AI, ML, scripting, and rapid development.",
+  "PHP": "Server-side scripting language for web development.",
+  "SQL": "Language for managing and querying relational databases.",
+  "MATLAB": "Used for numerical computing, simulations, and engineering applications."
+};
+
+// Attach click listeners to each badge
+document.querySelectorAll('#languageSkills .lang').forEach(el => {
+  el.addEventListener('click', () => {
+    const lang = el.getAttribute('data-lang');
+    const description = langDescriptions[lang] || "No description available.";
+    document.getElementById('langDescription').textContent = description;
+  });
+});
+
+
+document.querySelectorAll(".lang").forEach(item => {
+    item.addEventListener("click", () => {
+        const lang = item.getAttribute("data-lang");
+        const descBox = document.getElementById("langDescription");
+        descBox.innerHTML = `<strong>${lang}:</strong> ${langDescriptions[lang]}`;
+        descBox.style.display = "block";
+    });
+});
+
 // ---------- Projects ----------
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
+const filterButtons = document.createElement("div");
+filterButtons.className = "project-filters";
+filterButtons.innerHTML = `
+    <button data-filter="all">All</button>
+    <button data-filter="completed">Completed</button>
+    <button data-filter="inprogress">In Progress</button>
+`;
+document.getElementById("projects").prepend(filterButtons);
 
-// Define completed and in-progress repo names manually
-const completedRepos = ["Python_Learning", "mictseta_recruitment_system"];
-const inProgressRepos = ["SafeShell", "AI-Stroke-Shield", "ChatTTS", "School-Databse-System"];
+filterButtons.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const filter = btn.getAttribute("data-filter");
+        document.querySelectorAll(".project-card").forEach(card => {
+            card.style.display =
+                filter === "all" ||
+                card.classList.contains(filter) ? "block" : "none";
+        });
+    });
+});
 
-// Fetch all public repos for the user
 async function fetchAllRepos() {
     try {
         const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
         if (!res.ok) throw new Error("Failed to fetch repos");
-        const data = await res.json();
-        return data;
+        return await res.json();
     } catch (err) {
         console.error("Error fetching repos:", err);
         return [];
     }
 }
 
-// Create project card with working link
-function createProjectCard(repo, inProgress = false) {
+function createProjectCard(repo, isInProgress) {
     const card = document.createElement("div");
-    card.className = "project-card";
+    card.className = `project-card ${isInProgress ? "inprogress" : "completed"}`;
+    if (repo.name.toLowerCase().includes("chat")) {
+        card.classList.add("chatbot-highlight");
+    }
     card.innerHTML = `
-        ${inProgress ? '<div class="badge">In Progress</div>' : '<div class="badge">Completed</div>'}
+        <div class="badge">${isInProgress ? "In Progress" : "Completed"}</div>
         <h3>${repo.name}</h3>
         <div class="screenshot-container">
             <img class="project-screenshot" src="${repo.screenshot || placeholderScreenshot}" alt="${repo.name} Screenshot">
-            <a class="overlay-link" href="${repo.html_url || `https://github.com/${githubUsername}/${repo.name}`}" target="_blank">View Project</a>
+            <a class="overlay-link" href="${repo.html_url}" target="_blank">View Project</a>
         </div>
         <p>${repo.description || "No description provided."}</p>
+        <p class="timestamp">Last GitHub activity: ${new Date(repo.updated_at).toLocaleDateString()}</p>
+        <p class="timestamp">Last code push: ${new Date(repo.pushed_at).toLocaleDateString()}</p>
     `;
     return card;
 }
 
-// Load projects dynamically
+
 async function loadProjects() {
     const allRepos = await fetchAllRepos();
+    allRepos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
     allRepos.forEach(repo => {
-        const name = repo.name;
+        const name = repo.name.toLowerCase();
+        const desc = repo.description?.toLowerCase() || "";
+        const isInProgress = desc.includes("in progress") || name.includes("safe") || name.includes("shield") || name.includes("chat");
 
-        if (completedRepos.includes(name)) {
-            const card = createProjectCard(repo, false);
-            completedContainer.appendChild(card);
-            setTimeout(() => card.classList.add("show"), 100);
-        }
-
-        if (inProgressRepos.includes(name)) {
-            const card = createProjectCard(repo, true);
-            inProgressContainer.appendChild(card);
-            setTimeout(() => card.classList.add("show"), 100);
-        }
+        const card = createProjectCard(repo, isInProgress);
+        const container = isInProgress ? inProgressContainer : completedContainer;
+        container.appendChild(card);
+        setTimeout(() => card.classList.add("show"), 100);
     });
 }
 
