@@ -25,13 +25,14 @@
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#stats">GitHub Stats</a>
+    <a href="#activity">Recent Activity</a>
     <a href="#current">Currently Learning</a>
     <a href="#contact">Contact</a>
   </nav>
 
   <section id="about" data-aos="fade-up">
     <h2>About Me</h2>
-    <p>Hello! I’m Sidney, a final-year IT student at VUT, passionate about software development and embedded systems. I love building practical projects, from chatbots to embedded vehicle control prototypes. I’m seeking internships where I can apply my skills and continue learning.</p>
+    <p>Hello! I'm Sidney, a final-year IT student at VUT, passionate about software development and embedded systems. I love building practical projects, from chatbots to embedded vehicle control prototypes. I'm seeking internships where I can apply my skills and continue learning.</p>
   </section>
 
   <section id="skills" data-aos="fade-up">
@@ -74,45 +75,60 @@
 
   <section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
+    
+    <div class="project-filters">
+      <button data-filter="all">All</button>
+      <button data-filter="completed">Completed</button>
+      <button data-filter="inprogress">In Progress</button>
+    </div>
 
     <div class="projects-section" data-aos="fade-right">
       <h3 class="projects-category">In Progress</h3>
-      <div class="projects" id="inprogress-projects"></div>
+      <div class="projects" id="inprogress-projects">
+        <!-- Dynamic projects will load here -->
+      </div>
     </div>
 
     <div class="projects-section" data-aos="fade-left">
       <h3 class="projects-category">Completed</h3>
-      <div class="projects" id="completed-projects"></div>
+      <div class="projects" id="completed-projects">
+        <!-- Dynamic projects will load here -->
+      </div>
     </div>
   </section>
 
   <section id="stats" data-aos="zoom-in">
     <h2>GitHub Stats</h2>
     <div class="stats">
-      <img id="githubStats" src="" alt="GitHub Stats" />
-      <img id="topLangs" src="" alt="Top GitHub Languages" />
-      <img id="streak" src="" alt="GitHub Streak" />
+      <img id="githubStats" src="https://github-readme-stats.vercel.app/api?username=SIDNEY081&show_icons=true&theme=radical" alt="GitHub Stats" />
+      <img id="topLangs" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SIDNEY081&layout=compact&theme=radical" alt="Top GitHub Languages" />
+      <img id="streak" src="https://github-readme-streak-stats.herokuapp.com/?user=SIDNEY081&theme=radical" alt="GitHub Streak" />
     </div>
-    <div class="graph-container">
-      <img id="contribGraph" src="" alt="GitHub Contribution Graph" />
+  </section>
+
+  <section id="activity" data-aos="fade-up">
+    <h2>Recent GitHub Activity</h2>
+    <div class="activity-feed">
+      <!-- Activity will load here dynamically -->
     </div>
   </section>
 
   <section id="current" data-aos="fade-up">
     <h2>Currently Learning & Working On</h2>
     <div class="current-work" id="current-work">
-      <p>Learning: C++, Embedded C, Real-Time Systems, Advanced Java</p>
-      <p>Working On: Chatbot (School Project), VCU Prototype (MATLAB + Embedded C), SafeShell Android App</p>
-      <p>Exploring: AI projects with Python, IoT with Arduino & Raspberry Pi</p>
+      <p><strong>Learning:</strong> C++, Embedded C, Real-Time Systems, Advanced Java</p>
+      <p><strong>Working On:</strong> Chatbot (School Project), VCU Prototype (MATLAB + Embedded C), SafeShell Android App</p>
+      <p><strong>Exploring:</strong> AI projects with Python, IoT with Arduino & Raspberry Pi</p>
     </div>
   </section>
 
   <section id="contact" data-aos="fade-up">
     <h2>Contact</h2>
     <div class="contact-info">
-      <p>Email: sidneympenyana@gmail.com</p>
-      <p>Phone: +27 81 056 5675</p>
+      <p>Email: <a href="mailto:sidneympenyana@gmail.com">sidneympenyana@gmail.com</a></p>
+      <p>Phone: <a href="tel:+27810565675">+27 81 056 5675</a></p>
       <p>LinkedIn: <a href="https://linkedin.com/in/sidney-mpenyana" target="_blank">linkedin.com/in/sidney-mpenyana</a></p>
+      <p>GitHub: <a href="https://github.com/SIDNEY081" target="_blank">github.com/SIDNEY081</a></p>
       <p>Location: Gauteng, South Africa</p>
     </div>
   </section>
