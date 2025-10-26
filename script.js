@@ -20,37 +20,41 @@ function updateTheme() {
     themeText.textContent = isLight ? "Light Mode" : "Dark Mode";
 
     const theme = isLight ? "default" : "radical";
-    document.getElementById("githubStats").src = `https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&theme=${theme}`;
-    document.getElementById("topLangs").src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUsername}&layout=compact&theme=${theme}`;
-    document.getElementById("streak").src = `https://github-readme-streak-stats.herokuapp.com/?user=${githubUsername}&theme=${theme}`;
+    document.getElementById("githubStats").src = `https://github-readme-stats.vercel.app/api?username=${githubUsername}&show_icons=true&theme=${theme}&hide_border=true&bg_color=00000000`;
+    document.getElementById("topLangs").src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${githubUsername}&layout=compact&theme=${theme}&hide_border=true&bg_color=00000000`;
+    document.getElementById("streak").src = `https://github-readme-streak-stats.herokuapp.com/?user=${githubUsername}&theme=${theme}&hide_border=true&background=00000000`;
 }
 
 // ---------- Programming Language Descriptions ----------
 const langDescriptions = {
-  "C": "Low-level language used for system programming and embedded systems.",
-  "C++": "Object-oriented extension of C, great for performance-critical applications.",
-  "Java": "Versatile language used in Android development and enterprise systems.",
-  "JavaScript": "Core language of the web, used for dynamic front-end behavior.",
-  "Python": "Popular for AI, ML, scripting, and rapid development.",
-  "PHP": "Server-side scripting language for web development.",
-  "SQL": "Language for managing and querying relational databases.",
-  "MATLAB": "Used for numerical computing, simulations, and engineering applications."
+    "C": "Low-level language used for system programming, embedded systems, and performance-critical applications. Perfect for hardware interaction and operating systems.",
+    "C++": "Object-oriented extension of C, great for game development, high-performance applications, and system software. Combines low-level control with high-level features.",
+    "Java": "Versatile, platform-independent language used in Android development, enterprise systems, and large-scale web applications. Strong emphasis on object-oriented principles.",
+    "JavaScript": "Core language of the web, used for dynamic front-end behavior, interactive web applications, and server-side development with Node.js.",
+    "Python": "Popular for AI, ML, data science, scripting, and rapid development. Known for its simplicity, readability, and extensive library ecosystem.",
+    "PHP": "Server-side scripting language designed for web development. Powers content management systems like WordPress and e-commerce platforms.",
+    "SQL": "Structured Query Language for managing and querying relational databases. Essential for data storage, retrieval, and manipulation in web applications.",
+    "MATLAB": "Used for numerical computing, simulations, data analysis, and engineering applications. Popular in academic research and engineering fields."
 };
 
 document.querySelectorAll('#languageSkills .skill').forEach(el => {
-  el.addEventListener('click', () => {
-    const lang = el.getAttribute('data-lang');
-    const description = langDescriptions[lang] || "No description available.";
-    const descElement = document.getElementById('langDescription');
-    descElement.textContent = description;
-    descElement.classList.add('show');
-  });
+    el.addEventListener('click', () => {
+        const lang = el.getAttribute('data-lang');
+        const description = langDescriptions[lang] || "No description available.";
+        const descElement = document.getElementById('langDescription');
+        descElement.textContent = description;
+        descElement.classList.add('show');
+        
+        // Remove show class after 5 seconds
+        setTimeout(() => {
+            descElement.classList.remove('show');
+        }, 5000);
+    });
 });
 
 // ---------- Projects ----------
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
-const placeholderScreenshot = "https://via.placeholder.com/400x200/333/fff?text=Project+Screenshot";
 
 // List of projects that should always appear as Completed
 const completedProjects = [
@@ -110,24 +114,52 @@ function createProjectCard(repo, isInProgress) {
 
     // Get correct language (use override if available, otherwise use GitHub's detection)
     const correctLanguage = getCorrectLanguage(repo.name, repo.language);
+    
+    // Get screenshot URL
+    const screenshotUrl = getProjectScreenshot(repo.name);
+    
+    // Calculate days since last update
+    const lastUpdated = new Date(repo.updated_at);
+    const daysAgo = Math.floor((new Date() - lastUpdated) / (1000 * 60 * 60 * 24));
 
     card.innerHTML = `
-        <div class="badge">${isInProgress ? "In Progress" : "Completed"}</div>
+        <div class="badge ${isInProgress ? 'inprogress-badge' : 'completed-badge'}">
+            ${isInProgress ? "🚧 In Progress" : "✅ Completed"}
+        </div>
         <div class="repo-header">
             <h3>${formatProjectName(repo.name)}</h3>
             <div class="repo-stats">
-                <span class="stars">⭐ ${repo.stargazers_count}</span>
-                <span class="forks">🍴 ${repo.forks_count}</span>
+                <span class="stars" title="Stars">⭐ ${repo.stargazers_count}</span>
+                <span class="forks" title="Forks">🍴 ${repo.forks_count}</span>
+                <span class="size" title="Repository Size">📦 ${(repo.size / 1024).toFixed(1)}MB</span>
             </div>
         </div>
         <div class="screenshot-container">
-            <img class="project-screenshot" src="${placeholderScreenshot}" alt="${repo.name} Screenshot">
-            <a class="overlay-link" href="${repo.html_url}" target="_blank">View Repository</a>
+            <img class="project-screenshot" src="${screenshotUrl}" alt="${repo.name} Screenshot" loading="lazy">
+            <div class="overlay-links">
+                <a class="overlay-link repo-link" href="${repo.html_url}" target="_blank" title="View Code">
+                    📁 Repository
+                </a>
+                ${repo.homepage ? `
+                <a class="overlay-link demo-link" href="${repo.homepage}" target="_blank" title="Live Demo">
+                    🌐 Live Demo
+                </a>
+                ` : ''}
+            </div>
         </div>
         <p class="repo-description">${repo.description || "No description provided."}</p>
+        <div class="tech-stack">
+            <span class="language-tag">${correctLanguage}</span>
+            ${repo.topics && repo.topics.length > 0 ? 
+                repo.topics.slice(0, 3).map(topic => 
+                    `<span class="topic-tag">${topic}</span>`
+                ).join('') : ''}
+        </div>
         <div class="repo-footer">
-            <span class="language">${correctLanguage}</span>
-            <span class="timestamp">Updated: ${new Date(repo.updated_at).toLocaleDateString()}</span>
+            <span class="timestamp" title="Last updated ${lastUpdated.toLocaleDateString()}">
+                Updated: ${daysAgo === 0 ? 'Today' : `${daysAgo} days ago`}
+            </span>
+            <span class="visibility">${repo.private ? '🔒 Private' : '🌍 Public'}</span>
         </div>
     `;
     return card;
@@ -159,6 +191,24 @@ function getCorrectLanguage(repoName, detectedLanguage) {
     return detectedLanguage || 'Multiple';
 }
 
+// Enhanced screenshot handling
+function getProjectScreenshot(repoName) {
+    const screenshotMap = {
+        'safeshell': 'https://via.placeholder.com/400x200/4A90E2/white?text=SafeShell+Android+App',
+        'movie': 'https://via.placeholder.com/400x200/50E3C2/white?text=Movie+Finder+Web+App',
+        'stroke': 'https://via.placeholder.com/400x200/9013FE/white?text=AI+Stroke+Detection',
+        'mictseta': 'https://via.placeholder.com/400x200/F5A623/white?text=Recruitment+System',
+        'python': 'https://via.placeholder.com/400x200/417505/white?text=Python+Projects'
+    };
+    
+    const repoLower = repoName.toLowerCase();
+    for (const [key, url] of Object.entries(screenshotMap)) {
+        if (repoLower.includes(key)) return url;
+    }
+    
+    return `https://via.placeholder.com/400x200/333/fff?text=${encodeURIComponent(formatProjectName(repoName))}`;
+}
+
 // Format project names for better display
 function formatProjectName(name) {
     const nameMap = {
@@ -177,58 +227,84 @@ function formatProjectName(name) {
 function determineProjectStatus(repo) {
     const name = repo.name;
     const nameLower = name.toLowerCase();
+    const description = (repo.description || '').toLowerCase();
     
     // Always mark these as COMPLETED
-    if (completedProjects.includes(name) || completedProjects.includes(nameLower)) {
-        return false; // false = Completed
+    const completedKeywords = ["python-learning", "mictseta", "stroke", "recruitment", "learning", "tutorial"];
+    if (completedKeywords.some(keyword => nameLower.includes(keyword))) {
+        return false;
     }
     
-    // Mark SafeShell and Movie projects as IN PROGRESS
-    const inProgressProjects = ["safeshell", "movie", "chatbot"];
-    if (inProgressProjects.some(project => nameLower.includes(project))) {
-        return true; // true = In Progress
+    // Mark as IN PROGRESS based on various indicators
+    const inProgressKeywords = ["safeshell", "movie", "chatbot", "app", "mobile", "web-app"];
+    const inProgressDescriptions = ["in progress", "wip", "work in progress", "developing", "under development"];
+    
+    if (inProgressKeywords.some(keyword => nameLower.includes(keyword)) ||
+        inProgressDescriptions.some(desc => description.includes(desc))) {
+        return true;
     }
     
-    // Default to Completed for everything else
-    return false;
+    // Default: Assume completed if it has meaningful activity
+    const hasRecentActivity = new Date(repo.updated_at) > new Date(Date.now() - 90 * 24 * 60 * 60 * 1000);
+    const hasStars = repo.stargazers_count > 0;
+    
+    return !(hasRecentActivity || hasStars);
 }
 
-// Fetch ALL repositories dynamically from GitHub
+// Fetch ALL repositories dynamically from GitHub with pagination
 async function fetchAllRepos() {
     try {
         console.log("Fetching ALL repositories from GitHub...");
         
-        // Fetch personal repositories
-        const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100&sort=updated`);
-        
-        if (!response.ok) {
-            throw new Error(`GitHub API error: ${response.status}`);
+        let allRepos = [];
+        let page = 1;
+        let hasMore = true;
+
+        // Fetch all pages of repositories
+        while (hasMore) {
+            const response = await fetch(
+                `https://api.github.com/users/${githubUsername}/repos?per_page=100&page=${page}&sort=updated`
+            );
+            
+            if (!response.ok) {
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
+            
+            const repos = await response.json();
+            
+            if (repos.length === 0) {
+                hasMore = false;
+            } else {
+                allRepos = allRepos.concat(repos);
+                page++;
+                
+                // Safety limit to prevent infinite loops
+                if (page > 10) {
+                    console.warn("Reached page limit, stopping fetch");
+                    hasMore = false;
+                }
+            }
         }
-        
-        let allRepos = await response.json();
-        console.log(`Fetched ${allRepos.length} repositories from GitHub`);
+
+        console.log(`Fetched ${allRepos.length} total repositories from GitHub`);
 
         // Filter out forked repositories
         const originalRepos = allRepos.filter(repo => !repo.fork);
         console.log(`Total original repositories: ${originalRepos.length}`);
 
-        // Log all found repositories
-        console.log("All repositories found:");
-        originalRepos.forEach(repo => {
-            console.log(`- ${repo.name} (${repo.language || 'No language'}) - ${repo.html_url}`);
-        });
+        // Enhanced logging for debugging
+        console.table(originalRepos.map(repo => ({
+            Name: repo.name,
+            Language: repo.language,
+            Stars: repo.stargazers_count,
+            Updated: new Date(repo.updated_at).toLocaleDateString()
+        })));
 
-        // If no repos found, use sample data
-        if (originalRepos.length === 0) {
-            console.log("No repositories found, using sample data");
-            return getSampleProjects();
-        }
-
-        return originalRepos;
+        return originalRepos.length > 0 ? originalRepos : getSampleProjects();
         
     } catch (err) {
         console.error("Error fetching repos from GitHub:", err);
-        console.log("Using sample projects instead...");
+        console.log("Using sample projects as fallback...");
         return getSampleProjects();
     }
 }
@@ -245,7 +321,10 @@ function getSampleProjects() {
             forks_count: 1,
             language: "Java",
             updated_at: new Date().toISOString(),
-            fork: false
+            fork: false,
+            size: 15240,
+            private: false,
+            topics: ["android", "safety", "emergency", "location"]
         },
         {
             name: "AI-Stroke-Shield",
@@ -256,7 +335,10 @@ function getSampleProjects() {
             forks_count: 1,
             language: "Python",
             updated_at: new Date().toISOString(),
-            fork: false
+            fork: false,
+            size: 28760,
+            private: false,
+            topics: ["ai", "machine-learning", "healthcare", "stroke-detection"]
         },
         {
             name: "Movie_Finding_Made_Easy",
@@ -267,7 +349,10 @@ function getSampleProjects() {
             forks_count: 0,
             language: "JavaScript",
             updated_at: new Date().toISOString(),
-            fork: false
+            fork: false,
+            size: 12450,
+            private: false,
+            topics: ["web", "movies", "search", "javascript"]
         },
         {
             name: "mictseta_recruitment_system",
@@ -278,7 +363,10 @@ function getSampleProjects() {
             forks_count: 0,
             language: "Python",
             updated_at: new Date().toISOString(),
-            fork: false
+            fork: false,
+            size: 18900,
+            private: false,
+            topics: ["python", "recruitment", "education", "system"]
         },
         {
             name: "Python-Learning",
@@ -289,7 +377,10 @@ function getSampleProjects() {
             forks_count: 0,
             language: "Python",
             updated_at: new Date().toISOString(),
-            fork: false
+            fork: false,
+            size: 8760,
+            private: false,
+            topics: ["python", "learning", "exercises", "beginner"]
         }
     ];
 }
@@ -356,6 +447,7 @@ class GitHubPortfolio {
   async init() {
     await this.loadUserStats();
     this.updateLiveStats();
+    this.loadContributionGraph();
   }
 
   async loadUserStats() {
@@ -378,7 +470,9 @@ class GitHubPortfolio {
         followers: userData.followers,
         repos: userData.public_repos,
         stars: stars,
-        commits: recentCommits
+        commits: recentCommits,
+        gists: userData.public_gists,
+        following: userData.following
       });
       
     } catch (error) {
@@ -388,14 +482,16 @@ class GitHubPortfolio {
         followers: 8,
         repos: 12,
         stars: 15,
-        commits: 24
+        commits: 24,
+        gists: 5,
+        following: 12
       });
     }
   }
 
   async getRecentCommitCount() {
     try {
-      const response = await fetch(`https://api.github.com/users/${this.username}/events?per_page=50`);
+      const response = await fetch(`https://api.github.com/users/${this.username}/events?per_page=100`);
       if (!response.ok) return 12;
       
       const events = await response.json();
@@ -412,22 +508,33 @@ class GitHubPortfolio {
     }
   }
 
-  updateStatsDisplay(stats) {
-    document.getElementById('followersCount').textContent = stats.followers;
-    document.getElementById('reposCount').textContent = stats.repos;
-    document.getElementById('starsCount').textContent = stats.stars;
-    document.getElementById('commitsCount').textContent = stats.commits;
+  loadContributionGraph() {
+    const contributionGraph = document.getElementById('contributionGraph');
+    if (contributionGraph) {
+      contributionGraph.innerHTML = `
+        <img src="https://ghchart.rshah.org/${this.username}" 
+             alt="${this.username}'s GitHub contribution chart" 
+             style="width: 100%; border-radius: 10px;">
+      `;
+    }
   }
 
-  updateLiveStats() {
-    // Animate counter for engagement
-    setTimeout(() => {
-      const counters = document.querySelectorAll('.stat-card h3');
-      counters.forEach(counter => {
-        const target = parseInt(counter.textContent);
-        this.animateCounter(counter, 0, target, 2000);
-      });
-    }, 1000);
+  updateStatsDisplay(stats) {
+    const statElements = {
+      'followersCount': stats.followers,
+      'reposCount': stats.repos,
+      'starsCount': stats.stars,
+      'commitsCount': stats.commits,
+      'gistsCount': stats.gists,
+      'followingCount': stats.following
+    };
+    
+    Object.entries(statElements).forEach(([id, value]) => {
+      const element = document.getElementById(id);
+      if (element) {
+        this.animateCounter(element, 0, value, 1500);
+      }
+    });
   }
 
   animateCounter(element, start, end, duration) {
@@ -444,29 +551,59 @@ class GitHubPortfolio {
   }
 }
 
-// ---------- INITIALIZATION ----------
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('Portfolio initializing...');
-    AOS.init({ 
-        duration: 800, 
-        once: true,
-        offset: 100
-    });
-    updateTheme();
-    loadProjects();
-    new GitHubPortfolio();
+// ---------- Scroll to Top Functionality ----------
+function initScrollToTop() {
+    const scrollBtn = document.getElementById('scrollToTop');
     
-    // Add smooth scrolling for navigation
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollBtn.classList.add('show');
+        } else {
+            scrollBtn.classList.remove('show');
+        }
+    });
+    
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ---------- Smooth Scrolling ----------
+function initSmoothScrolling() {
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth' });
+                targetElement.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
             }
         });
     });
+}
+
+// ---------- INITIALIZATION ----------
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('🎨 Portfolio initializing...');
     
-    console.log('Portfolio initialized successfully!');
+    // Initialize AOS
+    AOS.init({ 
+        duration: 800, 
+        once: true,
+        offset: 100 
+    });
+    
+    // Set initial theme
+    updateTheme();
+    
+    // Initialize functionality
+    loadProjects();
+    new GitHubPortfolio();
+    initScrollToTop();
+    initSmoothScrolling();
+    
+    console.log('✅ Portfolio initialized successfully!');
 });

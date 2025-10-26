@@ -4,10 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sidney Mpenyana - Portfolio | Software Developer</title>
-  <meta name="description" content="Sidney Mpenyana - Final-year IT Student specializing in Software Development . Explore my projects and skills.">
+  <meta name="description" content="Sidney Mpenyana - Final-year IT Student specializing in Software Development. Explore my projects and skills.">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -20,12 +21,13 @@
   <header data-aos="fade-down">
     <img src="assets/profile.jpg" alt="Sidney Mpenyana" />
     <h1>Sidney Mpenyana</h1>
-    <p>Final-year IT Student | Software Development </p>
+    <p>Final-year IT Student | Software Development</p>
     
-    <!-- Professional Badges - FIXED CLASSES -->
+    <!-- Professional Badges -->
     <div class="header-badges">
       <span class="header-badge">🚀 Seeking Internship</span>
       <span class="header-badge">💻 Full-Stack Developer</span>
+      <span class="header-badge">🤖 AI Enthusiast</span>
     </div>
   </header>
 
@@ -54,6 +56,31 @@
           <h3>💡 What I Bring</h3>
           <p>Strong problem-solving abilities, quick learning curve, and passion for creating efficient, user-friendly software solutions across multiple platforms.</p>
         </div>
+
+        <div class="highlight-card">
+          <h3>🚀 My Journey</h3>
+          <p>From embedded systems to AI applications, I've worked on diverse projects that showcase my adaptability and passion for technology.</p>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="quick-stats">
+        <div class="quick-stat">
+          <h3>10+</h3>
+          <p>Projects</p>
+        </div>
+        <div class="quick-stat">
+          <h3>5+</h3>
+          <p>Technologies</p>
+        </div>
+        <div class="quick-stat">
+          <h3>2+</h3>
+          <p>Years Coding</p>
+        </div>
+        <div class="quick-stat">
+          <h3>100%</h3>
+          <p>Passionate</p>
+        </div>
       </div>
     </div>
   </section>
@@ -73,7 +100,9 @@
       <div class="skill SQL" data-lang="SQL" data-aos="fade-up"><span>SQL</span></div>
       <div class="skill MATLAB" data-lang="MATLAB" data-aos="fade-up"><span>MATLAB</span></div>
     </div>
-    <div id="langDescription" class="lang-description"></div>
+    <div id="langDescription" class="lang-description">
+      Click on any language to see its description and use cases.
+    </div>
 
     <h3>Web & Markup Technologies</h3>
     <div class="skills" data-aos="fade-right">
@@ -114,19 +143,21 @@
     </div>
 
     <div class="projects-container">
-      <div class="projects-section" data-aos="fade-right">
+      <div class="projects-section">
         <h3 class="projects-category">🚧 In Progress</h3>
-        <div class="projects" id="inprogress-projects">
+        <div class="projects-grid" id="inprogress-projects">
           <div class="project-placeholder">
+            <div class="loading-spinner"></div>
             <p>Loading current projects...</p>
           </div>
         </div>
       </div>
 
-      <div class="projects-section" data-aos="fade-left">
+      <div class="projects-section">
         <h3 class="projects-category">✅ Completed</h3>
-        <div class="projects" id="completed-projects">
+        <div class="projects-grid" id="completed-projects">
           <div class="project-placeholder">
+            <div class="loading-spinner"></div>
             <p>Loading completed projects...</p>
           </div>
         </div>
@@ -139,6 +170,12 @@
     <h2>GitHub Activity</h2>
     <p class="section-subtitle">My coding journey and contributions</p>
     
+    <!-- Contribution Graph -->
+    <div class="contribution-graph" data-aos="fade-up">
+      <h3>📊 Contribution Activity</h3>
+      <div id="contributionGraph" class="graph-container"></div>
+    </div>
+    
     <div class="stats">
       <img id="githubStats" src="" alt="GitHub Stats" />
       <img id="topLangs" src="" alt="Top Languages" />
@@ -148,20 +185,34 @@
     <div class="live-stats">
       <div class="stat-cards">
         <div class="stat-card">
+          <div class="stat-icon">👥</div>
           <h3 id="followersCount">0</h3>
           <p>Followers</p>
         </div>
         <div class="stat-card">
+          <div class="stat-icon">📁</div>
           <h3 id="reposCount">0</h3>
           <p>Repositories</p>
         </div>
         <div class="stat-card">
+          <div class="stat-icon">⭐</div>
           <h3 id="starsCount">0</h3>
           <p>Stars Earned</p>
         </div>
         <div class="stat-card">
+          <div class="stat-icon">💾</div>
           <h3 id="commitsCount">0</h3>
           <p>Recent Commits</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📝</div>
+          <h3 id="gistsCount">0</h3>
+          <p>Code Gists</p>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">👀</div>
+          <h3 id="followingCount">0</h3>
+          <p>Following</p>
         </div>
       </div>
     </div>
@@ -175,37 +226,67 @@
     <div class="contact-container">
       <div class="contact-info">
         <div class="contact-item">
-          <h3>📧 Email</h3>
-          <a href="mailto:sidneympenyana@gmail.com">sidneympenyana@gmail.com</a>
+          <div class="contact-icon">📧</div>
+          <div class="contact-details">
+            <h3>Email</h3>
+            <a href="mailto:sidneympenyana@gmail.com">sidneympenyana@gmail.com</a>
+          </div>
         </div>
         
         <div class="contact-item">
-          <h3>📞 Phone</h3>
-          <a href="tel:+27810565675">+27 81 056 5675</a>
+          <div class="contact-icon">📞</div>
+          <div class="contact-details">
+            <h3>Phone</h3>
+            <a href="tel:+27810565675">+27 81 056 5675</a>
+          </div>
         </div>
         
         <div class="contact-item">
-          <h3>💼 LinkedIn</h3>
-          <a href="https://linkedin.com/in/sidney-mpenyana" target="_blank">linkedin.com/in/sidney-mpenyana</a>
+          <div class="contact-icon">💼</div>
+          <div class="contact-details">
+            <h3>LinkedIn</h3>
+            <a href="https://linkedin.com/in/sidney-mpenyana" target="_blank">linkedin.com/in/sidney-mpenyana</a>
+          </div>
         </div>
         
         <div class="contact-item">
-          <h3>💻 GitHub</h3>
-          <a href="https://github.com/SIDNEY081" target="_blank">github.com/SIDNEY081</a>
+          <div class="contact-icon">💻</div>
+          <div class="contact-details">
+            <h3>GitHub</h3>
+            <a href="https://github.com/SIDNEY081" target="_blank">github.com/SIDNEY081</a>
+          </div>
         </div>
         
         <div class="contact-item">
-          <h3>📍 Location</h3>
-          <p>Gauteng, South Africa</p>
+          <div class="contact-icon">📍</div>
+          <div class="contact-details">
+            <h3>Location</h3>
+            <p>Gauteng, South Africa</p>
+          </div>
         </div>
       </div>
       
       <div class="availability">
-        <h3>🎯 Availability</h3>
-        <p><strong>Status:</strong> <span class="available">Available for Internship / Graduate Programme</span></p>
-        <p><strong>Start Date:</strong> Immediate</p>
-        <p><strong>Duration:</strong> 12-24 months</p>
-        <p><strong>Preferences:</strong> Software Development, But open to any IT internship/ Graduate Programme</p>
+        <h3>🎯 Availability Status</h3>
+        <div class="status-card available">
+          <div class="status-indicator"></div>
+          <div class="status-content">
+            <h4>Available for Opportunities</h4>
+            <p><strong>Type:</strong> Internship / Graduate Programme</p>
+            <p><strong>Start Date:</strong> Immediate</p>
+            <p><strong>Duration:</strong> 12-24 months</p>
+            <p><strong>Preferences:</strong> Software Development, Web Development, Mobile Apps, AI/ML</p>
+          </div>
+        </div>
+        
+        <div class="call-to-action">
+          <h4>Ready to Collaborate?</h4>
+          <p>I'm excited to bring my skills and enthusiasm to your team. Let's build something amazing together!</p>
+          <div class="action-buttons">
+            <a href="mailto:sidneympenyana@gmail.com" class="btn-primary">Send Email</a>
+            <a href="https://linkedin.com/in/sidney-mpenyana" target="_blank" class="btn-secondary">Connect on LinkedIn</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -215,13 +296,28 @@
     <div class="footer-content">
       <p>© 2025 Sidney Mpenyana | Always building, always learning. 🚀</p>
       <p class="footer-quote">"Passionate about turning ideas into functional, efficient software solutions"</p>
+      <div class="footer-links">
+        <a href="#about">About</a> • 
+        <a href="#skills">Skills</a> • 
+        <a href="#projects">Projects</a> • 
+        <a href="#contact">Contact</a>
+      </div>
     </div>
   </footer>
+
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
 
   <script src="script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({ duration: 800, once: true });
+    AOS.init({ 
+      duration: 800, 
+      once: true,
+      offset: 100 
+    });
   </script>
 </body>
 </html>
