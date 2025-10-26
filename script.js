@@ -74,7 +74,7 @@ const languageOverrides = {
     "ai-stroke-shield": "Python",
     "SafeShell": "Java",
     "safeshell": "Java",
-    "Movie_Finding_Made_Easy": "JavaScript",
+    "Movie_Finding_Made_Easy": "PHP",
     "Movie-Finder": "JavaScript"
 };
 
