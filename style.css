@@ -266,12 +266,49 @@ h2 {
 }
 
 /* ===== Skills Section ===== */
+#skills h3 {
+  text-align: center;
+  margin: 40px 0 25px 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+  position: relative;
+  width: 100%;
+  display: block;
+}
+
+#skills h3:first-of-type {
+  margin-top: 20px;
+}
+
+#skills h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--gradient);
+  border-radius: 2px;
+}
+
 .skills {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
   margin-bottom: 30px;
+  width: 100%;
+}
+
+/* Ensure the language skills grid is centered */
+#languageSkills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+  width: 100%;
 }
 
 .skill {
@@ -292,11 +329,13 @@ h2 {
 }
 
 .lang-description {
+  text-align: center;
   background: rgba(37, 99, 235, 0.1);
   padding: 20px;
   border-radius: 15px;
   border-left: 4px solid var(--primary-color);
-  margin-top: 20px;
+  margin: 20px auto 30px;
+  max-width: 800px;
   transition: all 0.3s ease;
 }
 
