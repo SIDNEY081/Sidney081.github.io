@@ -551,6 +551,32 @@ class GitHubPortfolio {
   }
 }
 
+// ---------- Enhanced Smooth Scrolling ----------
+function initSmoothScrolling() {
+    document.querySelectorAll('nav a, .footer-links a').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            
+            // Handle external links
+            if (targetId.startsWith('http') || targetId.startsWith('mailto') || targetId.startsWith('tel')) {
+                return; // Let default behavior handle external links
+            }
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Update URL without page jump
+                history.pushState(null, null, targetId);
+            }
+        });
+    });
+}
+
 // ---------- Scroll to Top Functionality ----------
 function initScrollToTop() {
     const scrollBtn = document.getElementById('scrollToTop');
@@ -565,23 +591,6 @@ function initScrollToTop() {
     
     scrollBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-}
-
-// ---------- Smooth Scrolling ----------
-function initSmoothScrolling() {
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
     });
 }
 
