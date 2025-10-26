@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sidney Mpenyana Portfolio</title>
+  <title>Sidney Mpenyana - Portfolio | Software Developer</title>
+  <meta name="description" content="Sidney Mpenyana - Final-year IT Student specializing in Software Development & Embedded Systems. Explore my projects and skills.">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
@@ -19,7 +20,12 @@
   <header data-aos="fade-down">
     <img src="assets/profile.jpg" alt="Sidney Mpenyana" />
     <h1>Sidney Mpenyana</h1>
-    <p>Final-year IT Student | Software Development & Embedded Systems</p>
+    <p>Final-year IT Student | Software Development </p>
+    <div class="header-badges">
+      <span class="badge">🚀 Seeking Internship</span>
+      <span class="badge">💻 Full-Stack Developer</span>
+      
+    </div>
   </header>
 
   <!-- Navigation -->
@@ -28,117 +34,223 @@
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#stats">GitHub Stats</a>
-    <a href="#activity">Recent Activity</a>
-    <a href="#current">Currently Learning</a>
     <a href="#contact">Contact</a>
   </nav>
 
   <!-- About Section -->
   <section id="about" data-aos="fade-up">
     <h2>About Me</h2>
-    <p>Hello! I'm Sidney, a final-year IT student at VUT, passionate about software development and embedded systems. I love building practical projects, from chatbots to embedded vehicle control prototypes. I'm seeking internships where I can apply my skills and continue learning.</p>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="skills" data-aos="fade-up">
-    <h2>Skills</h2>
-
-    <h3>Programming Languages</h3>
-    <div class="skills" id="languageSkills">
-      <div class="lang" data-lang="C" data-aos="fade-up"><span>C</span></div>
-      <div class="lang" data-lang="C++" data-aos="fade-up"><span>C++</span></div>
-      <div class="lang" data-lang="Java" data-aos="fade-up"><span>Java</span></div>
-      <div class="lang" data-lang="JavaScript" data-aos="fade-up"><span>JavaScript</span></div>
-      <div class="lang" data-lang="Python" data-aos="fade-up"><span>Python</span></div>
-      <div class="lang" data-lang="PHP" data-aos="fade-up"><span>PHP</span></div>
-      <div class="lang" data-lang="SQL" data-aos="fade-up"><span>SQL</span></div>
-      <div class="lang" data-lang="MATLAB" data-aos="fade-up"><span>MATLAB</span></div>
-    </div>
-    <div id="langDescription" class="lang-description"></div>
-
-    <h3>Web & Markup</h3>
-    <div class="skills" data-aos="fade-right">
-      <div class="HTML5"><span>HTML5</span></div>
-      <div class="CSS3"><span>CSS3</span></div>
-    </div>
-
-    <h3>Embedded & IoT</h3>
-    <div class="skills" data-aos="fade-left">
-      <div class="Arduino"><span>Arduino</span></div>
-      <div class="Raspberry"><span>Raspberry Pi</span></div>
-      <div class="Linux"><span>Linux</span></div>
-    </div>
-
-    <h3>Tools & Editors</h3>
-    <div class="skills" data-aos="zoom-in">
-      <div class="Git"><span>Git</span></div>
-      <div class="NetBeans"><span>NetBeans</span></div>
-      <div class="VSCode"><span>VS Code</span></div>
-      <div class="NotepadPP"><span>Notepad++</span></div>
+    <div class="about-content">
+      <p>Hello! I'm Sidney, a passionate final-year IT student at VUT with strong expertise in software development. I thrive on building practical, innovative solutions that solve real-world problems.</p>
+      
+      <div class="highlights">
+        <div class="highlight-card">
+          <h3>🎯 Career Focus</h3>
+          <p>Seeking challenging internship opportunities to apply my technical skills and contribute to meaningful projects while continuing to learn and grow.</p>
+        </div>
+        
+        <div class="highlight-card">
+          <h3>💡 What I Bring</h3>
+          <p>Strong problem-solving abilities, quick learning curve, and passion for creating efficient, user-friendly software solutions across multiple platforms.</p>
+        </div>
+      </div>
     </div>
   </section>
+<!-- Skills Section -->
+<section id="skills" data-aos="fade-up">
+  <h2>Technical Skills</h2>
+
+  <h3>Programming Languages</h3>
+  <div class="skills" id="languageSkills">
+    <div class="skill C" data-lang="C" data-aos="fade-up"><span>C</span></div>
+    <div class="skill Cpp" data-lang="C++" data-aos="fade-up"><span>C++</span></div>
+    <div class="skill Java" data-lang="Java" data-aos="fade-up"><span>Java</span></div>
+    <div class="skill JavaScript" data-lang="JavaScript" data-aos="fade-up"><span>JavaScript</span></div>
+    <div class="skill Python" data-lang="Python" data-aos="fade-up"><span>Python</span></div>
+    <div class="skill PHP" data-lang="PHP" data-aos="fade-up"><span>PHP</span></div>
+    <div class="skill SQL" data-lang="SQL" data-aos="fade-up"><span>SQL</span></div>
+    <div class="skill MATLAB" data-lang="MATLAB" data-aos="fade-up"><span>MATLAB</span></div>
+  </div>
+  <div id="langDescription" class="lang-description"></div>
+
+  <h3>Web & Markup Technologies</h3>
+  <div class="skills" data-aos="fade-right">
+    <div class="skill HTML5"><span>HTML5</span></div>
+    <div class="skill CSS3"><span>CSS3</span></div>
+    <div class="skill React"><span>React</span></div>
+    <div class="skill NodeJS"><span>Node.js</span></div>
+  </div>
+
+  <h3>Embedded Systems & IoT</h3>
+  <div class="skills" data-aos="fade-left">
+    <div class="skill Arduino"><span>Arduino</span></div>
+    <div class="skill Raspberry"><span>Raspberry Pi</span></div>
+    <div class="skill Linux"><span>Linux</span></div>
+    <div class="skill EmbeddedC"><span>Embedded C</span></div>
+  </div>
+
+  <h3>Tools & Development Environment</h3>
+  <div class="skills" data-aos="zoom-in">
+    <div class="skill Git"><span>Git</span></div>
+    <div class="skill VSCode"><span>VS Code</span></div>
+    <div class="skill NetBeans"><span>NetBeans</span></div>
+    <div class="skill AndroidStudio"><span>Android Studio</span></div>
+    <div class="skill Docker"><span>Docker</span></div>
+  </div>
+</section>
 
   <!-- Projects Section -->
   <section id="projects" data-aos="fade-up">
-    <h2>Projects</h2>
+    <h2>My Projects</h2>
+    <p class="section-subtitle">Practical applications of my skills - from AI solutions to web applications</p>
 
     <!-- Project Filters -->
     <div class="project-filters">
-      <button data-filter="all" class="active">All</button>
+      <button data-filter="all" class="active">All Projects</button>
       <button data-filter="completed">Completed</button>
       <button data-filter="inprogress">In Progress</button>
     </div>
 
     <div class="projects-container">
       <div class="projects-section" data-aos="fade-right">
-        <h3 class="projects-category">In Progress</h3>
-        <div class="projects" id="inprogress-projects"></div>
+        <h3 class="projects-category">🚧 In Progress</h3>
+        <div class="projects" id="inprogress-projects">
+          <div class="project-placeholder">
+            <p>Loading current projects...</p>
+          </div>
+        </div>
       </div>
 
       <div class="projects-section" data-aos="fade-left">
-        <h3 class="projects-category">Completed</h3>
-        <div class="projects" id="completed-projects"></div>
+        <h3 class="projects-category">✅ Completed</h3>
+        <div class="projects" id="completed-projects">
+          <div class="project-placeholder">
+            <p>Loading completed projects...</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- GitHub Stats Section -->
   <section id="stats" data-aos="zoom-in">
-    <h2>GitHub Stats</h2>
+    <h2>GitHub Activity</h2>
+    <p class="section-subtitle">My coding journey and contributions</p>
+    
     <div class="stats">
       <img id="githubStats" src="" alt="GitHub Stats" />
       <img id="topLangs" src="" alt="Top Languages" />
       <img id="streak" src="" alt="GitHub Streak" />
     </div>
-  </section>
-
-  <!-- Recent GitHub Activity -->
-  <section id="activity" data-aos="fade-up">
-    <h2>Recent GitHub Activity</h2>
-    <div class="activity-feed"></div>
+    
+    <div class="live-stats">
+      <div class="stat-cards">
+        <div class="stat-card">
+          <h3 id="followersCount">0</h3>
+          <p>Followers</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="reposCount">0</h3>
+          <p>Repositories</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="starsCount">0</h3>
+          <p>Stars Earned</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="commitsCount">0</h3>
+          <p>Recent Commits</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Current Work Section -->
   <section id="current" data-aos="fade-up">
     <h2>Currently Learning & Working On</h2>
-    <div class="current-work" id="current-work"></div>
+    <div class="current-work" id="current-work">
+      <div class="learning-grid">
+        <div class="learning-item">
+          <h3>🎯 Immediate Focus</h3>
+          <ul>
+            <li>Advanced Java & Spring Framework</li>
+            <li>React & Modern Frontend Development</li>
+            <li>System Design Patterns</li>
+            <li>API Development & Integration</li>
+          </ul>
+        </div>
+        
+        <div class="learning-item">
+          <h3>🚀 Active Projects</h3>
+          <ul>
+            <li><strong>SafeShell:</strong> Android safety application</li>
+            <li><strong>Movie Finding Platform:</strong> Web application</li>
+            <li><strong>AI Stroke Detection:</strong> Machine learning project</li>
+          </ul>
+        </div>
+        
+        <div class="learning-item">
+          <h3>📈 Career Goals</h3>
+          <ul>
+            <li>Secure software development internship</li>
+            <li>Contribute to open-source projects</li>
+            <li>Build expertise in full-stack development</li>
+            <li>Learn cloud technologies (AWS/Azure)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- Contact Section -->
   <section id="contact" data-aos="fade-up">
-    <h2>Contact</h2>
-    <div class="contact-info">
-      <p>Email: <a href="mailto:sidneympenyana@gmail.com">sidneympenyana@gmail.com</a></p>
-      <p>Phone: <a href="tel:+27810565675">+27 81 056 5675</a></p>
-      <p>LinkedIn: <a href="https://linkedin.com/in/sidney-mpenyana" target="_blank">linkedin.com/in/sidney-mpenyana</a></p>
-      <p>GitHub: <a href="https://github.com/SIDNEY081" target="_blank">github.com/SIDNEY081</a></p>
-      <p>Location: Gauteng, South Africa</p>
+    <h2>Let's Connect!</h2>
+    <p class="section-subtitle">Open to internship opportunities and technical collaborations</p>
+    
+    <div class="contact-container">
+      <div class="contact-info">
+        <div class="contact-item">
+          <h3>📧 Email</h3>
+          <a href="mailto:sidneympenyana@gmail.com">sidneympenyana@gmail.com</a>
+        </div>
+        
+        <div class="contact-item">
+          <h3>📞 Phone</h3>
+          <a href="tel:+27810565675">+27 81 056 5675</a>
+        </div>
+        
+        <div class="contact-item">
+          <h3>💼 LinkedIn</h3>
+          <a href="https://linkedin.com/in/sidney-mpenyana" target="_blank">linkedin.com/in/sidney-mpenyana</a>
+        </div>
+        
+        <div class="contact-item">
+          <h3>💻 GitHub</h3>
+          <a href="https://github.com/SIDNEY081" target="_blank">github.com/SIDNEY081</a>
+        </div>
+        
+        <div class="contact-item">
+          <h3>📍 Location</h3>
+          <p>Gauteng, South Africa</p>
+        </div>
+      </div>
+      
+      <div class="availability">
+        <h3>🎯 Availability</h3>
+        <p><strong>Status:</strong> <span class="available">Available for Internship</span></p>
+        <p><strong>Start Date:</strong> Immediate</p>
+        <p><strong>Duration:</strong> 12-24 months</p>
+      
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
   <footer data-aos="fade-up">
-    <p>© 2025 Sidney Mpenyana | Always building, always learning.</p>
+    <div class="footer-content">
+      <p>© 2025 Sidney Mpenyana | Always building, always learning. 🚀</p>
+      <p class="footer-quote">"Passionate about turning ideas into functional, efficient software solutions"</p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
