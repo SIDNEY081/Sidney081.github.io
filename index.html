@@ -10,34 +10,38 @@
 </head>
 <body>
 
+  <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle">
     <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
   </button>
 
+  <!-- Header -->
   <header data-aos="fade-down">
     <img src="assets/profile.jpg" alt="Sidney Mpenyana" />
     <h1>Sidney Mpenyana</h1>
     <p>Final-year IT Student | Software Development & Embedded Systems</p>
   </header>
 
+  <!-- Navigation -->
   <nav data-aos="fade-up">
-    <a href="#about">About Me</a>
+    <a href="#about">About</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#stats">GitHub Stats</a>
-    <a href="#activity">Recent Activity</a>
+    <a href="#activity">Activity</a>
     <a href="#current">Currently Learning</a>
     <a href="#contact">Contact</a>
   </nav>
 
+  <!-- About Me -->
   <section id="about" data-aos="fade-up">
     <h2>About Me</h2>
     <p>Hello! I'm Sidney, a final-year IT student at VUT, passionate about software development and embedded systems. I love building practical projects, from chatbots to embedded vehicle control prototypes. I'm seeking internships where I can apply my skills and continue learning.</p>
   </section>
 
+  <!-- Skills -->
   <section id="skills" data-aos="fade-up">
     <h2>Skills</h2>
-
     <h3>Programming Languages</h3>
     <div class="skills" id="languageSkills">
       <div class="lang C" data-lang="C" data-aos="fade-up"><span>C</span></div>
@@ -52,20 +56,20 @@
     <div id="langDescription" class="lang-description"></div>
 
     <h3>Web & Markup</h3>
-    <div class="skills" data-aos="fade-right">
+    <div class="skills">
       <div class="HTML5"><span>HTML5</span></div>
       <div class="CSS3"><span>CSS3</span></div>
     </div>
 
     <h3>Embedded & IoT</h3>
-    <div class="skills" data-aos="fade-left">
+    <div class="skills">
       <div class="Arduino"><span>Arduino</span></div>
       <div class="Raspberry"><span>Raspberry Pi</span></div>
       <div class="Linux"><span>Linux</span></div>
     </div>
 
     <h3>Tools & Editors</h3>
-    <div class="skills" data-aos="zoom-in">
+    <div class="skills">
       <div class="Git"><span>Git</span></div>
       <div class="NetBeans"><span>NetBeans</span></div>
       <div class="VSCode"><span>VS Code</span></div>
@@ -73,30 +77,20 @@
     </div>
   </section>
 
+  <!-- Projects -->
   <section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
-    
-    <div class="project-filters">
-      <button data-filter="all">All</button>
-      <button data-filter="completed">Completed</button>
-      <button data-filter="inprogress">In Progress</button>
+    <div class="projects-section">
+      <h3>In Progress</h3>
+      <div class="projects" id="inprogress-projects"></div>
     </div>
-
-    <div class="projects-section" data-aos="fade-right">
-      <h3 class="projects-category">In Progress</h3>
-      <div class="projects" id="inprogress-projects">
-        <!-- Dynamic projects will load here -->
-      </div>
-    </div>
-
-    <div class="projects-section" data-aos="fade-left">
-      <h3 class="projects-category">Completed</h3>
-      <div class="projects" id="completed-projects">
-        <!-- Dynamic projects will load here -->
-      </div>
+    <div class="projects-section">
+      <h3>Completed</h3>
+      <div class="projects" id="completed-projects"></div>
     </div>
   </section>
 
+  <!-- GitHub Stats -->
   <section id="stats" data-aos="zoom-in">
     <h2>GitHub Stats</h2>
     <div class="stats">
@@ -106,22 +100,19 @@
     </div>
   </section>
 
+  <!-- Recent Activity -->
   <section id="activity" data-aos="fade-up">
     <h2>Recent GitHub Activity</h2>
-    <div class="activity-feed">
-      <!-- Activity will load here dynamically -->
-    </div>
+    <div class="activity-feed"></div>
   </section>
 
+  <!-- Currently Learning & Working On -->
   <section id="current" data-aos="fade-up">
     <h2>Currently Learning & Working On</h2>
-    <div class="current-work" id="current-work">
-      <p><strong>Learning:</strong> C++, Embedded C, Real-Time Systems, Advanced Java</p>
-      <p><strong>Working On:</strong> Chatbot (School Project), VCU Prototype (MATLAB + Embedded C), SafeShell Android App</p>
-      <p><strong>Exploring:</strong> AI projects with Python, IoT with Arduino & Raspberry Pi</p>
-    </div>
+    <div class="current-work" id="current-work"></div>
   </section>
 
+  <!-- Contact -->
   <section id="contact" data-aos="fade-up">
     <h2>Contact</h2>
     <div class="contact-info">
@@ -133,17 +124,16 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer data-aos="fade-up">
     <p>© 2025 Sidney Mpenyana | Always building, always learning.</p>
   </footer>
 
+  <!-- Scripts -->
   <script src="script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init({
-      duration: 800,
-      once: true
-    });
+    AOS.init({ duration: 800, once: true });
   </script>
 </body>
 </html>

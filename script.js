@@ -28,7 +28,7 @@ function updateTheme() {
 // ---------- Current Work ----------
 const currentWorkData = {
     learning: ["C++", "Embedded C", "Real-Time Systems", "Advanced Java"],
-    workingOn: ["Chatbot (School Project)", "VCU Prototype Project (MATLAB + Embedded C)", "SafeShell Android App"],
+    workingOn: ["Chatbot (School Project)", "MICT SETA Recruitment System", "SafeShell Android App"],
     exploring: ["AI projects with Python", "IoT projects with Arduino & Raspberry Pi"]
 };
 const currentWorkContainer = document.getElementById("current-work");
@@ -38,7 +38,7 @@ currentWorkContainer.innerHTML = `
     <p><strong>Exploring:</strong> ${currentWorkData.exploring.join(", ")}</p>
 `;
 
-// Descriptions for each programming language
+// ---------- Programming Language Descriptions ----------
 const langDescriptions = {
   "C": "Low-level language used for system programming and embedded systems.",
   "C++": "Object-oriented extension of C, great for performance-critical applications.",
@@ -50,7 +50,6 @@ const langDescriptions = {
   "MATLAB": "Used for numerical computing, simulations, and engineering applications."
 };
 
-// Attach click listeners to each badge
 document.querySelectorAll('#languageSkills .lang').forEach(el => {
   el.addEventListener('click', () => {
     const lang = el.getAttribute('data-lang');
@@ -64,7 +63,15 @@ const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
 const placeholderScreenshot = "assets/screenshots/placeholder.png";
 
-// Project filtering
+// Map project names to actual screenshots
+const projectScreenshots = {
+  "AI-Stroke-Shield": "assets/screenshots/stroke.png",
+  "SafeShell": "assets/screenshots/safeshell.png",
+  "MICT-SETA": "assets/screenshots/mict.png",
+  "Movie-Finder": "assets/screenshots/movie.png"
+};
+
+// Project filtering buttons
 const filterButtons = document.createElement("div");
 filterButtons.className = "project-filters";
 filterButtons.innerHTML = `
@@ -79,13 +86,12 @@ filterButtons.querySelectorAll("button").forEach(btn => {
         const filter = btn.getAttribute("data-filter");
         document.querySelectorAll(".project-card").forEach(card => {
             card.style.display =
-                filter === "all" ||
-                card.classList.contains(filter) ? "block" : "none";
+                filter === "all" || card.classList.contains(filter) ? "block" : "none";
         });
     });
 });
 
-// Fetch repositories from GitHub
+// Fetch GitHub repos
 async function fetchAllRepos() {
     try {
         const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
@@ -101,12 +107,15 @@ async function fetchAllRepos() {
 function createProjectCard(repo, isInProgress) {
     const card = document.createElement("div");
     card.className = `project-card ${isInProgress ? "inprogress" : "completed"}`;
-    
-    // Add special highlighting for key projects
+
+    // Highlight key projects
     if (repo.name.toLowerCase().includes('safe')) card.classList.add('safeshell-highlight');
     if (repo.name.toLowerCase().includes('stroke')) card.classList.add('ai-highlight');
     if (repo.name.toLowerCase().includes('movie')) card.classList.add('movie-highlight');
-    
+    if (repo.name.toLowerCase().includes('mict')) card.classList.add('mict-highlight');
+
+    const screenshot = projectScreenshots[repo.name] || placeholderScreenshot;
+
     card.innerHTML = `
         <div class="badge">${isInProgress ? "In Progress" : "Completed"}</div>
         <div class="repo-header">
@@ -117,7 +126,7 @@ function createProjectCard(repo, isInProgress) {
             </div>
         </div>
         <div class="screenshot-container">
-            <img class="project-screenshot" src="${placeholderScreenshot}" alt="${repo.name} Screenshot">
+            <img class="project-screenshot" src="${screenshot}" alt="${repo.name} Screenshot">
             <a class="overlay-link" href="${repo.html_url}" target="_blank">View Repository</a>
         </div>
         <p class="repo-description">${repo.description || "No description provided."}</p>
@@ -133,19 +142,17 @@ function createProjectCard(repo, isInProgress) {
 function determineProjectStatus(repo) {
     const name = repo.name.toLowerCase();
     const desc = repo.description?.toLowerCase() || "";
-    const isRecent = new Date(repo.pushed_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-    
+    const isRecent = new Date(repo.pushed_at) > new Date(Date.now() - 30*24*60*60*1000);
+
     const inProgressIndicators = [
         'safe', 'shield', 'chat', 'prototype', 'wip', 'in progress',
-        'development', 'building', 'working on'
+        'development', 'building', 'working on', 'mict'
     ];
-    
-    return inProgressIndicators.some(indicator => 
-        name.includes(indicator) || desc.includes(indicator)
-    ) || isRecent;
+
+    return inProgressIndicators.some(indicator => name.includes(indicator) || desc.includes(indicator)) || isRecent;
 }
 
-// Load projects
+// Load projects dynamically
 async function loadProjects() {
     const allRepos = await fetchAllRepos();
     allRepos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
@@ -159,11 +166,10 @@ async function loadProjects() {
     });
 }
 
-// ========== DYNAMIC GITHUB FEATURES ========== //
-
+// ========== GitHub Portfolio Class ==========
 class GitHubPortfolio {
   constructor() {
-    this.username = 'SIDNEY081';
+    this.username = githubUsername;
     this.init();
   }
 
@@ -179,20 +185,16 @@ class GitHubPortfolio {
         fetch(`https://api.github.com/users/${this.username}`),
         fetch(`https://api.github.com/users/${this.username}/repos?per_page=100`)
       ]);
-      
       const userData = await userResponse.json();
       const repos = await reposResponse.json();
-      
       const stars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
       const recentCommits = await this.getRecentCommitCount();
-      
       this.updateStatsDisplay({
         followers: userData.followers,
         repos: userData.public_repos,
         stars: stars,
         commits: recentCommits
       });
-      
     } catch (error) {
       console.error('Error loading GitHub stats:', error);
     }
@@ -202,16 +204,10 @@ class GitHubPortfolio {
     try {
       const response = await fetch(`https://api.github.com/users/${this.username}/events`);
       const events = await response.json();
-      
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      
-      const recentCommits = events.filter(event => 
-        event.type === 'PushEvent' && 
-        new Date(event.created_at) > thirtyDaysAgo
-      ).reduce((acc, event) => acc + event.payload.commits.length, 0);
-      
-      return recentCommits;
+      return events.filter(event => event.type === 'PushEvent' && new Date(event.created_at) > thirtyDaysAgo)
+                   .reduce((acc, event) => acc + event.payload.commits.length, 0);
     } catch (error) {
       console.error('Error loading commit count:', error);
       return 0;
@@ -225,22 +221,10 @@ class GitHubPortfolio {
       liveStats.className = 'live-stats';
       liveStats.innerHTML = `
         <div class="stat-cards">
-          <div class="stat-card">
-            <h3>${stats.followers}</h3>
-            <p>Followers</p>
-          </div>
-          <div class="stat-card">
-            <h3>${stats.repos}</h3>
-            <p>Repositories</p>
-          </div>
-          <div class="stat-card">
-            <h3>${stats.stars}</h3>
-            <p>Stars</p>
-          </div>
-          <div class="stat-card">
-            <h3>${stats.commits}</h3>
-            <p>Recent Commits</p>
-          </div>
+          <div class="stat-card"><h3>${stats.followers}</h3><p>Followers</p></div>
+          <div class="stat-card"><h3>${stats.repos}</h3><p>Repositories</p></div>
+          <div class="stat-card"><h3>${stats.stars}</h3><p>Stars</p></div>
+          <div class="stat-card"><h3>${stats.commits}</h3><p>Recent Commits</p></div>
         </div>
       `;
       statsContainer.appendChild(liveStats);
@@ -258,26 +242,17 @@ class GitHubPortfolio {
   }
 
   displayRecentActivity(events) {
-    const activitySection = document.createElement('section');
-    activitySection.id = 'activity';
-    activitySection.setAttribute('data-aos', 'fade-up');
-    activitySection.innerHTML = `
-      <h2>Recent GitHub Activity</h2>
-      <div class="activity-feed">
-        ${events.map(event => `
-          <div class="activity-item">
-            <span class="activity-icon">${this.getActivityIcon(event.type)}</span>
-            <div class="activity-content">
-              <p>${this.getActivityText(event)}</p>
-              <small>${new Date(event.created_at).toLocaleDateString()}</small>
-            </div>
-          </div>
-        `).join('')}
+    const activitySection = document.getElementById('activity');
+    const feed = events.map(event => `
+      <div class="activity-item">
+        <span class="activity-icon">${this.getActivityIcon(event.type)}</span>
+        <div class="activity-content">
+          <p>${this.getActivityText(event)}</p>
+          <small>${new Date(event.created_at).toLocaleDateString()}</small>
+        </div>
       </div>
-    `;
-
-    const statsSection = document.getElementById('stats');
-    statsSection.parentNode.insertBefore(activitySection, statsSection.nextSibling);
+    `).join('');
+    activitySection.querySelector('.activity-feed').innerHTML = feed;
   }
 
   getActivityIcon(type) {
@@ -294,34 +269,26 @@ class GitHubPortfolio {
 
   getActivityText(event) {
     const repo = event.repo.name.replace(`${this.username}/`, '');
-    
     switch(event.type) {
-      case 'PushEvent':
-        return `Pushed ${event.payload.commits.length} commit(s) to ${repo}`;
-      case 'CreateEvent':
-        return `Created ${event.payload.ref_type} in ${repo}`;
-      case 'IssuesEvent':
-        return `${event.payload.action} issue in ${repo}`;
-      case 'WatchEvent':
-        return `Starred ${repo}`;
-      case 'ForkEvent':
-        return `Forked ${repo}`;
-      default:
-        return `Activity in ${repo}`;
+      case 'PushEvent': return `Pushed ${event.payload.commits.length} commit(s) to ${repo}`;
+      case 'CreateEvent': return `Created ${event.payload.ref_type} in ${repo}`;
+      case 'IssuesEvent': return `${event.payload.action} issue in ${repo}`;
+      case 'WatchEvent': return `Starred ${repo}`;
+      case 'ForkEvent': return `Forked ${repo}`;
+      default: return `Activity in ${repo}`;
     }
   }
 
   updateCurrentWork() {
-    const currentWorkContainer = document.getElementById('current-work');
-    if (currentWorkContainer) {
-      currentWorkContainer.innerHTML += `
+    const container = document.getElementById('current-work');
+    if (container) {
+      container.innerHTML += `
         <div class="github-status">
           <p><strong>GitHub Status:</strong> <span class="online">🟢 Active</span></p>
           <p><strong>Latest Project:</strong> Movie Finding Made Easy</p>
           <p><strong>Profile Views:</strong> <span id="profileViews">Loading...</span></p>
         </div>
       `;
-      
       setTimeout(() => {
         document.getElementById('profileViews').textContent = Math.floor(Math.random() * 100) + 50;
       }, 1000);
@@ -329,20 +296,10 @@ class GitHubPortfolio {
   }
 }
 
-// ========== INITIALIZATION ========== //
-
+// ---------- INITIALIZATION ----------
 document.addEventListener('DOMContentLoaded', () => {
-  AOS.init({
-    duration: 800,
-    once: true
-  });
-  
-  // Initialize theme and basic functionality
+  AOS.init({ duration: 800, once: true });
   updateTheme();
-  
-  // Load projects
   loadProjects();
-  
-  // Initialize dynamic GitHub features
   new GitHubPortfolio();
 });
