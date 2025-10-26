@@ -24,52 +24,53 @@
 
   <!-- Navigation -->
   <nav data-aos="fade-up">
-    <a href="#about">About</a>
+    <a href="#about">About Me</a>
     <a href="#skills">Skills</a>
     <a href="#projects">Projects</a>
     <a href="#stats">GitHub Stats</a>
-    <a href="#activity">Activity</a>
+    <a href="#activity">Recent Activity</a>
     <a href="#current">Currently Learning</a>
     <a href="#contact">Contact</a>
   </nav>
 
-  <!-- About Me -->
+  <!-- About Section -->
   <section id="about" data-aos="fade-up">
     <h2>About Me</h2>
     <p>Hello! I'm Sidney, a final-year IT student at VUT, passionate about software development and embedded systems. I love building practical projects, from chatbots to embedded vehicle control prototypes. I'm seeking internships where I can apply my skills and continue learning.</p>
   </section>
 
-  <!-- Skills -->
+  <!-- Skills Section -->
   <section id="skills" data-aos="fade-up">
     <h2>Skills</h2>
+
     <h3>Programming Languages</h3>
     <div class="skills" id="languageSkills">
-      <div class="lang C" data-lang="C" data-aos="fade-up"><span>C</span></div>
-      <div class="lang Cpp" data-lang="C++" data-aos="fade-up"><span>C++</span></div>
-      <div class="lang Java" data-lang="Java" data-aos="fade-up"><span>Java</span></div>
-      <div class="lang JavaScript" data-lang="JavaScript" data-aos="fade-up"><span>JavaScript</span></div>
-      <div class="lang Python" data-lang="Python" data-aos="fade-up"><span>Python</span></div>
-      <div class="lang PHP" data-lang="PHP" data-aos="fade-up"><span>PHP</span></div>
-      <div class="lang SQL" data-lang="SQL" data-aos="fade-up"><span>SQL</span></div>
-      <div class="lang MATLAB" data-lang="MATLAB" data-aos="fade-up"><span>MATLAB</span></div>
+      <div class="lang" data-lang="C" data-aos="fade-up"><span>C</span></div>
+      <div class="lang" data-lang="C++" data-aos="fade-up"><span>C++</span></div>
+      <div class="lang" data-lang="Java" data-aos="fade-up"><span>Java</span></div>
+      <div class="lang" data-lang="JavaScript" data-aos="fade-up"><span>JavaScript</span></div>
+      <div class="lang" data-lang="Python" data-aos="fade-up"><span>Python</span></div>
+      <div class="lang" data-lang="PHP" data-aos="fade-up"><span>PHP</span></div>
+      <div class="lang" data-lang="SQL" data-aos="fade-up"><span>SQL</span></div>
+      <div class="lang" data-lang="MATLAB" data-aos="fade-up"><span>MATLAB</span></div>
     </div>
     <div id="langDescription" class="lang-description"></div>
 
     <h3>Web & Markup</h3>
-    <div class="skills">
+    <div class="skills" data-aos="fade-right">
       <div class="HTML5"><span>HTML5</span></div>
       <div class="CSS3"><span>CSS3</span></div>
     </div>
 
     <h3>Embedded & IoT</h3>
-    <div class="skills">
+    <div class="skills" data-aos="fade-left">
       <div class="Arduino"><span>Arduino</span></div>
       <div class="Raspberry"><span>Raspberry Pi</span></div>
       <div class="Linux"><span>Linux</span></div>
     </div>
 
     <h3>Tools & Editors</h3>
-    <div class="skills">
+    <div class="skills" data-aos="zoom-in">
       <div class="Git"><span>Git</span></div>
       <div class="NetBeans"><span>NetBeans</span></div>
       <div class="VSCode"><span>VS Code</span></div>
@@ -77,42 +78,53 @@
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- Projects Section -->
   <section id="projects" data-aos="fade-up">
     <h2>Projects</h2>
-    <div class="projects-section">
-      <h3>In Progress</h3>
-      <div class="projects" id="inprogress-projects"></div>
+
+    <!-- Project Filters -->
+    <div class="project-filters">
+      <button data-filter="all" class="active">All</button>
+      <button data-filter="completed">Completed</button>
+      <button data-filter="inprogress">In Progress</button>
     </div>
-    <div class="projects-section">
-      <h3>Completed</h3>
-      <div class="projects" id="completed-projects"></div>
+
+    <div class="projects-container">
+      <div class="projects-section" data-aos="fade-right">
+        <h3 class="projects-category">In Progress</h3>
+        <div class="projects" id="inprogress-projects"></div>
+      </div>
+
+      <div class="projects-section" data-aos="fade-left">
+        <h3 class="projects-category">Completed</h3>
+        <div class="projects" id="completed-projects"></div>
+      </div>
     </div>
   </section>
 
-  <!-- GitHub Stats -->
+  <!-- GitHub Stats Section -->
   <section id="stats" data-aos="zoom-in">
     <h2>GitHub Stats</h2>
     <div class="stats">
-      <img id="githubStats" src="https://github-readme-stats.vercel.app/api?username=SIDNEY081&show_icons=true&theme=radical" alt="GitHub Stats" />
-      <img id="topLangs" src="https://github-readme-stats.vercel.app/api/top-langs/?username=SIDNEY081&layout=compact&theme=radical" alt="Top GitHub Languages" />
-      <img id="streak" src="https://github-readme-streak-stats.herokuapp.com/?user=SIDNEY081&theme=radical" alt="GitHub Streak" />
+      <img id="githubStats" src="" alt="GitHub Stats" />
+      <img id="topLangs" src="" alt="Top Languages" />
+      <img id="streak" src="" alt="GitHub Streak" />
     </div>
   </section>
 
-  <!-- Recent Activity -->
+  <!-- Recent GitHub Activity -->
   <section id="activity" data-aos="fade-up">
     <h2>Recent GitHub Activity</h2>
     <div class="activity-feed"></div>
   </section>
 
-  <!-- Currently Learning & Working On -->
+  <!-- Current Work Section -->
   <section id="current" data-aos="fade-up">
     <h2>Currently Learning & Working On</h2>
     <div class="current-work" id="current-work"></div>
   </section>
 
-  <!-- Contact -->
+  <!-- Contact Section -->
   <section id="contact" data-aos="fade-up">
     <h2>Contact</h2>
     <div class="contact-info">
@@ -129,7 +141,6 @@
     <p>© 2025 Sidney Mpenyana | Always building, always learning.</p>
   </footer>
 
-  <!-- Scripts -->
   <script src="script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>

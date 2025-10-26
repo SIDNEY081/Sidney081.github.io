@@ -28,9 +28,10 @@ function updateTheme() {
 // ---------- Current Work ----------
 const currentWorkData = {
     learning: ["C++", "Embedded C", "Real-Time Systems", "Advanced Java"],
-    workingOn: ["Chatbot (School Project)", "MICT SETA Recruitment System", "SafeShell Android App"],
+    workingOn: ["Chatbot (School Project)", "SafeShell Android App"],
     exploring: ["AI projects with Python", "IoT projects with Arduino & Raspberry Pi"]
 };
+
 const currentWorkContainer = document.getElementById("current-work");
 currentWorkContainer.innerHTML = `
     <p><strong>Learning:</strong> ${currentWorkData.learning.join(", ")}</p>
@@ -54,56 +55,52 @@ document.querySelectorAll('#languageSkills .lang').forEach(el => {
   el.addEventListener('click', () => {
     const lang = el.getAttribute('data-lang');
     const description = langDescriptions[lang] || "No description available.";
-    document.getElementById('langDescription').textContent = description;
+    const descElement = document.getElementById('langDescription');
+    descElement.textContent = description;
+    descElement.classList.add('show');
   });
 });
 
 // ---------- Projects ----------
 const completedContainer = document.getElementById("completed-projects");
 const inProgressContainer = document.getElementById("inprogress-projects");
-const placeholderScreenshot = "assets/screenshots/placeholder.png";
+const placeholderScreenshot = "https://via.placeholder.com/400x200/333/fff?text=Project+Screenshot";
 
-// Map project names to actual screenshots
+// Map project names to actual screenshots (you'll need to create these)
 const projectScreenshots = {
   "AI-Stroke-Shield": "assets/screenshots/stroke.png",
-  "SafeShell": "assets/screenshots/safeshell.png",
+  "SafeShell": "assets/screenshots/safeshell.png", 
   "MICT-SETA": "assets/screenshots/mict.png",
-  "Movie-Finder": "assets/screenshots/movie.png"
+  "Movie-Finder": "assets/screenshots/movie.png",
+  "Python-Learning": "assets/screenshots/python.png"
 };
 
-// Project filtering buttons
-const filterButtons = document.createElement("div");
-filterButtons.className = "project-filters";
-filterButtons.innerHTML = `
-    <button data-filter="all">All</button>
-    <button data-filter="completed">Completed</button>
-    <button data-filter="inprogress">In Progress</button>
-`;
-document.getElementById("projects").prepend(filterButtons);
+// List of projects that should always appear as Completed
+const alwaysCompleted = ["MICT-SETA", "AI-Stroke-Shield", "Python-Learning"];
 
-filterButtons.querySelectorAll("button").forEach(btn => {
+// Project Filtering
+document.querySelectorAll(".project-filters button").forEach(btn => {
     btn.addEventListener("click", () => {
+        // Update active button
+        document.querySelectorAll(".project-filters button").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        
         const filter = btn.getAttribute("data-filter");
         document.querySelectorAll(".project-card").forEach(card => {
-            card.style.display =
-                filter === "all" || card.classList.contains(filter) ? "block" : "none";
+            if (filter === "all") {
+                card.style.display = "block";
+            } else if (filter === "completed" && card.classList.contains("completed")) {
+                card.style.display = "block";
+            } else if (filter === "inprogress" && card.classList.contains("inprogress")) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
         });
     });
 });
 
-// Fetch GitHub repos
-async function fetchAllRepos() {
-    try {
-        const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
-        if (!res.ok) throw new Error("Failed to fetch repos");
-        return await res.json();
-    } catch (err) {
-        console.error("Error fetching repos:", err);
-        return [];
-    }
-}
-
-// Create project card
+// Create a project card
 function createProjectCard(repo, isInProgress) {
     const card = document.createElement("div");
     card.className = `project-card ${isInProgress ? "inprogress" : "completed"}`;
@@ -112,7 +109,6 @@ function createProjectCard(repo, isInProgress) {
     if (repo.name.toLowerCase().includes('safe')) card.classList.add('safeshell-highlight');
     if (repo.name.toLowerCase().includes('stroke')) card.classList.add('ai-highlight');
     if (repo.name.toLowerCase().includes('movie')) card.classList.add('movie-highlight');
-    if (repo.name.toLowerCase().includes('mict')) card.classList.add('mict-highlight');
 
     const screenshot = projectScreenshots[repo.name] || placeholderScreenshot;
 
@@ -126,7 +122,7 @@ function createProjectCard(repo, isInProgress) {
             </div>
         </div>
         <div class="screenshot-container">
-            <img class="project-screenshot" src="${screenshot}" alt="${repo.name} Screenshot">
+            <img class="project-screenshot" src="${screenshot}" alt="${repo.name} Screenshot" onerror="this.src='${placeholderScreenshot}'">
             <a class="overlay-link" href="${repo.html_url}" target="_blank">View Repository</a>
         </div>
         <p class="repo-description">${repo.description || "No description provided."}</p>
@@ -138,32 +134,110 @@ function createProjectCard(repo, isInProgress) {
     return card;
 }
 
-// Determine project status
+// Determine project status dynamically
 function determineProjectStatus(repo) {
-    const name = repo.name.toLowerCase();
+    const name = repo.name;
+    const nameLower = name.toLowerCase();
     const desc = repo.description?.toLowerCase() || "";
-    const isRecent = new Date(repo.pushed_at) > new Date(Date.now() - 30*24*60*60*1000);
+    const isRecent = new Date(repo.pushed_at) > new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
 
-    const inProgressIndicators = [
-        'safe', 'shield', 'chat', 'prototype', 'wip', 'in progress',
-        'development', 'building', 'working on', 'mict'
-    ];
+    // Always Completed projects
+    if (alwaysCompleted.includes(name)) return false; // false = Completed
 
-    return inProgressIndicators.some(indicator => name.includes(indicator) || desc.includes(indicator)) || isRecent;
+    // In-progress indicators
+    const inProgressIndicators = ['safe', 'shield', 'chat', 'prototype', 'wip', 'in progress', 'development', 'building', 'working on'];
+    if (inProgressIndicators.some(indicator => nameLower.includes(indicator) || desc.includes(indicator)) || isRecent) {
+        return true; // In Progress
+    }
+
+    return false; // Default Completed
 }
 
 // Load projects dynamically
 async function loadProjects() {
     const allRepos = await fetchAllRepos();
-    allRepos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
+    
+    // Clear existing content
+    completedContainer.innerHTML = '';
+    inProgressContainer.innerHTML = '';
+    
+    // Show loading message
+    if (allRepos.length === 0) {
+        completedContainer.innerHTML = '<p>Loading projects...</p>';
+        return;
+    }
 
     allRepos.forEach(repo => {
         const isInProgress = determineProjectStatus(repo);
         const card = createProjectCard(repo, isInProgress);
         const container = isInProgress ? inProgressContainer : completedContainer;
         container.appendChild(card);
+        
+        // Add animation with staggered delay
         setTimeout(() => card.classList.add("show"), 100);
     });
+}
+
+// Fetch repositories from GitHub
+async function fetchAllRepos() {
+    try {
+        const res = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100`);
+        if (!res.ok) throw new Error("Failed to fetch repos");
+        const repos = await res.json();
+        
+        // Filter out forked repositories if you only want original projects
+        return repos.filter(repo => !repo.fork);
+    } catch (err) {
+        console.error("Error fetching repos:", err);
+        // Return sample data if API fails
+        return getSampleProjects();
+    }
+}
+
+// Sample projects in case GitHub API fails
+function getSampleProjects() {
+    return [
+        {
+            name: "SafeShell",
+            description: "Android safety application with emergency features",
+            html_url: "https://github.com/SIDNEY081/SafeShell",
+            stargazers_count: 2,
+            forks_count: 1,
+            language: "Java",
+            updated_at: new Date().toISOString(),
+            fork: false
+        },
+        {
+            name: "AI-Stroke-Shield",
+            description: "AI-powered stroke detection and prevention system",
+            html_url: "https://github.com/SIDNEY081/AI-Stroke-Shield", 
+            stargazers_count: 3,
+            forks_count: 1,
+            language: "Python",
+            updated_at: new Date().toISOString(),
+            fork: false
+        },
+        {
+            name: "Movie-Finder",
+            description: "Web application for finding movie information",
+            html_url: "https://github.com/SIDNEY081/Movie-Finder",
+            stargazers_count: 1,
+            forks_count: 0,
+            language: "JavaScript",
+            updated_at: new Date().toISOString(),
+            fork: false
+        },
+        {
+            name: "MICT-SETA",
+            description: "Educational project for MICT SETA requirements",
+            html_url: "https://github.com/SIDNEY081/MICT-SETA",
+            stargazers_count: 0,
+            forks_count: 0,
+            language: "PHP",
+            updated_at: new Date().toISOString(),
+            fork: false
+        }
+    ];
 }
 
 // ========== GitHub Portfolio Class ==========
@@ -185,10 +259,12 @@ class GitHubPortfolio {
         fetch(`https://api.github.com/users/${this.username}`),
         fetch(`https://api.github.com/users/${this.username}/repos?per_page=100`)
       ]);
+      
       const userData = await userResponse.json();
       const repos = await reposResponse.json();
       const stars = repos.reduce((acc, repo) => acc + repo.stargazers_count, 0);
       const recentCommits = await this.getRecentCommitCount();
+      
       this.updateStatsDisplay({
         followers: userData.followers,
         repos: userData.public_repos,
@@ -238,11 +314,18 @@ class GitHubPortfolio {
       this.displayRecentActivity(events);
     } catch (error) {
       console.error('Error loading activity:', error);
+      // Show sample activity if API fails
+      this.displaySampleActivity();
     }
   }
 
   displayRecentActivity(events) {
-    const activitySection = document.getElementById('activity');
+    const activityContainer = document.querySelector('.activity-feed');
+    if (events.length === 0) {
+      this.displaySampleActivity();
+      return;
+    }
+    
     const feed = events.map(event => `
       <div class="activity-item">
         <span class="activity-icon">${this.getActivityIcon(event.type)}</span>
@@ -252,7 +335,27 @@ class GitHubPortfolio {
         </div>
       </div>
     `).join('');
-    activitySection.querySelector('.activity-feed').innerHTML = feed;
+    activityContainer.innerHTML = feed;
+  }
+
+  displaySampleActivity() {
+    const activityContainer = document.querySelector('.activity-feed');
+    activityContainer.innerHTML = `
+      <div class="activity-item">
+        <span class="activity-icon">🔨</span>
+        <div class="activity-content">
+          <p>Working on SafeShell Android App</p>
+          <small>${new Date().toLocaleDateString()}</small>
+        </div>
+      </div>
+      <div class="activity-item">
+        <span class="activity-icon">⭐</span>
+        <div class="activity-content">
+          <p>Updated AI-Stroke-Shield repository</p>
+          <small>${new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toLocaleDateString()}</small>
+        </div>
+      </div>
+    `;
   }
 
   getActivityIcon(type) {
@@ -285,7 +388,7 @@ class GitHubPortfolio {
       container.innerHTML += `
         <div class="github-status">
           <p><strong>GitHub Status:</strong> <span class="online">🟢 Active</span></p>
-          <p><strong>Latest Project:</strong> Movie Finding Made Easy</p>
+          <p><strong>Latest Project:</strong> SafeShell Android App</p>
           <p><strong>Profile Views:</strong> <span id="profileViews">Loading...</span></p>
         </div>
       `;
