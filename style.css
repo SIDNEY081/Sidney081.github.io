@@ -41,6 +41,7 @@ header {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  position: relative;
 }
 
 body.light header {
@@ -75,14 +76,19 @@ body.light header p {
   color: #666;
 }
 
+/* ---------- Header Badges - FIXED ---------- */
 .header-badges {
   display: flex;
   gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: 1.5rem;
+  margin-bottom: 3rem;
+  position: relative;
+  z-index: 100;
 }
 
-.badge {
+.header-badge {
   background: #ff9800;
   color: #121212;
   padding: 0.5rem 1.2rem;
@@ -90,6 +96,18 @@ body.light header p {
   font-weight: bold;
   font-size: 0.9rem;
   box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.header-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+}
+
+body.light .header-badge {
+  background: #ff9800;
+  color: #121212;
 }
 
 /* ---------- Toggle ---------- */
@@ -131,7 +149,7 @@ nav {
   margin-bottom: 2rem;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 500;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
@@ -228,6 +246,7 @@ body.light .highlight-card {
   margin-bottom: 1rem;
   font-size: 1.3rem;
 }
+
 /* ---------- Skills ---------- */
 .skills {
   display: flex;
@@ -276,7 +295,6 @@ body.light .highlight-card {
 .skills .skill.NetBeans { background:#1B6AC6; color:#fff; }
 .skills .skill.AndroidStudio { background:#3DDC84; color:#000; }
 .skills .skill.Docker { background:#2496ED; color:#fff; }
-
 
 /* ---------- Language Description ---------- */
 .lang-description {
@@ -631,66 +649,6 @@ body.light .stat-card {
   font-weight: 600;
 }
 
-/* ---------- Current Work ---------- */
-.current-work {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.learning-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-.learning-item {
-  background: #1e1e1e;
-  padding: 2rem;
-  border-radius: 15px;
-  border-left: 4px solid #ff9800;
-  transition: transform 0.3s ease;
-}
-
-body.light .learning-item {
-  background: #ffffff;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.learning-item:hover {
-  transform: translateY(-5px);
-}
-
-.learning-item h3 {
-  color: #ff9800;
-  margin-bottom: 1.5rem;
-  font-size: 1.3rem;
-}
-
-.learning-item ul {
-  list-style: none;
-  padding: 0;
-}
-
-.learning-item li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #333;
-  color: #ccc;
-}
-
-body.light .learning-item li {
-  border-bottom: 1px solid #e0e0e0;
-  color: #666;
-}
-
-.learning-item li:last-child {
-  border-bottom: none;
-}
-
-.learning-item strong {
-  color: #ff9800;
-}
-
 /* ---------- Contact ---------- */
 .contact-container {
   display: grid;
@@ -802,6 +760,12 @@ body.light footer p {
     font-size: 1.1rem;
   }
   
+  .header-badges {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  
   nav {
     gap: 0.8rem;
     padding: 1rem 0;
@@ -859,14 +823,9 @@ body.light footer p {
     grid-template-columns: 1fr;
   }
   
-  .skills div {
+  .skills .skill {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
-  }
-  
-  .header-badges {
-    flex-direction: column;
-    align-items: center;
   }
   
   .project-filters {

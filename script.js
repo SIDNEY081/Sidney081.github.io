@@ -199,91 +199,31 @@ async function fetchAllRepos() {
         console.log("Fetching ALL repositories from GitHub...");
         
         // Fetch personal repositories
-        const personalRes = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100&sort=updated`);
+        const response = await fetch(`https://api.github.com/users/${githubUsername}/repos?per_page=100&sort=updated`);
         
-        if (!personalRes.ok) {
-            throw new Error(`GitHub API error: ${personalRes.status}`);
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`);
         }
         
-        let allRepos = await personalRes.json();
-        console.log(`Fetched ${allRepos.length} personal repositories`);
-
-        // Try to fetch organization repositories
-        try {
-            // Fetch user events to find organization activity
-            const eventsRes = await fetch(`https://api.github.com/users/${githubUsername}/events/public?per_page=50`);
-            if (eventsRes.ok) {
-                const events = await eventsRes.json();
-                
-                // Find unique organizations from events
-                const orgs = new Set();
-                events.forEach(event => {
-                    if (event.org) {
-                        orgs.add(event.org.login);
-                    }
-                    // Also check repo names for organization patterns
-                    if (event.repo && event.repo.name.includes('/')) {
-                        const orgName = event.repo.name.split('/')[0];
-                        if (orgName !== githubUsername) {
-                            orgs.add(orgName);
-                        }
-                    }
-                });
-
-                console.log(`Found organizations: ${Array.from(orgs).join(', ')}`);
-
-                // Fetch repos from each organization
-                for (const org of orgs) {
-                    try {
-                        const orgRes = await fetch(`https://api.github.com/users/${org}/repos?per_page=50`);
-                        if (orgRes.ok) {
-                            const orgRepos = await orgRes.json();
-                            
-                            // Add organization repos that user might have contributed to
-                            orgRepos.forEach(orgRepo => {
-                                // Check if this repo is already in our list
-                                const exists = allRepos.some(repo => repo.id === orgRepo.id);
-                                if (!exists) {
-                                    // For organization repos, we'll include them and mark them specially
-                                    allRepos.push(orgRepo);
-                                }
-                            });
-                            console.log(`Added ${orgRepos.length} repos from ${org}`);
-                        }
-                    } catch (orgError) {
-                        console.log(`Could not fetch repos from ${org}:`, orgError);
-                    }
-                }
-            }
-        } catch (eventsError) {
-            console.log("Could not fetch events for organization detection:", eventsError);
-        }
+        let allRepos = await response.json();
+        console.log(`Fetched ${allRepos.length} repositories from GitHub`);
 
         // Filter out forked repositories
         const originalRepos = allRepos.filter(repo => !repo.fork);
         console.log(`Total original repositories: ${originalRepos.length}`);
 
-        // Ensure MICT SETA project is included (manual fallback)
-        const hasMictSeta = originalRepos.some(repo => 
-            repo.name.toLowerCase().includes('mictseta') || 
-            repo.full_name.includes('mictseta')
-        );
-        
-        if (!hasMictSeta) {
-            originalRepos.push({
-                name: "mictseta_recruitment_system",
-                full_name: "mictseta-recruitment-system/mictseta_recruitment_system",
-                description: "MICT SETA Recruitment System - Educational project built with Python",
-                html_url: "https://github.com/mictseta-recruitment-system/mictseta_recruitment_system",
-                stargazers_count: 0,
-                forks_count: 0,
-                language: "Python", // Force Python language
-                updated_at: new Date().toISOString(),
-                fork: false
-            });
-            console.log("Added MICT SETA project manually with Python language");
+        // Log all found repositories
+        console.log("All repositories found:");
+        originalRepos.forEach(repo => {
+            console.log(`- ${repo.name} (${repo.language || 'No language'}) - ${repo.html_url}`);
+        });
+
+        // If no repos found, use sample data
+        if (originalRepos.length === 0) {
+            console.log("No repositories found, using sample data");
+            return getSampleProjects();
         }
-        
+
         return originalRepos;
         
     } catch (err) {
@@ -357,13 +297,17 @@ function getSampleProjects() {
 // Load projects dynamically
 async function loadProjects() {
     try {
+        console.log('=== LOADING PROJECTS DEBUG ===');
         const allRepos = await fetchAllRepos();
         
         // Clear existing content
         completedContainer.innerHTML = '';
         inProgressContainer.innerHTML = '';
         
+        console.log('Total repositories found:', allRepos.length);
+        
         if (allRepos.length === 0) {
+            console.log('No repositories found, showing placeholder');
             completedContainer.innerHTML = '<div class="project-placeholder"><p>No projects found. Check back soon!</p></div>';
             return;
         }
@@ -371,14 +315,17 @@ async function loadProjects() {
         // Sort by update date (newest first)
         allRepos.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at));
 
-        console.log(`Displaying ${allRepos.length} projects:`);
-        allRepos.forEach(repo => {
-            const correctLanguage = getCorrectLanguage(repo.name, repo.language);
-            console.log(`- ${repo.name}: GitHub says "${repo.language}", We show "${correctLanguage}"`);
-        });
-
+        console.log('=== DISPLAYING PROJECTS ===');
         allRepos.forEach((repo, index) => {
             const isInProgress = determineProjectStatus(repo);
+            const correctLanguage = getCorrectLanguage(repo.name, repo.language);
+            
+            console.log(`${index + 1}. ${repo.name}`);
+            console.log(`   - Description: ${repo.description}`);
+            console.log(`   - Language: ${repo.language} -> ${correctLanguage}`);
+            console.log(`   - Status: ${isInProgress ? 'In Progress' : 'Completed'}`);
+            console.log(`   - URL: ${repo.html_url}`);
+            
             const card = createProjectCard(repo, isInProgress);
             const container = isInProgress ? inProgressContainer : completedContainer;
             container.appendChild(card);
@@ -387,10 +334,14 @@ async function loadProjects() {
             setTimeout(() => card.classList.add("show"), index * 100);
         });
 
-        console.log(`Loaded ${allRepos.length} projects successfully`);
+        console.log(`✅ Successfully loaded ${allRepos.length} projects`);
+        
+        // Check if containers have content
+        console.log('In Progress container children:', inProgressContainer.children.length);
+        console.log('Completed container children:', completedContainer.children.length);
         
     } catch (error) {
-        console.error("Error loading projects:", error);
+        console.error('❌ Error loading projects:', error);
         completedContainer.innerHTML = '<div class="project-placeholder"><p>Unable to load projects at the moment. Please check my GitHub directly.</p></div>';
     }
 }
