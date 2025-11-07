@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Projects - Sidney Mpenyana</title>
+  <meta name="description" content="Explore Sidney Mpenyana's software development projects and portfolio">
+  
+  <!-- CSS Links -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+  </button>
+
+<!-- Navigation -->
+<nav class="main-nav">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">Sidney Mpenyana</a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="resume.html">Resume</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+</nav>
+
+  <!-- Load Header & Navigation -->
+  <div id="header-section"></div>
+  <div id="navigation-section"></div>
+
+  <!-- Projects Content Directly Here -->
+  <section id="projects">
+    <div class="container">
+      <h2>My Projects</h2>
+      <p class="section-subtitle">A showcase of my development work and learning journey</p>
+      
+      <div class="project-filters">
+        <button class="active" data-filter="all">All Projects</button>
+        <button data-filter="completed">Completed</button>
+        <button data-filter="inprogress">In Progress</button>
+      </div>
+      
+      <div class="projects-container">
+        <!-- Projects will be loaded dynamically here -->
+
+        
+        <div id="projects-loading" class="project-placeholder">
+          <div class="loading-spinner"></div>
+          <p>Loading my projects from GitHub...</p>
+        </div>
+        
+        <div id="completed-projects" class="projects-section completed-section" style="display: none;">
+          <h3>Completed Projects</h3>
+          <div class="projects-grid" id="completed-projects-grid"></div>
+        </div>
+        
+        <div id="inprogress-projects" class="projects-section inprogress-section" style="display: none;">
+          <h3>Projects in Progress</h3>
+          <div class="projects-grid" id="inprogress-projects-grid"></div>
+        </div>
+        
+        <div id="projects-error" class="project-placeholder" style="display: none;">
+          <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: var(--warning-color); margin-bottom: 20px;"></i>
+          <p>Unable to load projects from GitHub</p>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">You can view my projects directly on <a href="https://github.com/sidney081" target="_blank">GitHub</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <div id="footer-section"></div>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript Links -->
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>
+</html>

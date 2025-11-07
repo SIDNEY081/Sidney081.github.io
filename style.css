@@ -124,6 +124,21 @@ header p {
   box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
 }
 
+/* Dynamic Greeting Styles */
+.dynamic-greeting {
+  margin-top: 20px;
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-align: center;
+  animation: fadeInUp 0.8s ease;
+}
+
+.greeting-emoji {
+  font-size: 1.3rem;
+  margin-right: 8px;
+}
+
 /* ===== Navigation ===== */
 nav {
   display: flex;
@@ -869,6 +884,11 @@ h2 {
   flex-shrink: 0;
 }
 
+/* GitHub Contact Item */
+.contact-item .fa-github {
+  background: linear-gradient(135deg, #6e5494, #4078c0);
+}
+
 .contact-details h3 {
   color: var(--text-primary);
   margin-bottom: 5px;
@@ -990,6 +1010,149 @@ h2 {
   transform: translateY(-2px);
 }
 
+/* Response Time Section */
+.response-time {
+  margin-top: 25px;
+  padding: 20px;
+  background: rgba(16, 185, 129, 0.05);
+  border-radius: 10px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.response-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding: 12px;
+  background: var(--surface-color);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.response-item:last-child {
+  margin-bottom: 0;
+}
+
+.response-item i {
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  width: 30px;
+  text-align: center;
+}
+
+.response-item strong {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.response-item p {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* Contact Greeting Styles */
+.contact-greeting {
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+  text-align: center;
+  padding: 15px;
+  background: rgba(37, 99, 235, 0.1);
+  border-radius: 10px;
+  border-left: 4px solid var(--primary-color);
+  animation: fadeInUp 0.8s ease;
+}
+
+/* ===== Quick Links Section ===== */
+#quick-links {
+  background: var(--surface-color);
+  padding: 80px 0;
+}
+
+.links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.link-card {
+  background: var(--background-color);
+  padding: 40px 30px;
+  border-radius: 15px;
+  text-decoration: none;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.link-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient);
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.link-card:hover::before {
+  left: 0;
+  opacity: 0.1;
+}
+
+.link-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-color: var(--primary-color);
+}
+
+.link-icon {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: var(--primary-color);
+  position: relative;
+  z-index: 2;
+}
+
+.link-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.link-card p {
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.link-arrow {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  font-weight: bold;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s ease;
+}
+
+.link-card:hover .link-arrow {
+  transform: translateX(5px);
+}
+
 /* ===== Footer ===== */
 footer {
   text-align: center;
@@ -1056,6 +1219,65 @@ footer {
 .scroll-to-top:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+
+/* ===== Resume Request Form Styles ===== */
+.resume-request-form {
+  margin-top: 30px;
+  padding: 25px;
+  background: rgba(37, 99, 235, 0.05);
+  border-radius: 15px;
+  border: 1px solid var(--border-color);
+  display: none;
+}
+
+.resume-request-form.show {
+  display: block;
+  animation: fadeInUp 0.5s ease;
+}
+
+.resume-request-form h4 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--surface-color);
+  color: var(--text-primary);
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-input::placeholder {
+  color: var(--text-muted);
+}
+
+.form-submit {
+  margin-top: 10px;
+  padding: 12px 20px;
+  width: auto;
+  min-width: 120px;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
 }
 
 /* ===== Responsive Design ===== */
@@ -1127,6 +1349,29 @@ footer {
     padding: 12px 20px;
     font-size: 0.9rem;
   }
+  
+  .links-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .link-card {
+    padding: 30px 20px;
+  }
+  
+  .dynamic-greeting {
+    font-size: 1.1rem;
+  }
+  
+  .response-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .response-item i {
+    width: auto;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1175,4 +1420,60 @@ footer {
   .resume-item i {
     margin-top: 0;
   }
+}
+
+/* Active Navigation Link Styles */
+nav a.active {
+    color: var(--primary-color) !important;
+    background: rgba(37, 99, 235, 0.15) !important;
+    font-weight: 700 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+nav a.active::after {
+    width: 80% !important;
+    background: var(--primary-color) !important;
+}
+
+/* Make the active link stand out more */
+nav a.active:hover {
+    background: rgba(37, 99, 235, 0.2) !important;
+    color: var(--primary-color) !important;
+}
+
+/* Skill-based Colors Typewriter */
+.typewriter {
+  font-weight: 700;
+  padding-right: 5px;
+  animation: skillColors 33s infinite;
+}
+
+.typewriter::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+@keyframes skillColors {
+  /* Development Skills */
+  0%, 9% { color: #2563eb; } /* Full-Stack Developer - Blue */
+  10%, 18% { color: #7c3aed; } /* Software Engineer - Purple */
+  19%, 27% { color: #dc2626; } /* Web Developer - Red */
+  28%, 36% { color: #059669; } /* Problem Solver - Green */
+  37%, 45% { color: #d97706; } /* Java Programmer - Orange */
+  46%, 54% { color: #0891b2; } /* JavaScript Developer - Cyan */
+  55%, 63% { color: #10b981; } /* AI Developer - Emerald Green */
+  
+  /* IT Infrastructure Skills */
+  64%, 72% { color: #8b5cf6; } /* Network Specialist - Violet */
+  73%, 81% { color: #f59e0b; } /* IT Essentials Certified - Amber */
+  
+  /* Career Goals */
+  82%, 90% { color: #6366f1; } /* IT Graduate - Indigo */
+  91%, 100% { color: #ec4899; } /* Seeking Internships - Pink */
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }
