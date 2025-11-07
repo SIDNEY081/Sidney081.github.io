@@ -88,19 +88,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== TYPEWRITER EFFECT =====
 
-// Advanced Typewriter Effect - More inclusive
+// Advanced Typewriter Effect
 function initializeTypewriter() {
   const texts = [
-    "Tech Enthusiast",
-    "Software Developer", 
     "Full-Stack Developer",
-    "Problem Solver",
-    "IT Professional",
+    "Software Engineer", 
     "Web Developer",
+    "Problem Solver",
+    "Java Programmer",
+    "JavaScript Developer",
     "AI Developer",
     "Network Specialist",
+    "IT Essentials Certified",
     "IT Graduate",
-    "Junior Developer"
+    "Seeking Internships"
   ];
   
   const element = document.getElementById('typewriter');
@@ -140,6 +141,7 @@ function initializeTypewriter() {
   
   type();
 }
+
 // ===== DYNAMIC GREETING FUNCTIONS =====
 
 // Dynamic Greeting Function
@@ -362,7 +364,7 @@ function initializeSmoothScrolling() {
                     window.location.href = 'index.html' + href;
                 }
             }
-            // For external page links
+            // For external page links, let them work normally
         };
     });
 }
@@ -560,40 +562,72 @@ function showFallbackProjects() {
         inprogressSection.style.display = 'block';
     }
     
-    // Add some fallback project examples
+    // Show fallback projects when GitHub API fails
+function showFallbackProjects() {
+    console.log('🛟 Showing fallback projects');
+    
+    const loadingElement = document.getElementById('projects-loading');
+    const errorElement = document.getElementById('projects-error');
+    const completedSection = document.getElementById('completed-projects');
+    const inprogressSection = document.getElementById('inprogress-projects');
+    
+    if (loadingElement) {
+        loadingElement.style.display = 'none';
+    }
+    
+    if (errorElement) {
+        errorElement.style.display = 'block';
+    }
+    
+    // Create fallback projects with correct technologies
     const fallbackProjects = [
         {
+            name: "Movie Finding Made Easy",
+            description: "Web application for discovering and searching movies with detailed information, ratings, and recommendations using PHP backend.",
+            language: "PHP",
+            stargazers_count: 7,
+            forks_count: 2,
+            updated_at: new Date().toISOString(),
+            html_url: "https://github.com/SIDNEY081/Movie_Finding_Made_Easy",
+            homepage: "#",
+            topics: ["movies", "web-app", "php", "entertainment", "api-integration"]
+        },
+        {
             name: "AI-Stroke-Shield",
-            description: "Healthcare application for stroke prediction and prevention using machine learning",
+            description: "Healthcare application for stroke prediction and prevention using machine learning algorithms and data analysis.",
             language: "Python",
             stargazers_count: 12,
             forks_count: 3,
             updated_at: new Date().toISOString(),
-            html_url: "https://github.com/sidney081/AI-Stroke-Shield",
-            topics: ["machine-learning", "healthcare", "python"]
+            html_url: "#",
+            homepage: "#",
+            topics: ["machine-learning", "healthcare", "python", "data-science"]
         },
         {
-            name: "Portfolio Website",
-            description: "My personal portfolio website built with HTML, CSS, and JavaScript",
-            language: "JavaScript",
-            stargazers_count: 8,
-            forks_count: 2,
+            name: "Python Learning",
+            description: "Collection of Python scripts and projects covering fundamentals, data structures, algorithms, and practical applications.",
+            language: "Python",
+            stargazers_count: 5,
+            forks_count: 1,
             updated_at: new Date().toISOString(),
-            html_url: "https://github.com/sidney081/portfolio",
-            topics: ["portfolio", "web-development", "javascript"]
-        },
-        {
-            name: "E-Commerce Platform",
-            description: "Full-stack e-commerce application with React and Node.js",
-            language: "JavaScript",
-            stargazers_count: 15,
-            forks_count: 5,
-            updated_at: new Date().toISOString(),
-            html_url: "https://github.com/sidney081/ecommerce-platform",
-            topics: ["react", "nodejs", "mongodb"]
+            html_url: "https://github.com/SIDNEY081/Python_Learning",
+            homepage: "#",
+            topics: ["python", "learning", "algorithms", "programming", "beginners"]
         }
     ];
     
+    // Display fallback projects in both sections
+    if (completedSection) {
+        displayProjects(fallbackProjects, 'completed');
+        completedSection.style.display = 'block';
+    }
+    if (inprogressSection) {
+        displayProjects(fallbackProjects.slice(0, 2), 'inprogress');
+        inprogressSection.style.display = 'block';
+    }
+    
+    console.log('✅ Fallback projects displayed');
+}
     // Display fallback projects
     if (completedSection) {
         displayProjects(fallbackProjects, 'completed');
@@ -654,4 +688,4 @@ function formatDate(dateString) {
     return `${Math.floor(diffDays / 30)} months ago`;
 }
 
-console.log('Portfolio JS loaded - with fixed projects loading and typewriter effect');
+console.log('Portfolio JS loaded - with all updates including typewriter and improved projects loading');
