@@ -11,14 +11,22 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="fireworks.css">
 </head>
 <body>
+
+  <!-- Holiday Message -->
+  <div class="holiday-message" id="holidayMessage">
+    🎄 Happy Holidays & Merry Christmas! 🎆
+  </div>
+
+  <!-- Christmas Tree -->
+  <div class="christmas-tree" id="christmasTree">🎄</div>
 
   <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle">
     <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
   </button>
-
 
   <!-- Header Content Directly Here -->
   <header>
@@ -36,19 +44,18 @@
     </div>
   </header>
 
-<!-- Navigation -->
-<nav class="main-nav">
+  <!-- Navigation -->
+  <nav class="main-nav">
     <div class="nav-container">
-        
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="resume.html">Resume</a>
-            <a href="contact.html">Contact</a>
-        </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
-</nav>
+  </nav>
 
   <!-- Home Page Content -->
   <section id="about">
@@ -102,50 +109,8 @@
     </div>
   </section>
 
-  <section id="skills">
-    <div class="container">
-      <h2>Technical Skills</h2>
-      <p class="section-subtitle">Technologies and tools I work with</p>
-      
-      <h3>Programming Languages</h3>
-      <div id="languageSkills" class="skills">
-        <div class="skill" data-lang="Java">Java</div>
-        <div class="skill" data-lang="JavaScript">JavaScript</div>
-        <div class="skill" data-lang="Python">Python</div>
-        <div class="skill" data-lang="PHP">PHP</div>
-        <div class="skill" data-lang="SQL">SQL</div>
-      </div>
-      
-      <div id="langDescription" class="lang-description">
-        Click on a language to see description
-      </div>
-      
-      <h3>Databases</h3>
-      <div class="skills">
-        <div class="skill">MySQL</div>
-        <div class="skill">SQLite</div>
-        <div class="skill">MongoDB</div>
-      </div>
-      
-      <h3>IT Infrastructure</h3>
-      <div class="skills">
-        <div class="skill">PC Hardware & Assembly</div>
-        <div class="skill">System Troubleshooting</div>
-        <div class="skill">Network Configuration</div>
-        <div class="skill">IT Security Fundamentals</div>
-      </div>
-      
-      <h3>Frameworks & Tools</h3>
-      <div class="skills">
-        <div class="skill">React</div>
-        <div class="skill">Node.js</div>
-        <div class="skill">Git</div>
-        <div class="skill">Docker</div>
-        <div class="skill">REST APIs</div>
-        <div class="skill">Linux</div>
-      </div>
-    </div>
-  </section>
+  <!-- Skills Section (Loaded Dynamically) -->
+  <div id="skills-section"></div>
 
   <!-- Quick Links to Other Pages -->
   <section id="quick-links">
@@ -184,7 +149,6 @@
     </div>
   </section>
   
-    
   <!-- Footer -->
   <div id="footer-section"></div>
 
@@ -195,6 +159,7 @@
 
   <!-- JavaScript Links -->
   <script src="script.js"></script>
+  <script src="fireworks.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     // Initialize AOS animations

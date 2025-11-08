@@ -1,0 +1,409 @@
+/* Advanced Fireworks Canvas - Completely Transparent */
+.fireworks-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    background: transparent !important;
+    mix-blend-mode: screen;
+}
+
+/* Make sure body and html don't have any background from fireworks */
+body {
+    background: transparent !important;
+}
+
+html {
+    background: transparent !important;
+}
+
+/* DOM-based Firework Elements - Transparent */
+.firework-particle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(1px);
+    mix-blend-mode: screen;
+    z-index: 9999;
+    background: transparent !important;
+}
+
+.firework-sparkle {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    animation: sparkle-twinkle 0.8s ease-in-out infinite alternate;
+    z-index: 9999;
+    background: transparent !important;
+}
+
+.firework-trail {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    opacity: 0;
+    animation: trail-dissipate 0.6s ease-out forwards;
+    z-index: 9998;
+    background: transparent !important;
+}
+
+.firework-flare {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 50%;
+    filter: blur(15px);
+    opacity: 0;
+    animation: flare-expand 0.4s ease-out forwards;
+    z-index: 9999;
+    background: transparent !important;
+}
+
+.firework-debris {
+    position: fixed;
+    pointer-events: none;
+    border-radius: 20%;
+    opacity: 0;
+    animation: debris-fall 1.5s ease-in forwards;
+    z-index: 9997;
+    background: transparent !important;
+}
+
+/* Firework Animations */
+@keyframes sparkle-twinkle {
+    0% { 
+        transform: scale(1); 
+        opacity: 0.8; 
+    }
+    100% { 
+        transform: scale(1.3); 
+        opacity: 1; 
+    }
+}
+
+@keyframes trail-dissipate {
+    0% { 
+        opacity: 0.7; 
+        transform: scale(1); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: scale(0.3); 
+    }
+}
+
+@keyframes flare-expand {
+    0% { 
+        opacity: 0.8; 
+        transform: scale(0); 
+    }
+    50% { 
+        opacity: 0.4; 
+        transform: scale(2); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: scale(3); 
+    }
+}
+
+@keyframes debris-fall {
+    0% { 
+        opacity: 1; 
+        transform: translateY(0) rotate(0deg); 
+    }
+    100% { 
+        opacity: 0; 
+        transform: translateY(100px) rotate(360deg); 
+    }
+}
+
+/* Enhanced Glow Effects - Only use box-shadow, no background */
+.glow-red { 
+    background: transparent !important;
+    box-shadow: 
+        0 0 10px #ff0000,
+        0 0 20px #ff0000, 
+        0 0 30px #ff0000;
+}
+
+.glow-blue { 
+    background: transparent !important;
+    box-shadow: 
+        0 0 10px #0066ff,
+        0 0 20px #0066ff, 
+        0 0 30px #0066ff;
+}
+
+.glow-green { 
+    background: transparent !important;
+    box-shadow: 
+        0 0 10px #00ff00,
+        0 0 20px #00ff00, 
+        0 0 30px #00ff00;
+}
+
+.glow-purple { 
+    background: transparent !important;
+    box-shadow: 
+        0 0 10px #ff00ff,
+        0 0 20px #ff00ff, 
+        0 0 30px #ff00ff;
+}
+
+.glow-gold { 
+    background: transparent !important;
+    box-shadow: 
+        0 0 10px #ffaa00,
+        0 0 20px #ffaa00, 
+        0 0 30px #ffaa00;
+}
+
+.glow-cyan { 
+    background: transparent !important;
+    box-shadow: 
+        0 0 10px #00ffff,
+        0 0 20px #00ffff, 
+        0 0 30px #00ffff;
+}
+
+.glow-white { 
+    background: transparent !important;
+    box-shadow: 
+        0 0 10px #ffffff,
+        0 0 20px #ffffff, 
+        0 0 30px #ffffff;
+}
+
+/* Particle Size Variations - No background colors */
+.particle-tiny {
+    width: 2px;
+    height: 2px;
+    background: transparent !important;
+}
+
+.particle-small {
+    width: 3px;
+    height: 3px;
+    background: transparent !important;
+}
+
+.particle-medium {
+    width: 4px;
+    height: 4px;
+    background: transparent !important;
+}
+
+.particle-large {
+    width: 6px;
+    height: 6px;
+    background: transparent !important;
+}
+
+/* Special Effect Particles */
+.particle-crackle {
+    animation: crackle-pop 0.3s ease-out forwards;
+    background: transparent !important;
+}
+
+.particle-willow {
+    animation: willow-fall 2s ease-in forwards;
+    background: transparent !important;
+}
+
+.particle-peony {
+    animation: peony-burst 1s ease-out forwards;
+    background: transparent !important;
+}
+
+@keyframes crackle-pop {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes willow-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(200px) rotate(180deg);
+        opacity: 0;
+    }
+}
+
+@keyframes peony-burst {
+    0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2) rotate(180deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(0.8) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Snowflake Styles */
+.snowflake {
+    position: fixed;
+    color: #ffffff;
+    font-size: 1em;
+    animation: snow-fall linear infinite;
+    pointer-events: none;
+    z-index: 9998;
+    text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.8),
+        0 0 10px rgba(255, 255, 255, 0.6);
+    background: transparent !important;
+}
+
+@keyframes snow-fall {
+    0% {
+        transform: translateY(-10px) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) translateX(20px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Holiday Message - Make sure it's visible */
+.holiday-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: bold;
+    z-index: 10000; /* Higher than fireworks */
+    animation: holiday-pulse 2s infinite, holiday-float 6s ease-in-out infinite;
+    box-shadow: 
+        0 4px 15px rgba(0,0,0,0.3),
+        0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@keyframes holiday-pulse {
+    0%, 100% { 
+        transform: translateX(-50%) scale(1); 
+    }
+    50% { 
+        transform: translateX(-50%) scale(1.05); 
+    }
+}
+
+@keyframes holiday-float {
+    0%, 100% { 
+        transform: translateX(-50%) translateY(0px); 
+    }
+    50% { 
+        transform: translateX(-50%) translateY(-5px); 
+    }
+}
+
+/* Christmas Tree */
+.christmas-tree {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-size: 2.5em;
+    z-index: 10000; /* Higher than fireworks */
+    animation: tree-shake 3s ease-in-out infinite, tree-glow 2s ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    background: transparent !important;
+}
+
+.christmas-tree:hover {
+    transform: scale(1.2);
+}
+
+@keyframes tree-shake {
+    0%, 100% { 
+        transform: rotate(0deg); 
+    }
+    25% { 
+        transform: rotate(-5deg); 
+    }
+    75% { 
+        transform: rotate(5deg); 
+    }
+}
+
+@keyframes tree-glow {
+    0% { 
+        filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.3));
+    }
+    100% { 
+        filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.8));
+    }
+}
+
+/* Performance Optimizations */
+.firework-particle, 
+.firework-sparkle, 
+.firework-trail, 
+.firework-flare, 
+.firework-debris {
+    will-change: transform, opacity;
+}
+
+/* Ensure no background colors are applied */
+.fireworks-container,
+.fireworks-overlay,
+.fireworks-background {
+    background: transparent !important;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    .holiday-message {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        top: 10px;
+    }
+    
+    .christmas-tree {
+        font-size: 2em;
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    .firework-particle,
+    .firework-sparkle,
+    .firework-trail,
+    .firework-flare,
+    .firework-debris,
+    .snowflake,
+    .holiday-message,
+    .christmas-tree {
+        animation: none;
+    }
+}

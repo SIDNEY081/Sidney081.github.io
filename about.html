@@ -65,73 +65,11 @@
     </div>
   </section>
 
-  <!-- Skills Section -->
-  <section id="skills">
-    <div class="container">
-      <h2>Technical Skills</h2>
-      <p class="section-subtitle">Technologies and tools I work with</p>
-      
-      <h3>Programming Languages</h3>
-      <div id="languageSkills" class="skills">
-        <div class="skill" data-lang="Java">Java</div>
-        <div class="skill" data-lang="JavaScript">JavaScript</div>
-        <div class="skill" data-lang="Python">Python</div>
-        <div class="skill" data-lang="PHP">PHP</div>
-        <div class="skill" data-lang="SQL">SQL</div>
-      </div>
-      
-      <div id="langDescription" class="lang-description">
-        Click on a language to see description
-      </div>
-      
-      <h3>Databases</h3>
-      <div class="skills">
-        <div class="skill">MySQL</div>
-        <div class="skill">SQLite</div>
-        <div class="skill">MongoDB</div>
-      </div>
-      
-      <h3>IT Infrastructure</h3>
-      <div class="skills">
-        <div class="skill">PC Hardware & Assembly</div>
-        <div class="skill">System Troubleshooting</div>
-        <div class="skill">Network Configuration</div>
-        <div class="skill">IT Security Fundamentals</div>
-      </div>
-      
-      <h3>Frameworks & Tools</h3>
-      <div class="skills">
-        <div class="skill">React</div>
-        <div class="skill">Node.js</div>
-        <div class="skill">Git</div>
-        <div class="skill">Docker</div>
-        <div class="skill">REST APIs</div>
-        <div class="skill">Linux</div>
-      </div>
-
-      <div class="quick-stats">
-        <div class="quick-stat">
-          <h3>3</h3>
-          <p>Certifications</p>
-        </div>
-        <div class="quick-stat">
-          <h3>10+</h3>
-          <p>Projects Completed</p>
-        </div>
-        <div class="quick-stat">
-          <h3>Full-Stack</h3>
-          <p>Development Focus</p>
-        </div>
-        <div class="quick-stat">
-          <h3>100%</h3>
-          <p>Commitment</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Skills Section (Loaded from external file) -->
+  <div id="skills-section"></div>
 
   <!-- Footer -->
-<div id="footer-section"></div>
+  <div id="footer-section"></div>
 
   <!-- Scroll to Top -->
   <button class="scroll-to-top" id="scrollToTop">
@@ -141,5 +79,39 @@
   <!-- JavaScript Links -->
   <script src="script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Load external sections -->
+  <script>
+    // Load skills section
+    fetch('skills.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('skills-section').innerHTML = data;
+        // Re-initialize any skill-related JavaScript after loading
+        setTimeout(() => {
+          if (window.initializeLanguageSkills) {
+            initializeLanguageSkills();
+          }
+          if (window.initializeSkillFrames) {
+            initializeSkillFrames();
+          }
+        }, 100);
+      })
+      .catch(error => {
+        console.error('Error loading skills section:', error);
+        document.getElementById('skills-section').innerHTML = '<div class="container"><p>Skills section loading failed. Please check the skills.html file.</p></div>';
+      });
+    
+    // Load footer section
+    fetch('sections/footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-section').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Error loading footer:', error);
+        document.getElementById('footer-section').innerHTML = '<footer><div class="container"><p>&copy; 2025 Sidney Mpenyana</p></div></footer>';
+      });
+  </script>
 </body>
 </html>

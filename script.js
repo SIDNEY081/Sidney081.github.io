@@ -16,36 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // 4. Typewriter Effect for Home Page
     initializeTypewriter();
     
-    // 5. Language Skills - Only on home page
-    setTimeout(() => {
-        const skills = document.querySelectorAll('#languageSkills .skill');
-        const desc = document.getElementById('langDescription');
-        
-        if (skills.length > 0) {
-            skills.forEach(skill => {
-                skill.onclick = function() {
-                    console.log('Language clicked:', this.getAttribute('data-lang'));
-                    skills.forEach(s => s.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const descriptions = {
-                        'Java': 'Enterprise applications and Android development',
-                        'JavaScript': 'Web development and interactive features',
-                        'Python': 'Data science and web development',
-                        'PHP': 'Server-side web development',
-                        'SQL': 'Database management and queries'
-                    };
-                    
-                    if (desc) {
-                        desc.textContent = descriptions[this.getAttribute('data-lang')] || 'Description available';
-                    }
-                };
-            });
-            
-            // Activate first skill
-            skills[0].click();
-        }
-    }, 500);
+    // 5. Language Skills - Initialize on all pages that have skills section
+    initializeLanguageSkills();
     
     // 6. Load Real Projects from GitHub - Only on projects page
     if (document.getElementById('projects-loading')) {
@@ -82,9 +54,128 @@ document.addEventListener('DOMContentLoaded', function() {
     // 11. Load Footer
     loadFooter();
     
-    // 12. Update active nav on hash change (for about section)
+    // 12. Load Skills Section if placeholder exists
+    loadSkillsSection();
+    
+    // 13. Update active nav on hash change (for about section)
     window.addEventListener('hashchange', updateActiveNavLink);
 });
+
+// ===== SKILLS SECTION FUNCTIONS =====
+
+// Load skills section from external file
+function loadSkillsSection() {
+    const skillsSection = document.getElementById('skills-section');
+    if (skillsSection) {
+        fetch('skills.html')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Skills file not found');
+                }
+                return response.text();
+            })
+            .then(data => {
+                skillsSection.innerHTML = data;
+                // Re-initialize language skills after loading
+                setTimeout(initializeLanguageSkills, 100);
+            })
+            .catch(error => {
+                console.error('Error loading skills section:', error);
+                // Fallback skills section
+                skillsSection.innerHTML = `
+                    <section id="skills">
+                        <div class="container">
+                            <h2>Technical Skills</h2>
+                            <p class="section-subtitle">Technologies and tools I work with</p>
+                            
+                            <h3>Programming Languages</h3>
+                            <div id="languageSkills" class="skills">
+                                <div class="skill" data-lang="Java">Java</div>
+                                <div class="skill" data-lang="JavaScript">JavaScript</div>
+                                <div class="skill" data-lang="Python">Python</div>
+                                <div class="skill" data-lang="PHP">PHP</div>
+                                <div class="skill" data-lang="SQL">SQL</div>
+                            </div>
+                            
+                            <div id="langDescription" class="lang-description">
+                                Click on a language to see description
+                            </div>
+                            
+                            <h3>Databases</h3>
+                            <div class="skills">
+                                <div class="skill">MySQL</div>
+                                <div class="skill">SQLite</div>
+                                <div class="skill">MongoDB</div>
+                            </div>
+                            
+                            <h3>IT Infrastructure</h3>
+                            <div class="skills">
+                                <div class="skill">PC Hardware & Assembly</div>
+                                <div class="skill">System Troubleshooting</div>
+                                <div class="skill">Network Configuration</div>
+                                <div class="skill">IT Security Fundamentals</div>
+                            </div>
+                            
+                            <h3>Frameworks & Tools</h3>
+                            <div class="skills">
+                                <div class="skill">React</div>
+                                <div class="skill">Node.js</div>
+                                <div class="skill">Git</div>
+                                <div class="skill">Docker</div>
+                                <div class="skill">REST APIs</div>
+                                <div class="skill">Linux</div>
+                            </div>
+                        </div>
+                    </section>
+                `;
+                // Initialize skills after fallback
+                setTimeout(initializeLanguageSkills, 100);
+            });
+    }
+}
+
+// Initialize language skills functionality
+function initializeLanguageSkills() {
+    const skills = document.querySelectorAll('#languageSkills .skill');
+    const desc = document.getElementById('langDescription');
+    
+    if (skills.length > 0 && desc) {
+        console.log('Initializing language skills:', skills.length, 'skills found');
+        
+        const descriptions = {
+            'Java': 'Enterprise applications and Android development. Strong in OOP principles and backend systems.',
+            'JavaScript': 'Web development and interactive features. Experience with frontend frameworks and Node.js.',
+            'Python': 'Data science, automation, and web development. Skilled in scripting and ML libraries.',
+            'PHP': 'Server-side web development. Experience with Laravel and building dynamic websites.',
+            'SQL': 'Database management and complex queries. Proficient in database design and optimization.'
+        };
+        
+        skills.forEach(skill => {
+            skill.onclick = function() {
+                console.log('Language clicked:', this.getAttribute('data-lang'));
+                
+                // Remove active class from all skills
+                skills.forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked skill
+                this.classList.add('active');
+                
+                // Update description
+                const lang = this.getAttribute('data-lang');
+                desc.textContent = descriptions[lang] || 'Description available soon.';
+                desc.style.opacity = '1';
+            };
+        });
+        
+        // Activate first skill by default if none active
+        const activeSkill = document.querySelector('#languageSkills .skill.active');
+        if (!activeSkill && skills.length > 0) {
+            skills[0].click();
+        }
+    } else if (skills.length === 0) {
+        console.log('No language skills found on this page');
+    }
+}
 
 // ===== TYPEWRITER EFFECT =====
 
@@ -539,31 +630,6 @@ function displayProjects(projects, type) {
 
 // Show fallback projects when GitHub API fails
 function showFallbackProjects() {
-    console.log('Showing fallback projects');
-    
-    const loadingElement = document.getElementById('projects-loading');
-    const errorElement = document.getElementById('projects-error');
-    const completedSection = document.getElementById('completed-projects');
-    const inprogressSection = document.getElementById('inprogress-projects');
-    
-    if (loadingElement) {
-        loadingElement.style.display = 'none';
-    }
-    
-    if (errorElement) {
-        errorElement.style.display = 'block';
-    }
-    
-    // Show both sections for fallback
-    if (completedSection) {
-        completedSection.style.display = 'block';
-    }
-    if (inprogressSection) {
-        inprogressSection.style.display = 'block';
-    }
-    
-    // Show fallback projects when GitHub API fails
-function showFallbackProjects() {
     console.log('🛟 Showing fallback projects');
     
     const loadingElement = document.getElementById('projects-loading');
@@ -628,11 +694,6 @@ function showFallbackProjects() {
     
     console.log('✅ Fallback projects displayed');
 }
-    // Display fallback projects
-    if (completedSection) {
-        displayProjects(fallbackProjects, 'completed');
-    }
-}
 
 // Setup project filters
 function setupProjectFilters() {
@@ -688,4 +749,24 @@ function formatDate(dateString) {
     return `${Math.floor(diffDays / 30)} months ago`;
 }
 
-console.log('Portfolio JS loaded - with all updates including typewriter and improved projects loading');
+
+// Initialize skill progress bars
+function initializeSkillProgress() {
+    const progressBars = document.querySelectorAll('.level-progress');
+    
+    progressBars.forEach(bar => {
+        const level = bar.getAttribute('data-level');
+        bar.style.width = level + '%';
+    });
+}
+
+// Call this function when the page loads
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSkillProgress();
+});
+
+// Also call it when skills section is loaded dynamically
+function initializeSkillFrames() {
+    initializeSkillProgress();
+}
+console.log('Portfolio JS loaded - with skills section loading and improved functionality');
