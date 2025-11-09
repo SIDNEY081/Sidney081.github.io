@@ -1797,6 +1797,8 @@ nav a.active:hover {
   box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
 }
 
+
+
 /* ===== GitHub Stats ===== */
 .contribution-graph {
   margin-bottom: 40px;
@@ -1883,3 +1885,549 @@ nav a.active:hover {
   color: white;
 }
 
+/* ===== Mobile Responsive Fixes ===== */
+
+/* Base mobile adjustments */
+@media (max-width: 1200px) {
+  .container {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Header mobile fixes */
+  header {
+    padding: 60px 15px 30px;
+    margin: 0 10px 30px;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    line-height: 1.2;
+  }
+  
+  header p {
+    font-size: 1.1rem;
+  }
+  
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+  
+  .header-badges {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .header-badge {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+  }
+  
+  /* Navigation mobile fixes */
+  nav {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    margin: 0 10px 30px;
+  }
+  
+  nav a {
+    text-align: center;
+    padding: 12px;
+    width: 100%;
+  }
+  
+  /* Section mobile fixes */
+  section {
+    padding: 40px 15px;
+    margin: 0 10px 30px;
+    border-radius: 15px;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* About section mobile fixes */
+  .highlights {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .highlight-card {
+    padding: 20px;
+  }
+  
+  .quick-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+  
+  .quick-stat {
+    padding: 20px 15px;
+  }
+  
+  .quick-stat h3 {
+    font-size: 2rem;
+  }
+  
+  /* Skills section mobile fixes */
+  .tech-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .tech-category {
+    padding: 20px;
+  }
+  
+  .tech-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .tech-name {
+    min-width: auto;
+    flex: 1;
+  }
+  
+  .tech-progress {
+    order: 3;
+    width: 100%;
+    margin: 10px 0 0 0;
+    justify-content: space-between;
+  }
+  
+  .progress-bar {
+    flex: 1;
+    max-width: 200px;
+  }
+  
+  /* Projects mobile fixes */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .project-card {
+    padding: 20px;
+  }
+  
+  .repo-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .repo-stats {
+    align-self: flex-start;
+  }
+  
+  .tech-stack {
+    gap: 8px;
+  }
+  
+  /* Contact mobile fixes */
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .contact-icon {
+    align-self: center;
+  }
+  
+  .status-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 20px;
+  }
+  
+  .status-indicator {
+    align-self: center;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+  
+  /* Quick links mobile fixes */
+  .links-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .link-card {
+    padding: 30px 20px;
+  }
+  
+  /* Footer mobile fixes */
+  footer {
+    margin: 0 10px;
+    padding: 30px 15px;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  /* Theme toggle mobile */
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  /* Scroll to top mobile */
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  header h1 {
+    font-size: 1.8rem;
+  }
+  
+  header p {
+    font-size: 1rem;
+  }
+  
+  .profile-img {
+    width: 100px;
+    height: 100px;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+  }
+  
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+  
+  /* About section */
+  .about-content p {
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  .highlight-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  .quick-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-stat h3 {
+    font-size: 1.8rem;
+  }
+  
+  /* Skills section */
+  .tech-category h3 {
+    font-size: 1.3rem;
+  }
+  
+  .tech-item {
+    padding: 12px;
+  }
+  
+  .progress-bar {
+    width: 80px;
+  }
+  
+  .progress-percentage {
+    font-size: 0.75rem;
+    min-width: 30px;
+  }
+  
+  /* Projects */
+  .project-filters {
+    gap: 8px;
+  }
+  
+  .project-filters button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+  
+  .repo-header h3 {
+    font-size: 1.2rem;
+  }
+  
+  .repo-stats {
+    gap: 10px;
+  }
+  
+  .repo-stats span {
+    font-size: 0.8rem;
+  }
+  
+  /* Contact */
+  .contact-greeting {
+    font-size: 1rem;
+    padding: 12px;
+  }
+  
+  .response-item {
+    padding: 10px;
+  }
+  
+  /* Navigation active states */
+  nav a.active {
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .tech-item:hover {
+    transform: none;
+  }
+  
+  .project-card:hover {
+    transform: none;
+  }
+  
+  .link-card:hover {
+    transform: none;
+  }
+  
+  .stat-card:hover {
+    transform: none;
+  }
+  
+  .highlight-card:hover {
+    transform: none;
+  }
+  
+  /* Increase touch targets */
+  nav a {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tech-toggle {
+    min-width: 44px;
+    min-height: 44px;
+  }
+  
+  .theme-toggle {
+    min-height: 44px;
+  }
+  
+  .scroll-to-top {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Orientation specific fixes */
+@media (max-width: 768px) and (orientation: landscape) {
+  header {
+    padding: 40px 15px 20px;
+  }
+  
+  .profile-img {
+    width: 80px;
+    height: 80px;
+  }
+  
+  header h1 {
+    font-size: 1.6rem;
+  }
+  
+  section {
+    padding: 30px 15px;
+  }
+}
+
+/* High DPI screen optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .progress-bar {
+    height: 6px;
+  }
+  
+  .tech-toggle {
+    font-weight: bold;
+  }
+}
+
+/* Print styles */
+@media print {
+  .theme-toggle,
+  .scroll-to-top,
+  nav {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  section {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    margin: 10px 0 !important;
+    page-break-inside: avoid;
+  }
+}
+
+/* Safe area insets for modern mobile devices */
+@supports(padding: max(0px)) {
+  body {
+    padding-left: min(0vmin, env(safe-area-inset-left));
+    padding-right: min(0vmin, env(safe-area-inset-right));
+    padding-top: min(0vmin, env(safe-area-inset-top));
+    padding-bottom: min(0vmin, env(safe-area-inset-bottom));
+  }
+  
+  .theme-toggle {
+    right: max(20px, env(safe-area-inset-right));
+  }
+  
+  .scroll-to-top {
+    right: max(20px, env(safe-area-inset-right));
+    bottom: max(20px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .progress-fill::after {
+    animation: none;
+  }
+  
+  .typewriter::after {
+    animation: none;
+  }
+  
+  .status-indicator {
+    animation: none;
+  }
+}
+
+/* Dark mode auto detection */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    /* Keep your existing dark mode variables */
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+  
+  .light {
+    --border-color: #000000;
+    --text-primary: #000000;
+    --text-secondary: #333333;
+  }
+}
+
+/* Ensure text remains readable on small screens */
+@media (max-width: 360px) {
+  html {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding: 0 10px;
+  }
+  
+  section {
+    margin: 0 5px 20px;
+    padding: 30px 10px;
+  }
+  
+  .tech-description p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+}
+
+/* Fix for very tall screens (mobile in landscape) */
+@media (max-height: 500px) and (orientation: landscape) {
+  header {
+    padding: 30px 15px 15px;
+  }
+  
+  .profile-img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  header h1 {
+    font-size: 1.4rem;
+  }
+  
+  header p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Ensure images don't overflow on mobile */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent horizontal scrolling */
+body {
+  overflow-x: hidden;
+}
+
+/* Improve focus visibility for accessibility */
+@media (max-width: 768px) {
+  a:focus,
+  button:focus,
+  .tech-toggle:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+}

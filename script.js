@@ -34,7 +34,54 @@ function initializeTechnologyToggle() {
   });
 }
 
+// Mobile-specific JavaScript
+function initializeMobileFeatures() {
+  // Handle touch events for better mobile experience
+  if ('ontouchstart' in window) {
+    document.body.classList.add('touch-device');
+    
+    // Add touch feedback for interactive elements
+    document.addEventListener('touchstart', function() {}, {passive: true});
+    
+    // Prevent zoom on double tap for interactive elements
+    const interactiveElements = document.querySelectorAll('button, a, .tech-item, .project-card');
+    interactiveElements.forEach(el => {
+      el.style.touchAction = 'manipulation';
+    });
+  }
+  
+  // Handle viewport height issues on mobile
+  function setViewportHeight() {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+  }
+  
+  setViewportHeight();
+  window.addEventListener('resize', setViewportHeight);
+  window.addEventListener('orientationchange', setViewportHeight);
+  
+  // Improve scrolling performance on mobile
+  if ('scrollBehavior' in document.documentElement.style) {
+    const smoothScrollElements = document.querySelectorAll('a[href^="#"]');
+    smoothScrollElements.forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  }
+}
 
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  initializeMobileFeatures();
+});
 
     // 4. Typewriter Effect for Home Page
     initializeTypewriter();
