@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.4.0/css/all.min.css">
 </head>
 <body>
-
   <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle">
     <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
@@ -41,17 +40,17 @@
       <div class="about-content">
         <p>
           I have successfully completed all academic requirements for my Diploma in Information Technology at Vaal University of Technology (2025), with formal graduation scheduled for Autumn 2026.
-          My technical education is complemented by IT Essentials and Introduction to Networks certifications, providing me with both software development expertise and fundamental IT infrastructure knowledge for my journey as a junior developer.
+          My technical education is complemented by IT Essentials, Switching, Routing & Wireless Essentials and Introduction to Networks certifications, providing me with both software development expertise and fundamental IT infrastructure knowledge for my journey as a junior developer.
         </p>
         
-         <div class="highlights">
-        <div class="highlight-card">
-          <h3>🎓 Education Status</h3>
-          <p><strong>Diploma in IT</strong> - Vaal University of Technology<br>
-          ✅ <strong>All coursework completed (2025)</strong><br>
-          🎓 <strong>Graduation Ceremony:</strong> Autumn 2026<br>
-          <strong>Certifications:</strong> IT Essentials, Introduction to Networks and Switching, Routing & Wireless Essentials</p>
-        </div>
+        <div class="highlights">
+          <div class="highlight-card">
+            <h3>🎓 Education Status</h3>
+            <p><strong>Diploma in IT</strong> - Vaal University of Technology<br>
+            ✅ <strong>All coursework completed (2025)</strong><br>
+            🎓 <strong>Graduation Ceremony:</strong> Autumn 2026<br>
+            <strong>Certifications:</strong> IT Essentials, Introduction to Networks and Switching, Routing & Wireless Essentials</p>
+          </div>
           
           <div class="highlight-card">
             <h3>🚀 Career Goals</h3>
@@ -79,19 +78,21 @@
   
   <!-- Load external sections -->
   <script>
+    // Initialize AOS animations
+    AOS.init({ 
+      duration: 800, 
+      once: true,
+      offset: 100 
+    });
+
     // Load skills section
     fetch('skills.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('skills-section').innerHTML = data;
-        // Re-initialize any skill-related JavaScript after loading
+        // Re-initialize technology toggle functionality after loading
         setTimeout(() => {
-          if (window.initializeLanguageSkills) {
-            initializeLanguageSkills();
-          }
-          if (window.initializeSkillFrames) {
-            initializeSkillFrames();
-          }
+          initializeTechnologyToggle();
         }, 100);
       })
       .catch(error => {
@@ -100,7 +101,7 @@
       });
     
     // Load footer section
-    fetch('sections/footer.html')
+    fetch('footer.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('footer-section').innerHTML = data;
@@ -109,6 +110,26 @@
         console.error('Error loading footer:', error);
         document.getElementById('footer-section').innerHTML = '<footer><div class="container"><p>&copy; 2025 Sidney Mpenyana</p></div></footer>';
       });
+
+    // Function to initialize technology toggle functionality
+    function initializeTechnologyToggle() {
+      document.querySelectorAll('.tech-item').forEach(item => {
+        const toggle = item.querySelector('.tech-toggle');
+        const description = item.querySelector('.tech-description');
+        
+        item.addEventListener('click', (e) => {
+          // Toggle the show class on the description
+          description.classList.toggle('show');
+          
+          // Change the toggle button text
+          if (description.classList.contains('show')) {
+            toggle.textContent = '-';
+          } else {
+            toggle.textContent = '+';
+          }
+        });
+      });
+    }
   </script>
 </body>
 </html>

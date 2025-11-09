@@ -14,14 +14,12 @@
   <link rel="stylesheet" href="fireworks.css">
 </head>
 <body>
-
-
   <!-- Theme Toggle -->
   <button class="theme-toggle" id="themeToggle">
     <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
   </button>
 
-  <!-- Header Content Directly Here -->
+  <!-- Header Content -->
   <header>
     <div class="container">
       <img src="assets/profile.jpg" alt="Sidney Mpenyana" class="profile-img">
@@ -50,56 +48,10 @@
     </div>
   </nav>
 
-  <!-- Home Page Content -->
-  <section id="about">
-    <div class="container">
-      <h2>About Me</h2>
-      <p class="section-subtitle">Junior Developer</p>
-      
-      <div class="about-content">
-        <p>
-          I have successfully completed all academic requirements for my Diploma in Information Technology at Vaal University of Technology (2025), with formal graduation scheduled for Autumn 2026.
-          My technical education is complemented by IT Essentials and Introduction to Networks certifications, providing me with both software development expertise and fundamental IT infrastructure knowledge for my journey as a junior developer.
-        </p>
-        </p>
-       <div class="highlights">
-        <div class="highlight-card">
-          <h3>🎓 Education Status</h3>
-          <p><strong>Diploma in IT</strong> - Vaal University of Technology<br>
-          ✅ <strong>All coursework completed (2025)</strong><br>
-          🎓 <strong>Graduation Ceremony:</strong> Autumn 2026<br>
-          <strong>Certifications:</strong> IT Essentials, Introduction to Networks and Switching, Routing & Wireless Essentials</p>
-        </div>
-          
-          <div class="highlight-card">
-            <h3>🚀 Career Goals</h3>
-            <p>Seeking opportunities to apply my diverse technical skills in software development roles while leveraging my IT infrastructure knowledge.</p>
-          </div>
-        </div>
-        
-        <div class="quick-stats">
-          <div class="quick-stat">
-            <h3>3</h3>
-            <p>Certifications</p>
-          </div>
-          <div class="quick-stat">
-            <h3>10+</h3>
-            <p>Projects Completed</p>
-          </div>
-          <div class="quick-stat">
-            <h3>Full-Stack</h3>
-            <p>Development Focus</p>
-          </div>
-          <div class="quick-stat">
-            <h3>100%</h3>
-            <p>Commitment</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Home Page Content - Load About Section -->
+  <div id="home-about-section"></div>
 
-  <!-- Skills Section (Loaded Dynamically) -->
+  <!-- Skills Section (Loaded from external file) -->
   <div id="skills-section"></div>
 
   <!-- Quick Links to Other Pages -->
@@ -151,6 +103,8 @@
   <script src="script.js"></script>
   <script src="fireworks.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Load external sections -->
   <script>
     // Initialize AOS animations
     AOS.init({ 
@@ -158,6 +112,63 @@
       once: true,
       offset: 100 
     });
+
+    // Load about section for home page
+    fetch('about-section.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('home-about-section').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Error loading about section:', error);
+        document.getElementById('home-about-section').innerHTML = '<div class="container"><p>About section loading failed.</p></div>';
+      });
+
+    // Load skills section
+    fetch('skills.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('skills-section').innerHTML = data;
+        // Re-initialize technology toggle functionality after loading
+        setTimeout(() => {
+          initializeTechnologyToggle();
+        }, 100);
+      })
+      .catch(error => {
+        console.error('Error loading skills section:', error);
+        document.getElementById('skills-section').innerHTML = '<div class="container"><p>Skills section loading failed. Please check the skills.html file.</p></div>';
+      });
+
+    // Load footer section
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-section').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Error loading footer:', error);
+        document.getElementById('footer-section').innerHTML = '<footer><div class="container"><p>&copy; 2025 Sidney Mpenyana</p></div></footer>';
+      });
+
+    // Function to initialize technology toggle functionality
+    function initializeTechnologyToggle() {
+      document.querySelectorAll('.tech-item').forEach(item => {
+        const toggle = item.querySelector('.tech-toggle');
+        const description = item.querySelector('.tech-description');
+        
+        item.addEventListener('click', (e) => {
+          // Toggle the show class on the description
+          description.classList.toggle('show');
+          
+          // Change the toggle button text
+          if (description.classList.contains('show')) {
+            toggle.textContent = '-';
+          } else {
+            toggle.textContent = '+';
+          }
+        });
+      });
+    }
   </script>
 </body>
 </html>

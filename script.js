@@ -13,6 +13,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // 3. Active Navigation - Highlight current page
     updateActiveNavLink();
     
+
+    // Function to initialize technology toggle functionality
+function initializeTechnologyToggle() {
+  document.querySelectorAll('.tech-item').forEach(item => {
+    const toggle = item.querySelector('.tech-toggle');
+    const description = item.querySelector('.tech-description');
+    
+    item.addEventListener('click', (e) => {
+      // Toggle the show class on the description
+      description.classList.toggle('show');
+      
+      // Change the toggle button text
+      if (description.classList.contains('show')) {
+        toggle.textContent = '-';
+      } else {
+        toggle.textContent = '+';
+      }
+    });
+  });
+}
+
+
+
     // 4. Typewriter Effect for Home Page
     initializeTypewriter();
     
