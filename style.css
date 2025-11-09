@@ -213,6 +213,143 @@ h2 {
   margin-right: auto;
 }
 
+/* ===== Resume Grid Layout ===== */
+.qualifications-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.grid-card {
+  background: var(--background-color);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border-left: 5px solid #2563eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: var(--text-primary);
+}
+
+.grid-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.main-card {
+  grid-column: span 2;
+  border-left-color: #059669;
+}
+
+.accent-card {
+  border-left-color: #dc2626;
+  background: linear-gradient(135deg, #fef2f2, var(--background-color));
+}
+
+.certs-grid {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.cert-item {
+  padding: 1.5rem;
+  background: var(--surface-color);
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+  color: var(--text-primary);
+}
+
+/* LARGER FONT SIZES FOR CERTIFICATE NAMES */
+.cert-item h4, .cert-item h6 {
+  color: var(--text-primary);
+  font-size: 1.3rem; /* Increased from default */
+  font-weight: 700; /* Made bolder */
+  margin-bottom: 0.75rem;
+}
+
+.cert-item p {
+  color: var(--text-secondary);
+  font-size: 1rem; /* Slightly larger paragraph text */
+  line-height: 1.6;
+}
+
+.status {
+  color: #059669;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.cisco-certs {
+  margin-top: 2rem;
+}
+
+.cisco-certs h5 {
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem; /* Slightly larger for section heading */
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+/* Resume Buttons */
+.resume-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.resume-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: center;
+  justify-content: center;
+  font-size: 1rem; /* Ensure button text is readable */
+}
+
+.btn-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: var(--surface-color);
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background: var(--background-color);
+  border-color: #2563eb;
+  transform: translateY(-2px);
+}
+
+.privacy-note {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: rgba(245, 158, 11, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: var(--warning-color);
+  font-size: 0.9rem;
+}
+
 /* ===== About Section ===== */
 .about-content {
   max-width: 1000px;
@@ -224,6 +361,7 @@ h2 {
   line-height: 1.8;
   margin-bottom: 30px;
   text-align: center;
+  color: var(--text-primary);
 }
 
 .highlights {
@@ -239,6 +377,7 @@ h2 {
   border-radius: 15px;
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;
+  color: var(--text-primary);
 }
 
 .highlight-card:hover {
@@ -251,6 +390,11 @@ h2 {
   color: var(--primary-color);
   margin-bottom: 15px;
   font-size: 1.3rem;
+}
+
+.highlight-card p {
+  color: var(--text-secondary);
+  text-align: left;
 }
 
 .quick-stats {
@@ -272,12 +416,14 @@ h2 {
 .quick-stat h3 {
   font-size: 2.5rem;
   margin-bottom: 5px;
+  color: white;
 }
 
 .quick-stat p {
   font-size: 0.9rem;
   opacity: 0.9;
   margin: 0;
+  color: white;
 }
 
 /* ===== Skills Section ===== */
@@ -352,6 +498,7 @@ h2 {
   margin: 20px auto 30px;
   max-width: 800px;
   transition: all 0.3s ease;
+  color: var(--text-primary);
 }
 
 .lang-description.show {
@@ -409,6 +556,7 @@ h2 {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  color: var(--text-primary);
 }
 
 .level-frame:hover {
@@ -487,6 +635,21 @@ h2 {
   background: var(--border-color);
 }
 
+/* Cisco Certifications Styling */
+.cisco-item i.fa-wifi {
+  color: #28a745;
+}
+
+/* Skills Section - New Certificate */
+.skills .skill.switching {
+  background: linear-gradient(135deg, #28a745, #20c997);
+}
+
+.skills .skill.switching:hover {
+  background: linear-gradient(135deg, #20c997, #28a745);
+  transform: translateY(-3px);
+}
+
 /* Level-specific backgrounds for junior appropriate labels */
 .level-frame[data-skill="Java"] .level-text,
 .level-frame[data-skill="JavaScript"] .level-text,
@@ -498,166 +661,9 @@ h2 {
   color: #4CAF50;
 }
 
-
 .level-frame[data-skill="PHP"] .level-text {
   background: rgba(255, 152, 0, 0.15);
   color: #FF9800;
-}
-
-/* ===== Resume Section ===== */
-.resume-download {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  max-width: 1000px;
-  margin: 0 auto;
-  align-items: start;
-}
-
-.resume-preview {
-  background: var(--background-color);
-  padding: 30px;
-  border-radius: 15px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow);
-}
-
-.resume-preview h3 {
-  color: var(--primary-color);
-  margin-bottom: 25px;
-  text-align: center;
-  font-size: 1.5rem;
-}
-
-.resume-highlights {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.resume-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  padding: 20px;
-  background: rgba(37, 99, 235, 0.05);
-  border-radius: 10px;
-  border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-}
-
-.resume-item:hover {
-  transform: translateX(5px);
-  border-color: var(--primary-color);
-}
-
-.resume-item i {
-  font-size: 1.2rem;
-  color: var(--primary-color);
-  margin-top: 2px;
-  flex-shrink: 0;
-}
-
-.resume-item strong {
-  color: var(--text-primary);
-  display: block;
-  margin-bottom: 5px;
-  font-size: 1rem;
-}
-
-.resume-item p {
-  color: var(--text-secondary);
-  margin: 0;
-  line-height: 1.5;
-  font-size: 0.9rem;
-}
-
-.download-options {
-  background: var(--background-color);
-  padding: 30px;
-  border-radius: 15px;
-  border: 1px solid var(--border-color);
-  box-shadow: var(--shadow);
-  text-align: center;
-}
-
-.download-options h3 {
-  color: var(--primary-color);
-  margin-bottom: 15px;
-  font-size: 1.5rem;
-}
-
-.download-options p {
-  color: var(--text-secondary);
-  margin-bottom: 25px;
-  line-height: 1.6;
-}
-
-.resume-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.resume-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 15px 25px;
-  border-radius: 25px;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  font-size: 1rem;
-}
-
-.resume-btn i {
-  font-size: 1.1rem;
-}
-
-.btn-primary.resume-btn {
-  background: var(--gradient);
-  color: white;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-}
-
-.btn-secondary.resume-btn {
-  background: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-}
-
-.btn-primary.resume-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
-}
-
-.btn-secondary.resume-btn:hover {
-  background: var(--primary-color);
-  color: white;
-  transform: translateY(-2px);
-}
-
-.privacy-note {
-  background: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.3);
-  color: var(--warning-color);
-  padding: 15px;
-  border-radius: 10px;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.privacy-note i {
-  font-size: 1rem;
 }
 
 /* ===== Projects Section ===== */
@@ -969,11 +975,13 @@ h2 {
 .stat-card h3 {
   font-size: 2.5rem;
   margin-bottom: 5px;
+  color: white;
 }
 
 .stat-card p {
   font-size: 0.9rem;
   opacity: 0.9;
+  color: white;
 }
 
 /* ===== Contact Section ===== */
@@ -1483,13 +1491,12 @@ footer {
     font-size: 0.9rem;
   }
   
-  .resume-download {
+  .qualifications-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
   }
   
-  .resume-item {
-    padding: 15px;
+  .main-card {
+    grid-column: span 1;
   }
   
   .resume-buttons {
@@ -1522,6 +1529,15 @@ footer {
   
   .response-item i {
     width: auto;
+  }
+  
+  /* Certificate name sizes for mobile */
+  .cert-item h4, .cert-item h6 {
+    font-size: 1.2rem; /* Slightly smaller on mobile but still large */
+  }
+  
+  .cisco-certs h5 {
+    font-size: 1.3rem; /* Slightly smaller on mobile */
   }
   
   /* Skill frames responsive */
@@ -1580,19 +1596,13 @@ footer {
     align-self: flex-start;
   }
   
-  .resume-preview,
-  .download-options {
-    padding: 20px;
+  /* Certificate name sizes for very small screens */
+  .cert-item h4, .cert-item h6 {
+    font-size: 1.1rem; /* Still readable on small screens */
   }
   
-  .resume-item {
-    flex-direction: column;
-    text-align: center;
-    gap: 10px;
-  }
-  
-  .resume-item i {
-    margin-top: 0;
+  .cisco-certs h5 {
+    font-size: 1.2rem; /* Still readable on small screens */
   }
   
   /* Skill frames mobile */
@@ -1661,7 +1671,6 @@ nav a.active:hover {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
-
 
 /* Projects Grid */
 .projects-grid {
@@ -1865,9 +1874,11 @@ nav a.active:hover {
 .stat-card h3 {
   font-size: 2.5rem;
   margin-bottom: 5px;
+  color: white;
 }
 
 .stat-card p {
   font-size: 0.9rem;
   opacity: 0.9;
+  color: white;
 }

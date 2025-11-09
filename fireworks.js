@@ -13,6 +13,8 @@ class AdvancedFireworks {
     this.startRendering();
     this.startAutoShow();
     this.bindEvents();
+    this.createAnimatedHolidayMessage();
+    this.createChristmasTreesWithLights();
   }
 
   createCanvas() {
@@ -30,21 +32,31 @@ class AdvancedFireworks {
   }
 
   createFirework(x, y, type = 'random') {
+    // Start from much lower for true long range - below the visible screen
+    const startX = Math.random() * this.canvas.width;
+    const startY = this.canvas.height + 100; // Start 100px below screen
+    
+    // Make target much higher for long range trajectory
+    const targetY = Math.max(80, y - 300);
+    
     const firework = {
-      x: Math.random() * this.canvas.width,
-      y: this.canvas.height,
+      x: startX,
+      y: startY,
       targetX: x,
-      targetY: y,
+      targetY: targetY,
       velocity: { x: 0, y: 0 },
-      speed: 2 + Math.random() * 1,
+      // Much higher speed for long range
+      speed: 6 + Math.random() * 3,
       brightness: 1,
       color: this.getRandomColor(),
       trail: [],
       exploded: false,
-      type: type
+      type: type,
+      gravity: 0.005, // Reduced gravity for longer flight
+      drag: 0.998
     };
 
-    // Calculate initial velocity towards target
+    // Calculate trajectory for very long range
     const dx = firework.targetX - firework.x;
     const dy = firework.targetY - firework.y;
     const distance = Math.sqrt(dx * dx + dy * dy);
@@ -93,6 +105,17 @@ class AdvancedFireworks {
     const particleCount = this.getParticleCount(firework.type);
     const colors = this.getExplosionColors(firework.type);
     
+    // Special name explosion for SIDNEY
+    if (firework.type === 'name') {
+      this.createNameExplosion(firework.x, firework.y);
+      // Also create regular explosion particles
+      for (let i = 0; i < particleCount; i++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        this.createParticle(firework.x, firework.y, color, 'standard');
+      }
+      return;
+    }
+    
     // Create main explosion particles
     for (let i = 0; i < particleCount; i++) {
       const color = colors[Math.floor(Math.random() * colors.length)];
@@ -131,6 +154,136 @@ class AdvancedFireworks {
     }
   }
 
+  // Special name explosion that spells out "SIDNEY"
+  createNameExplosion(x, y) {
+    const name = "SIDNEY";
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7', '#FF8E53'];
+    
+    console.log("Creating name explosion for: SIDNEY");
+    
+    for (let i = 0; i < name.length; i++) {
+      const letter = name[i];
+      const angle = (i / name.length) * Math.PI * 2;
+      const radius = 100; // Larger radius for better visibility
+      
+      // Create multiple particles per letter for better visibility
+      for (let j = 0; j < 15; j++) {
+        const particleAngle = angle + (Math.random() - 0.5) * 0.8;
+        const particleRadius = radius + (Math.random() - 0.5) * 40;
+        
+        const targetX = Math.cos(particleAngle) * particleRadius;
+        const targetY = Math.sin(particleAngle) * particleRadius;
+        
+        const nameParticle = document.createElement('div');
+        nameParticle.className = 'name-particle';
+        nameParticle.textContent = letter;
+        nameParticle.style.color = colors[Math.floor(Math.random() * colors.length)];
+        nameParticle.style.left = (x - 8) + 'px';
+        nameParticle.style.top = (y - 8) + 'px';
+        nameParticle.style.setProperty('--tx', targetX + 'px');
+        nameParticle.style.setProperty('--ty', targetY + 'px');
+        nameParticle.style.fontSize = (20 + Math.random() * 8) + 'px';
+        nameParticle.style.zIndex = '10000';
+        nameParticle.style.fontWeight = '900';
+        
+        document.body.appendChild(nameParticle);
+        
+        // Remove after animation
+        setTimeout(() => {
+          if (nameParticle.parentNode) {
+            nameParticle.parentNode.removeChild(nameParticle);
+          }
+        }, 2500);
+      }
+    }
+  }
+
+  // Create Christmas trees with lights
+  createChristmasTreesWithLights() {
+    // Left Christmas Tree
+    const leftTree = document.createElement('div');
+    leftTree.className = 'christmas-tree left';
+    leftTree.innerHTML = '🎄';
+    leftTree.addEventListener('click', () => this.createTreeFireworks('left'));
+    document.body.appendChild(leftTree);
+
+    // Right Christmas Tree
+    const rightTree = document.createElement('div');
+    rightTree.className = 'christmas-tree right';
+    rightTree.innerHTML = '🎄';
+    rightTree.addEventListener('click', () => this.createTreeFireworks('right'));
+    document.body.appendChild(rightTree);
+
+    // Create lights for both sides
+    this.createChristmasLights('left');
+    this.createChristmasLights('right');
+    this.createNewYearLights('left');
+    this.createNewYearLights('right');
+  }
+
+  createChristmasLights(side) {
+    const lightsContainer = document.createElement('div');
+    lightsContainer.className = `christmas-lights ${side}`;
+    
+    const lightString = document.createElement('div');
+    lightString.className = 'light-string';
+    
+    // Create 7 colorful light bulbs
+    const lightColors = ['red', 'green', 'blue', 'yellow', 'purple', 'orange', 'cyan'];
+    
+    for (let i = 0; i < 7; i++) {
+      const lightBulb = document.createElement('div');
+      lightBulb.className = `light-bulb ${lightColors[i]}`;
+      lightString.appendChild(lightBulb);
+    }
+    
+    lightsContainer.appendChild(lightString);
+    document.body.appendChild(lightsContainer);
+  }
+
+  createNewYearLights(side) {
+    const newYearLights = document.createElement('div');
+    newYearLights.className = `new-year-lights ${side}`;
+    
+    // Create 4 countdown lights
+    for (let i = 0; i < 4; i++) {
+      const countdownLight = document.createElement('div');
+      countdownLight.className = 'countdown-light';
+      newYearLights.appendChild(countdownLight);
+    }
+    
+    document.body.appendChild(newYearLights);
+  }
+
+  // Special fireworks when clicking trees
+  createTreeFireworks(side) {
+    const x = side === 'left' ? 150 : this.canvas.width - 150;
+    const y = this.canvas.height / 2;
+    
+    // Create multiple fireworks from the tree
+    for (let i = 0; i < 5; i++) {
+      setTimeout(() => {
+        this.createFirework(
+          x + (Math.random() - 0.5) * 100,
+          y - Math.random() * 200,
+          'random'
+        );
+      }, i * 200);
+    }
+    
+    // Special tree explosion effect
+    setTimeout(() => {
+      for (let i = 0; i < 30; i++) {
+        this.createParticle(
+          x,
+          y,
+          side === 'left' ? '#00FF00' : '#FF6B6B',
+          'sparkle'
+        );
+      }
+    }, 1000);
+  }
+
   getParticleCount(type) {
     const counts = {
       'standard': 80,
@@ -139,6 +292,7 @@ class AdvancedFireworks {
       'willow': 100,
       'peony': 200,
       'chrysanthemum': 180,
+      'name': 60,
       'random': 100 + Math.random() * 100
     };
     return counts[type] || counts.standard;
@@ -152,6 +306,7 @@ class AdvancedFireworks {
       'willow': ['#00FF00', '#80FF00', '#FFFF00'],
       'peony': ['#FF0000', '#FF00FF', '#FF0080'],
       'chrysanthemum': ['#FFFF00', '#FFA500', '#FF6B00'],
+      'name': ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7'],
       'random': this.getRandomColorScheme()
     };
     return colorSchemes[type] || colorSchemes.standard;
@@ -159,12 +314,12 @@ class AdvancedFireworks {
 
   getRandomColorScheme() {
     const schemes = [
-      ['#FF0000', '#FF6B00', '#FFFF00'], // Red-Orange-Yellow
-      ['#00FF00', '#00FFFF', '#0080FF'], // Green-Cyan-Blue
-      ['#FF00FF', '#FF0080', '#FF0000'], // Magenta-Pink-Red
-      ['#FFFF00', '#FFA500', '#FF6B00'], // Yellow-Orange
-      ['#00FFFF', '#0080FF', '#0000FF'], // Cyan-Blue
-      ['#FF6B6B', '#FFA500', '#FFFF00']  // Coral-Orange-Yellow
+      ['#FF0000', '#FF6B00', '#FFFF00'],
+      ['#00FF00', '#00FFFF', '#0080FF'],
+      ['#FF00FF', '#FF0080', '#FF0000'],
+      ['#FFFF00', '#FFA500', '#FF6B00'],
+      ['#00FFFF', '#0080FF', '#0000FF'],
+      ['#FF6B6B', '#FFA500', '#FFFF00']
     ];
     return schemes[Math.floor(Math.random() * schemes.length)];
   }
@@ -182,6 +337,11 @@ class AdvancedFireworks {
       const firework = this.fireworks[i];
       
       if (!firework.exploded) {
+        // Apply physics for realistic trajectory
+        firework.velocity.x *= firework.drag;
+        firework.velocity.y *= firework.drag;
+        firework.velocity.y += firework.gravity;
+        
         // Update position
         firework.x += firework.velocity.x;
         firework.y += firework.velocity.y;
@@ -195,7 +355,8 @@ class AdvancedFireworks {
         const dy = firework.targetY - firework.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < 5 || Math.random() < 0.02) {
+        // Explode when close to target or when starting to descend
+        if (distance < 15 || firework.velocity.y > 0 || firework.y < 150) {
           firework.exploded = true;
           this.explodeFirework(firework);
           this.fireworks.splice(i, 1);
@@ -287,41 +448,49 @@ class AdvancedFireworks {
   }
 
   startAutoShow() {
-    // Continuous firework show
+    // Continuous firework show with true long range
     setInterval(() => {
-      if (this.fireworks.length < 5) {
-        const x = 100 + Math.random() * (this.canvas.width - 200);
-        const y = 100 + Math.random() * (this.canvas.height * 0.4);
+      if (this.fireworks.length < 4) {
+        const x = 150 + Math.random() * (this.canvas.width - 300);
+        // Very high targets for long range
+        const y = 50 + Math.random() * 80;
         const types = ['standard', 'double', 'crackle', 'willow', 'peony', 'chrysanthemum'];
         const type = types[Math.floor(Math.random() * types.length)];
         this.createFirework(x, y, type);
       }
-    }, 800);
+    }, 1200);
 
-    // Occasional burst
+    // Occasional burst with long range
     setInterval(() => {
-      if (Math.random() > 0.5) {
+      if (Math.random() > 0.3) {
         const burstX = 200 + Math.random() * (this.canvas.width - 400);
-        const burstY = 150 + Math.random() * (this.canvas.height * 0.3);
-        const burstCount = 3 + Math.floor(Math.random() * 4);
+        const burstY = 30 + Math.random() * 60;
+        const burstCount = 2 + Math.floor(Math.random() * 3);
         
         for (let i = 0; i < burstCount; i++) {
           setTimeout(() => {
             this.createFirework(
               burstX + (Math.random() - 0.5) * 100,
-              burstY + (Math.random() - 0.5) * 50,
+              burstY + (Math.random() - 0.5) * 40,
               'random'
             );
-          }, i * 150);
+          }, i * 250);
         }
       }
-    }, 3000);
+    }, 5000);
+
+    // Special name firework every 15 seconds
+    setInterval(() => {
+      const x = this.canvas.width / 2;
+      const y = 100;
+      this.createFirework(x, y, 'name');
+    }, 15000);
   }
 
   bindEvents() {
     // Click to create firework
     this.canvas.addEventListener('click', (e) => {
-      const types = ['standard', 'double', 'crackle', 'willow', 'peony'];
+      const types = ['standard', 'double', 'crackle', 'willow', 'peony', 'name'];
       const type = types[Math.floor(Math.random() * types.length)];
       this.createFirework(e.clientX, e.clientY, type);
     });
@@ -330,17 +499,49 @@ class AdvancedFireworks {
     document.addEventListener('keydown', (e) => {
       if (e.code === 'Space') {
         e.preventDefault();
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
           setTimeout(() => {
             this.createFirework(
               Math.random() * this.canvas.width,
-              100 + Math.random() * (this.canvas.height * 0.4),
+              50 + Math.random() * 80,
               'random'
             );
-          }, i * 100);
+          }, i * 200);
         }
       }
+      
+      // N key for name firework
+      if (e.code === 'KeyN') {
+        e.preventDefault();
+        console.log("N key pressed - launching SIDNEY name firework");
+        const x = this.canvas.width / 2;
+        const y = 100;
+        this.createFirework(x, y, 'name');
+      }
     });
+  }
+
+  createAnimatedHolidayMessage() {
+    const message = document.createElement('div');
+    message.className = 'holiday-message';
+    
+    const messageText = "🎆 Happy Holidays & Merry Christmas from SIDNEY,  Press N for name firework! 🎆";
+    
+    // Create each letter as a separate span
+    for (let i = 0; i < messageText.length; i++) {
+      const letterSpan = document.createElement('span');
+      letterSpan.className = 'holiday-letter';
+      letterSpan.textContent = messageText[i];
+      
+      // Add space handling
+      if (messageText[i] === ' ') {
+        letterSpan.style.marginRight = '4px';
+      }
+      
+      message.appendChild(letterSpan);
+    }
+    
+    document.body.appendChild(message);
   }
 
   // Public method to create firework from outside
@@ -357,6 +558,7 @@ class AdvancedFireworks {
 
 // Initialize advanced fireworks
 document.addEventListener('DOMContentLoaded', function() {
+  console.log("DOM loaded - initializing fireworks with animated message and trees");
   window.advancedFireworks = new AdvancedFireworks();
   
   // Keep snowflake functionality
@@ -374,3 +576,23 @@ function createFirework(x, y) {
   }
 }
 
+// Snowflake function
+function createSnowflakes() {
+  setInterval(() => {
+    const snowflake = document.createElement('div');
+    snowflake.className = 'snowflake';
+    snowflake.textContent = '❄';
+    snowflake.style.left = Math.random() * window.innerWidth + 'px';
+    snowflake.style.animationDuration = (5 + Math.random() * 10) + 's';
+    document.body.appendChild(snowflake);
+    
+    setTimeout(() => {
+      if (snowflake.parentNode) {
+        snowflake.parentNode.removeChild(snowflake);
+      }
+    }, 15000);
+  }, 200);
+}
+
+// Debug: Check if script is loaded
+console.log("Fireworks script loaded successfully - SIDNEY animated message and Christmas trees enabled");

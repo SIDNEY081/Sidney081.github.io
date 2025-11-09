@@ -20,69 +20,68 @@
   </button>
 
   <!-- Navigation -->
-<nav class="main-nav">
+  <nav class="main-nav">
     <div class="nav-container">
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="projects.html">Projects</a>
-            <a href="resume.html">Resume</a>
-            <a href="contact.html">Contact</a>
-        </div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
+      </div>
     </div>
-</nav>
-  <!-- Load Header & Navigation -->
-  <div id="header-section"></div>
-  <div id="navigation-section"></div>
+  </nav>
 
-  <!-- Resume Content Directly Here (No Fetch) -->
+  <!-- Resume Content -->
   <section id="resume">
     <div class="container">
       <h2>Resume</h2>
       <p class="section-subtitle">My qualifications and technical background</p>
       
-      <div class="resume-download">
-        <div class="resume-preview">
-          <h3>Education & Certifications</h3>
-          <div class="resume-highlights">
-            <div class="resume-item">
-              <i class="fas fa-graduation-cap"></i>
-              <div>
-                <strong>Diploma in Information Technology</strong>
-                <p><em>Status: Coursework Completed, Awaiting Official Certificate</em></p>
-               <p>Completed a comprehensive program covering software development, database systems, and web technologies. 
-                Acquired hands-on technical skills and ready to apply them in a professional environment.</p>
+      <div class="qualifications-grid">
+        
+        <!-- Education Section with Cisco Certs -->
+        <div class="grid-card main-card">
+          <h3>Education</h3>
+          <div class="education-item">
+            <h4>Diploma in Information Technology</h4>
+            <p class="status">Coursework Completed, Awaiting Official Certificate</p>
+            <p>Completed a comprehensive program covering software development, database systems, and web technologies. Acquired hands-on technical skills and ready to apply them in a professional environment.</p>
             
-            <div class="resume-item">
-              <i class="fas fa-certificate"></i>
-              <div>
-                <strong>IT Essentials</strong>
-                <p>Comprehensive understanding of computer hardware, software, mobile devices, security, and troubleshooting. Hands-on experience with PC assembly and configuration.</p>
-              </div>
-            </div>
-            
-            <div class="resume-item">
-              <i class="fas fa-network-wired"></i>
-              <div>
-                <strong>Introduction to Networks</strong>
-                <p>Fundamental knowledge of networking concepts, protocols, architecture, and operations. Experience with network configuration and basic troubleshooting.</p>
-              </div>
-            </div>
-            
-            <div class="resume-item">
-              <i class="fas fa-code"></i>
-              <div>
-                <strong>Junior Developer</strong>
-                <p>Transitioned from student to professional developer with strong foundation in programming, database management, and software development methodologies.</p>
+            <div class="cisco-certs">
+              <h5>Cisco Certifications Included in Program:</h5>
+              <div class="certs-grid">
+                
+                <div class="cert-item">
+                  <h6>IT Essentials</h6>
+                  <p>Comprehensive understanding of computer hardware, software, mobile devices, security, and troubleshooting. Hands-on experience with PC assembly and configuration.</p>
+                </div>
+                
+                <div class="cert-item">
+                  <h6>Introduction to Networks</h6>
+                  <p>Fundamental knowledge of networking concepts, protocols, architecture, and operations. Experience with network configuration and basic troubleshooting.</p>
+                </div>
+                
+                <div class="cert-item">
+                  <h6>Switching, Routing & Wireless Essentials</h6>
+                  <p>Networking knowledge including VLANs, inter-VLAN routing, static and dynamic routing protocols, and wireless network configuration and security.</p>
+                </div>
+                
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="download-options">
+
+        <!-- Professional Profile -->
+        <div class="grid-card">
+          <h3>Junior Developer</h3>
+          <p>Transitioned from student to professional developer with strong foundation in programming, database management, and software development methodologies.</p>
+        </div>
+
+        <!-- Resume Request -->
+        <div class="grid-card accent-card">
           <h3>Request My Resume</h3>
           <p>For privacy and security reasons, I share my resume upon request. This helps me track legitimate opportunities and protect my personal information.</p>
-          
           <div class="resume-buttons">
             <a href="mailto:sidneympenyana@gmail.com?subject=Resume Request&body=Hi Sidney, I'd like to request your resume for review." class="resume-btn btn-primary">
               <i class="fas fa-envelope"></i>
@@ -105,6 +104,7 @@
             <span>Your privacy is respected. I'll respond to legitimate requests within 24 hours.</span>
           </div>
         </div>
+
       </div>
     </div>
   </section>

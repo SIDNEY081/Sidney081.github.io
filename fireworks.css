@@ -284,7 +284,7 @@ html {
     }
 }
 
-/* Holiday Message - Make sure it's visible */
+/* Animated Holiday Message - Letter by Letter */
 .holiday-message {
     position: fixed;
     top: 20px;
@@ -292,50 +292,118 @@ html {
     transform: translateX(-50%);
     background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7);
     color: white;
-    padding: 12px 24px;
+    padding: 15px 25px;
     border-radius: 25px;
     font-weight: bold;
-    z-index: 10000; /* Higher than fireworks */
-    animation: holiday-pulse 2s infinite, holiday-float 6s ease-in-out infinite;
+    z-index: 10000;
     box-shadow: 
         0 4px 15px rgba(0,0,0,0.3),
         0 0 20px rgba(255, 255, 255, 0.5);
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    animation: message-pulse 3s infinite;
 }
 
-@keyframes holiday-pulse {
+.holiday-letter {
+    display: inline-block;
+    animation: letter-bounce 2s ease-in-out infinite;
+    transform-origin: center bottom;
+}
+
+/* Different delays for each letter to create wave effect */
+.holiday-letter:nth-child(1) { animation-delay: 0.0s; }
+.holiday-letter:nth-child(2) { animation-delay: 0.1s; }
+.holiday-letter:nth-child(3) { animation-delay: 0.2s; }
+.holiday-letter:nth-child(4) { animation-delay: 0.3s; }
+.holiday-letter:nth-child(5) { animation-delay: 0.4s; }
+.holiday-letter:nth-child(6) { animation-delay: 0.5s; }
+.holiday-letter:nth-child(7) { animation-delay: 0.6s; }
+.holiday-letter:nth-child(8) { animation-delay: 0.7s; }
+.holiday-letter:nth-child(9) { animation-delay: 0.8s; }
+.holiday-letter:nth-child(10) { animation-delay: 0.9s; }
+.holiday-letter:nth-child(11) { animation-delay: 1.0s; }
+.holiday-letter:nth-child(12) { animation-delay: 1.1s; }
+.holiday-letter:nth-child(13) { animation-delay: 1.2s; }
+.holiday-letter:nth-child(14) { animation-delay: 1.3s; }
+.holiday-letter:nth-child(15) { animation-delay: 1.4s; }
+.holiday-letter:nth-child(16) { animation-delay: 1.5s; }
+.holiday-letter:nth-child(17) { animation-delay: 1.6s; }
+.holiday-letter:nth-child(18) { animation-delay: 1.7s; }
+.holiday-letter:nth-child(19) { animation-delay: 1.8s; }
+.holiday-letter:nth-child(20) { animation-delay: 1.9s; }
+.holiday-letter:nth-child(21) { animation-delay: 2.0s; }
+.holiday-letter:nth-child(22) { animation-delay: 2.1s; }
+.holiday-letter:nth-child(23) { animation-delay: 2.2s; }
+.holiday-letter:nth-child(24) { animation-delay: 2.3s; }
+.holiday-letter:nth-child(25) { animation-delay: 2.4s; }
+.holiday-letter:nth-child(26) { animation-delay: 2.5s; }
+.holiday-letter:nth-child(27) { animation-delay: 2.6s; }
+.holiday-letter:nth-child(28) { animation-delay: 2.7s; }
+.holiday-letter:nth-child(29) { animation-delay: 2.8s; }
+.holiday-letter:nth-child(30) { animation-delay: 2.9s; }
+.holiday-letter:nth-child(31) { animation-delay: 3.0s; }
+.holiday-letter:nth-child(32) { animation-delay: 3.1s; }
+.holiday-letter:nth-child(33) { animation-delay: 3.2s; }
+.holiday-letter:nth-child(34) { animation-delay: 3.3s; }
+.holiday-letter:nth-child(35) { animation-delay: 3.4s; }
+.holiday-letter:nth-child(36) { animation-delay: 3.5s; }
+.holiday-letter:nth-child(37) { animation-delay: 3.6s; }
+.holiday-letter:nth-child(38) { animation-delay: 3.7s; }
+.holiday-letter:nth-child(39) { animation-delay: 3.8s; }
+.holiday-letter:nth-child(40) { animation-delay: 3.9s; }
+
+@keyframes message-pulse {
     0%, 100% { 
         transform: translateX(-50%) scale(1); 
     }
     50% { 
-        transform: translateX(-50%) scale(1.05); 
+        transform: translateX(-50%) scale(1.03); 
     }
 }
 
-@keyframes holiday-float {
-    0%, 100% { 
-        transform: translateX(-50%) translateY(0px); 
+@keyframes letter-bounce {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+        color: inherit;
     }
-    50% { 
-        transform: translateX(-50%) translateY(-5px); 
+    25% {
+        transform: translateY(-8px) scale(1.1);
+        color: #FF6B6B;
+    }
+    50% {
+        transform: translateY(0px) scale(1);
+        color: #4ECDC4;
+    }
+    75% {
+        transform: translateY(-4px) scale(1.05);
+        color: #FFEAA7;
     }
 }
 
-/* Christmas Tree */
+/* Christmas Trees */
 .christmas-tree {
     position: fixed;
     bottom: 20px;
-    right: 20px;
-    font-size: 2.5em;
-    z-index: 10000; /* Higher than fireworks */
+    font-size: 3em;
+    z-index: 10000;
     animation: tree-shake 3s ease-in-out infinite, tree-glow 2s ease-in-out infinite alternate;
     filter: drop-shadow(0 0 10px rgba(0, 255, 0, 0.5));
     cursor: pointer;
     transition: transform 0.3s ease;
     background: transparent !important;
+}
+
+.christmas-tree.left {
+    left: 20px;
+}
+
+.christmas-tree.right {
+    right: 20px;
 }
 
 .christmas-tree:hover {
@@ -363,6 +431,128 @@ html {
     }
 }
 
+/* Christmas Lights */
+.christmas-lights {
+    position: fixed;
+    bottom: 100px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.christmas-lights.left {
+    left: 50px;
+}
+
+.christmas-lights.right {
+    right: 50px;
+}
+
+.light-string {
+    position: relative;
+    width: 2px;
+    height: 120px;
+    background: linear-gradient(to top, transparent, #8B4513, #8B4513);
+    margin: 0 auto;
+}
+
+.light-bulb {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    animation: light-twinkle 1.5s ease-in-out infinite alternate;
+    filter: blur(1px);
+    left: -5px;
+}
+
+.light-bulb:nth-child(1) { top: 10px; animation-delay: 0.0s; }
+.light-bulb:nth-child(2) { top: 25px; animation-delay: 0.2s; }
+.light-bulb:nth-child(3) { top: 40px; animation-delay: 0.4s; }
+.light-bulb:nth-child(4) { top: 55px; animation-delay: 0.6s; }
+.light-bulb:nth-child(5) { top: 70px; animation-delay: 0.8s; }
+.light-bulb:nth-child(6) { top: 85px; animation-delay: 1.0s; }
+.light-bulb:nth-child(7) { top: 100px; animation-delay: 1.2s; }
+
+.light-bulb.red { background: #FF0000; box-shadow: 0 0 10px #FF0000, 0 0 20px #FF0000; }
+.light-bulb.green { background: #00FF00; box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00; }
+.light-bulb.blue { background: #0066FF; box-shadow: 0 0 10px #0066FF, 0 0 20px #0066FF; }
+.light-bulb.yellow { background: #FFFF00; box-shadow: 0 0 10px #FFFF00, 0 0 20px #FFFF00; }
+.light-bulb.purple { background: #FF00FF; box-shadow: 0 0 10px #FF00FF, 0 0 20px #FF00FF; }
+.light-bulb.orange { background: #FFA500; box-shadow: 0 0 10px #FFA500, 0 0 20px #FFA500; }
+.light-bulb.cyan { background: #00FFFF; box-shadow: 0 0 10px #00FFFF, 0 0 20px #00FFFF; }
+
+@keyframes light-twinkle {
+    0% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* New Year Countdown Lights */
+.new-year-lights {
+    position: fixed;
+    bottom: 230px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.new-year-lights.left {
+    left: 80px;
+}
+
+.new-year-lights.right {
+    right: 80px;
+}
+
+.countdown-light {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    animation: countdown-pulse 2s ease-in-out infinite;
+    filter: blur(2px);
+}
+
+.countdown-light:nth-child(1) { 
+    top: 0px; 
+    animation-delay: 0.0s; 
+    background: radial-gradient(circle, #FFD700, #FF6B00);
+    box-shadow: 0 0 15px #FFD700, 0 0 30px #FF6B00;
+}
+.countdown-light:nth-child(2) { 
+    top: 25px; 
+    animation-delay: 0.5s; 
+    background: radial-gradient(circle, #00FFFF, #0066FF);
+    box-shadow: 0 0 15px #00FFFF, 0 0 30px #0066FF;
+}
+.countdown-light:nth-child(3) { 
+    top: 50px; 
+    animation-delay: 1.0s; 
+    background: radial-gradient(circle, #FF00FF, #9900FF);
+    box-shadow: 0 0 15px #FF00FF, 0 0 30px #9900FF;
+}
+.countdown-light:nth-child(4) { 
+    top: 75px; 
+    animation-delay: 1.5s; 
+    background: radial-gradient(circle, #00FF00, #00CC00);
+    box-shadow: 0 0 15px #00FF00, 0 0 30px #00CC00;
+}
+
+@keyframes countdown-pulse {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.3);
+    }
+}
+
 /* Performance Optimizations */
 .firework-particle, 
 .firework-sparkle, 
@@ -379,18 +569,105 @@ html {
     background: transparent !important;
 }
 
+/* Name explosion particles */
+.name-particle {
+    position: fixed;
+    pointer-events: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    z-index: 10000;
+    animation: name-float 2.5s ease-out forwards;
+    background: transparent !important;
+    font-family: Arial, sans-serif;
+}
+
+@keyframes name-float {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.9;
+        transform: translate(var(--tx), var(--ty)) scale(1.1) rotate(180deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.3) rotate(360deg);
+    }
+}
+
 /* Mobile Optimizations */
 @media (max-width: 768px) {
     .holiday-message {
         font-size: 0.9rem;
-        padding: 8px 16px;
+        padding: 10px 20px;
         top: 10px;
     }
     
     .christmas-tree {
         font-size: 2em;
         bottom: 10px;
+    }
+    
+    .christmas-tree.left {
+        left: 10px;
+    }
+    
+    .christmas-tree.right {
         right: 10px;
+    }
+    
+    .christmas-lights {
+        bottom: 80px;
+    }
+    
+    .christmas-lights.left {
+        left: 30px;
+    }
+    
+    .christmas-lights.right {
+        right: 30px;
+    }
+    
+    .new-year-lights {
+        bottom: 180px;
+    }
+    
+    .new-year-lights.left {
+        left: 50px;
+    }
+    
+    .new-year-lights.right {
+        right: 50px;
+    }
+    
+    .name-particle {
+        font-size: 14px;
+    }
+    
+    .holiday-letter {
+        animation: letter-bounce-mobile 2s ease-in-out infinite;
+    }
+}
+
+@keyframes letter-bounce-mobile {
+    0%, 100% {
+        transform: translateY(0px) scale(1);
+        color: inherit;
+    }
+    25% {
+        transform: translateY(-4px) scale(1.05);
+        color: #FF6B6B;
+    }
+    50% {
+        transform: translateY(0px) scale(1);
+        color: #4ECDC4;
+    }
+    75% {
+        transform: translateY(-2px) scale(1.02);
+        color: #FFEAA7;
     }
 }
 
@@ -403,7 +680,11 @@ html {
     .firework-debris,
     .snowflake,
     .holiday-message,
-    .christmas-tree {
+    .christmas-tree,
+    .name-particle,
+    .holiday-letter,
+    .light-bulb,
+    .countdown-light {
         animation: none;
     }
 }
