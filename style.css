@@ -1910,7 +1910,7 @@ nav a.active:hover {
     font-size: 1.1rem;
   }
   
-  .profile-img {
+  header img {
     width: 120px;
     height: 120px;
   }
@@ -1982,35 +1982,35 @@ nav a.active:hover {
   }
   
   /* Skills section mobile fixes */
-  .tech-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-  }
-  
-  .tech-category {
-    padding: 20px;
-  }
-  
-  .tech-header {
-    flex-wrap: wrap;
+  .skills, #languageSkills {
     gap: 10px;
   }
   
-  .tech-name {
-    min-width: auto;
-    flex: 1;
+  .skill {
+    padding: 10px 20px;
+    font-size: 0.9rem;
   }
   
-  .tech-progress {
-    order: 3;
-    width: 100%;
-    margin: 10px 0 0 0;
-    justify-content: space-between;
+  .skill-levels {
+    padding: 1.5rem;
+    margin: 2rem 0;
   }
   
-  .progress-bar {
-    flex: 1;
-    max-width: 200px;
+  .level-frames {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  
+  .level-frame {
+    padding: 1.25rem;
+  }
+  
+  .lang-icon {
+    font-size: 1.5rem;
+  }
+  
+  .lang-name {
+    font-size: 1rem;
   }
   
   /* Projects mobile fixes */
@@ -2035,6 +2035,15 @@ nav a.active:hover {
   
   .tech-stack {
     gap: 8px;
+  }
+  
+  .project-filters {
+    gap: 8px;
+  }
+  
+  .project-filters button {
+    padding: 10px 15px;
+    font-size: 0.9rem;
   }
   
   /* Contact mobile fixes */
@@ -2075,6 +2084,16 @@ nav a.active:hover {
     text-align: center;
   }
   
+  .response-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+  
+  .response-item i {
+    width: auto;
+  }
+  
   /* Quick links mobile fixes */
   .links-grid {
     grid-template-columns: 1fr;
@@ -2083,6 +2102,33 @@ nav a.active:hover {
   
   .link-card {
     padding: 30px 20px;
+  }
+  
+  /* Qualifications grid fixes */
+  .qualifications-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .main-card {
+    grid-column: span 1;
+  }
+  
+  .resume-buttons {
+    gap: 12px;
+  }
+  
+  .resume-btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+  
+  /* Certificate name sizes for mobile */
+  .cert-item h4, .cert-item h6 {
+    font-size: 1.2rem;
+  }
+  
+  .cisco-certs h5 {
+    font-size: 1.3rem;
   }
   
   /* Footer mobile fixes */
@@ -2107,6 +2153,32 @@ nav a.active:hover {
     width: 45px;
     height: 45px;
   }
+  
+  /* Dynamic greeting */
+  .dynamic-greeting {
+    font-size: 1.1rem;
+  }
+  
+  /* Contact greeting */
+  .contact-greeting {
+    font-size: 1rem;
+    padding: 12px;
+  }
+  
+  /* Navigation active states */
+  nav a.active {
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Stats and graphs */
+  .stat-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2119,7 +2191,7 @@ nav a.active:hover {
     font-size: 1rem;
   }
   
-  .profile-img {
+  header img {
     width: 100px;
     height: 100px;
   }
@@ -2151,33 +2223,16 @@ nav a.active:hover {
   }
   
   /* Skills section */
-  .tech-category h3 {
-    font-size: 1.3rem;
+  .level-frames {
+    grid-template-columns: 1fr;
   }
   
-  .tech-item {
-    padding: 12px;
-  }
-  
-  .progress-bar {
-    width: 80px;
-  }
-  
-  .progress-percentage {
-    font-size: 0.75rem;
-    min-width: 30px;
+  .skill-levels {
+    padding: 1rem;
+    margin: 1.5rem 0;
   }
   
   /* Projects */
-  .project-filters {
-    gap: 8px;
-  }
-  
-  .project-filters button {
-    padding: 10px 15px;
-    font-size: 0.9rem;
-  }
-  
   .repo-header h3 {
     font-size: 1.2rem;
   }
@@ -2190,43 +2245,35 @@ nav a.active:hover {
     font-size: 0.8rem;
   }
   
-  /* Contact */
-  .contact-greeting {
-    font-size: 1rem;
-    padding: 12px;
+  /* Certificate name sizes for very small screens */
+  .cert-item h4, .cert-item h6 {
+    font-size: 1.1rem;
   }
   
-  .response-item {
-    padding: 10px;
+  .cisco-certs h5 {
+    font-size: 1.2rem;
   }
   
-  /* Navigation active states */
-  nav a.active {
-    transform: none;
-    box-shadow: none;
+  /* Stats */
+  .stat-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card h3 {
+    font-size: 2rem;
   }
 }
 
 /* Touch device improvements */
 @media (hover: none) and (pointer: coarse) {
   /* Remove hover effects on touch devices */
-  .tech-item:hover {
-    transform: none;
-  }
-  
-  .project-card:hover {
-    transform: none;
-  }
-  
-  .link-card:hover {
-    transform: none;
-  }
-  
-  .stat-card:hover {
-    transform: none;
-  }
-  
-  .highlight-card:hover {
+  .tech-item:hover,
+  .project-card:hover,
+  .link-card:hover,
+  .stat-card:hover,
+  .highlight-card:hover,
+  .skill:hover,
+  .level-frame:hover {
     transform: none;
   }
   
@@ -2238,11 +2285,6 @@ nav a.active:hover {
     justify-content: center;
   }
   
-  .tech-toggle {
-    min-width: 44px;
-    min-height: 44px;
-  }
-  
   .theme-toggle {
     min-height: 44px;
   }
@@ -2250,6 +2292,17 @@ nav a.active:hover {
   .scroll-to-top {
     width: 50px;
     height: 50px;
+  }
+  
+  .skill {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .project-filters button {
+    min-height: 44px;
   }
 }
 
@@ -2259,7 +2312,7 @@ nav a.active:hover {
     padding: 40px 15px 20px;
   }
   
-  .profile-img {
+  header img {
     width: 80px;
     height: 80px;
   }
@@ -2273,35 +2326,68 @@ nav a.active:hover {
   }
 }
 
-/* High DPI screen optimizations */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .progress-bar {
-    height: 6px;
+/* Ensure text remains readable on small screens */
+@media (max-width: 360px) {
+  html {
+    font-size: 14px;
   }
   
-  .tech-toggle {
-    font-weight: bold;
-  }
-}
-
-/* Print styles */
-@media print {
-  .theme-toggle,
-  .scroll-to-top,
-  nav {
-    display: none !important;
-  }
-  
-  body {
-    background: white !important;
-    color: black !important;
+  .container {
+    padding: 0 10px;
   }
   
   section {
-    box-shadow: none !important;
-    border: 1px solid #ccc !important;
-    margin: 10px 0 !important;
-    page-break-inside: avoid;
+    margin: 0 5px 20px;
+    padding: 30px 10px;
+  }
+}
+
+/* Fix for very tall screens (mobile in landscape) */
+@media (max-height: 500px) and (orientation: landscape) {
+  header {
+    padding: 30px 15px 15px;
+  }
+  
+  header img {
+    width: 60px;
+    height: 60px;
+  }
+  
+  header h1 {
+    font-size: 1.4rem;
+  }
+  
+  header p {
+    font-size: 0.9rem;
+  }
+  
+  .header-badges {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  
+  .header-badge {
+    width: auto;
+  }
+}
+
+/* Ensure images don't overflow on mobile */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent horizontal scrolling */
+body {
+  overflow-x: hidden;
+}
+
+/* Improve focus visibility for accessibility */
+@media (max-width: 768px) {
+  a:focus,
+  button:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
   }
 }
 
@@ -2335,10 +2421,6 @@ nav a.active:hover {
     scroll-behavior: auto !important;
   }
   
-  .progress-fill::after {
-    animation: none;
-  }
-  
   .typewriter::after {
     animation: none;
   }
@@ -2346,12 +2428,9 @@ nav a.active:hover {
   .status-indicator {
     animation: none;
   }
-}
-
-/* Dark mode auto detection */
-@media (prefers-color-scheme: dark) {
-  :root:not(.light) {
-    /* Keep your existing dark mode variables */
+  
+  .level-progress {
+    transition: none;
   }
 }
 
@@ -2367,67 +2446,5 @@ nav a.active:hover {
     --border-color: #000000;
     --text-primary: #000000;
     --text-secondary: #333333;
-  }
-}
-
-/* Ensure text remains readable on small screens */
-@media (max-width: 360px) {
-  html {
-    font-size: 14px;
-  }
-  
-  .container {
-    padding: 0 10px;
-  }
-  
-  section {
-    margin: 0 5px 20px;
-    padding: 30px 10px;
-  }
-  
-  .tech-description p {
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-}
-
-/* Fix for very tall screens (mobile in landscape) */
-@media (max-height: 500px) and (orientation: landscape) {
-  header {
-    padding: 30px 15px 15px;
-  }
-  
-  .profile-img {
-    width: 60px;
-    height: 60px;
-  }
-  
-  header h1 {
-    font-size: 1.4rem;
-  }
-  
-  header p {
-    font-size: 0.9rem;
-  }
-}
-
-/* Ensure images don't overflow on mobile */
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Prevent horizontal scrolling */
-body {
-  overflow-x: hidden;
-}
-
-/* Improve focus visibility for accessibility */
-@media (max-width: 768px) {
-  a:focus,
-  button:focus,
-  .tech-toggle:focus {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
   }
 }
