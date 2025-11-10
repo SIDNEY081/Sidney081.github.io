@@ -99,17 +99,16 @@
         console.error('Error loading skills section:', error);
         document.getElementById('skills-section').innerHTML = '<div class="container"><p>Skills section loading failed. Please check the skills.html file.</p></div>';
       });
-    
-    // Load footer section
-    fetch('footer.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('footer-section').innerHTML = data;
-      })
-      .catch(error => {
-        console.error('Error loading footer:', error);
-        document.getElementById('footer-section').innerHTML = '<footer><div class="container"><p>&copy; 2025 Sidney Mpenyana</p></div></footer>';
-      });
+   // Load footer section
+fetch('footer.html')
+  .then(response => response.text())
+  .then(data => {
+    document.getElementById('footer-section').innerHTML = data;
+  })
+  .catch(error => {
+    console.error('Error loading footer:', error);
+    document.getElementById('footer-section').innerHTML = '<footer><div class="container"><p>&copy; 2025 Sidney Mpenyana</p></div></footer>';
+  });
 
     // Function to initialize technology toggle functionality
     function initializeTechnologyToggle() {
