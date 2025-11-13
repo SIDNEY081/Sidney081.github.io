@@ -23,7 +23,7 @@
     <div class="nav-container">
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="about.html">About</a>
+        <a href="about.html" class="active">About</a>
         <a href="projects.html">Projects</a>
         <a href="resume.html">Resume</a>
         <a href="contact.html">Contact</a>
@@ -61,10 +61,52 @@
     </div>
   </section>
 
+  <!-- Current Project Section -->
+  <section id="current-project" class="current-project-section">
+    <div class="container">
+      <h2>🚀 Current Project</h2>
+      <div class="project-card">
+        <div class="project-header">
+          <h3>SafeShell - Emergency Security Desktop</h3>
+          <span class="project-status">In Development</span>
+        </div>
+        <div class="project-content">
+          <p class="project-description">
+            Building an innovative Android security app that creates an emergency "panic mode" desktop to hide sensitive apps during security threats. 
+            Designed to protect users during robberies by concealing banking apps and requiring biometric authentication.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Kotlin</span>
+            <span class="tech-tag">Android Studio</span>
+            <span class="tech-tag">Firebase Auth</span>
+            <span class="tech-tag">Biometric API</span>
+            <span class="tech-tag">Material Design</span>
+            <span class="tech-tag">Custom Launcher</span>
+          </div>
+          <div class="project-features">
+            <h4>Key Features:</h4>
+            <ul>
+              <li>🔒 Dual desktop system (normal vs emergency mode)</li>
+              <li>🏦 Smart banking app detection and hiding</li>
+              <li>📱 Custom launcher implementation</li>
+              <li>👆 Biometric authentication recovery</li>
+              <li>🚨 Quick activation triggers</li>
+            </ul>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/SIDNEY081/SafeShell" class="project-link" target="_blank">
+              <i class="fab fa-github"></i> View on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Skills Section (Loaded from external file) -->
   <div id="skills-section"></div>
 
-  <!-- Hardcoded Footer -->
+  <!-- Footer -->
   <footer>
     <div class="container">
       <div class="footer-content">
@@ -132,6 +174,21 @@
         });
       });
     }
+
+    // Initialize current project animations
+    document.addEventListener('DOMContentLoaded', function() {
+      const projectCard = document.querySelector('.current-project-section .project-card');
+      if (projectCard) {
+        projectCard.style.opacity = '0';
+        projectCard.style.transform = 'translateY(30px)';
+        
+        setTimeout(() => {
+          projectCard.style.transition = 'all 0.6s ease';
+          projectCard.style.opacity = '1';
+          projectCard.style.transform = 'translateY(0)';
+        }, 300);
+      }
+    });
   </script>
 </body>
 </html>

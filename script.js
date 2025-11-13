@@ -1,107 +1,31 @@
-// Simple, reliable portfolio functionality
+// Enhanced Portfolio JavaScript with improved performance and error handling
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Portfolio loaded - simple version');
+    console.log('Portfolio loaded - enhanced version');
     
-    // 1. Theme Toggle - Universal fix for all pages
+    // Initialize all features
     initializeThemeToggle();
-    
-    // 2. Dynamic Greetings
     updateHomeGreeting();
     updateContactGreeting();
     updateAvailabilityStatus();
-    
-    // 3. Active Navigation - Highlight current page
     updateActiveNavLink();
-    
-
-    // Function to initialize technology toggle functionality
-function initializeTechnologyToggle() {
-  document.querySelectorAll('.tech-item').forEach(item => {
-    const toggle = item.querySelector('.tech-toggle');
-    const description = item.querySelector('.tech-description');
-    
-    item.addEventListener('click', (e) => {
-      // Toggle the show class on the description
-      description.classList.toggle('show');
-      
-      // Change the toggle button text
-      if (description.classList.contains('show')) {
-        toggle.textContent = '-';
-      } else {
-        toggle.textContent = '+';
-      }
-    });
-  });
-}
-
-// Mobile-specific JavaScript
-function initializeMobileFeatures() {
-  // Handle touch events for better mobile experience
-  if ('ontouchstart' in window) {
-    document.body.classList.add('touch-device');
-    
-    // Add touch feedback for interactive elements
-    document.addEventListener('touchstart', function() {}, {passive: true});
-    
-    // Prevent zoom on double tap for interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, .tech-item, .project-card');
-    interactiveElements.forEach(el => {
-      el.style.touchAction = 'manipulation';
-    });
-  }
-  
-  // Handle viewport height issues on mobile
-  function setViewportHeight() {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
-  }
-  
-  setViewportHeight();
-  window.addEventListener('resize', setViewportHeight);
-  window.addEventListener('orientationchange', setViewportHeight);
-  
-  // Improve scrolling performance on mobile
-  if ('scrollBehavior' in document.documentElement.style) {
-    const smoothScrollElements = document.querySelectorAll('a[href^="#"]');
-    smoothScrollElements.forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
-    });
-  }
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  initializeMobileFeatures();
-});
-
-    // 4. Typewriter Effect for Home Page
+    initializeTechnologyToggle();
+    initializeMobileFeatures();
     initializeTypewriter();
-    
-    // 5. Language Skills - Initialize on all pages that have skills section
     initializeLanguageSkills();
     
-    // 6. Load Real Projects from GitHub - Only on projects page
+    // Load Real Projects from GitHub - Only on projects page
     if (document.getElementById('projects-loading')) {
         loadGitHubProjects();
     }
     
-    // 7. Project Filters - Only on projects page
+    // Project Filters - Only on projects page
     setTimeout(() => {
         if (document.querySelector('.project-filters')) {
             setupProjectFilters();
         }
     }, 1000);
     
-    // 8. Resume Request Buttons - Only on resume page
+    // Resume Request Buttons - Only on resume page
     setTimeout(() => {
         const resumeButtons = document.querySelectorAll('.resume-btn');
         
@@ -115,135 +39,338 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, 1500);
     
-    // 9. Scroll to top - Universal for all pages
+    // Scroll to top - Universal for all pages
     initializeScrollToTop();
     
-    // 10. Smooth scrolling for nav - Universal for all pages
+    // Smooth scrolling for nav - Universal for all pages
     initializeSmoothScrolling();
     
-    // 11. Load Footer
+    // Load Footer
     loadFooter();
     
-    // 12. Load Skills Section if placeholder exists
+    // Load Skills Section if placeholder exists
     loadSkillsSection();
     
-    // 13. Update active nav on hash change (for about section)
+    // Update active nav on hash change (for about section)
     window.addEventListener('hashchange', updateActiveNavLink);
 });
 
-// ===== SKILLS SECTION FUNCTIONS =====
+// ===== PERFORMANCE OPTIMIZATIONS =====
 
-// Load skills section from external file
-function loadSkillsSection() {
-    const skillsSection = document.getElementById('skills-section');
-    if (skillsSection) {
-        fetch('skills.html')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Skills file not found');
-                }
-                return response.text();
-            })
-            .then(data => {
-                skillsSection.innerHTML = data;
-                // Re-initialize language skills after loading
-                setTimeout(initializeLanguageSkills, 100);
-            })
-            .catch(error => {
-                console.error('Error loading skills section:', error);
-                // Fallback skills section
-                skillsSection.innerHTML = `
-                    <section id="skills">
-                        <div class="container">
-                            <h2>Technical Skills</h2>
-                            <p class="section-subtitle">Technologies and tools I work with</p>
-                            
-                            <h3>Programming Languages</h3>
-                            <div id="languageSkills" class="skills">
-                                <div class="skill" data-lang="Java">Java</div>
-                                <div class="skill" data-lang="JavaScript">JavaScript</div>
-                                <div class="skill" data-lang="Python">Python</div>
-                                <div class="skill" data-lang="PHP">PHP</div>
-                                <div class="skill" data-lang="SQL">SQL</div>
-                            </div>
-                            
-                            <div id="langDescription" class="lang-description">
-                                Click on a language to see description
-                            </div>
-                            
-                            <h3>Databases</h3>
-                            <div class="skills">
-                                <div class="skill">MySQL</div>
-                                <div class="skill">SQLite</div>
-                                <div class="skill">MongoDB</div>
-                            </div>
-                            
-                            <h3>IT Infrastructure</h3>
-                            <div class="skills">
-                                <div class="skill">PC Hardware & Assembly</div>
-                                <div class="skill">System Troubleshooting</div>
-                                <div class="skill">Network Configuration</div>
-                                <div class="skill">IT Security Fundamentals</div>
-                            </div>
-                            
-                            <h3>Frameworks & Tools</h3>
-                            <div class="skills">
-                                <div class="skill">React</div>
-                                <div class="skill">Node.js</div>
-                                <div class="skill">Git</div>
-                                <div class="skill">Docker</div>
-                                <div class="skill">REST APIs</div>
-                                <div class="skill">Linux</div>
-                            </div>
-                        </div>
-                    </section>
-                `;
-                // Initialize skills after fallback
-                setTimeout(initializeLanguageSkills, 100);
-            });
-    }
+// Debounce function for scroll and resize events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
 }
 
-// Initialize language skills functionality
+// Cache for GitHub requests
+const githubCache = {
+    data: null,
+    timestamp: null,
+    ttl: 5 * 60 * 1000 // 5 minutes cache
+};
+
+// ===== SKILLS SECTION FUNCTIONS =====
+
+// Load skills section from external file with error handling
+function loadSkillsSection() {
+    const skillsSection = document.getElementById('skills-section');
+    if (!skillsSection) return;
+    
+    fetch('skills.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Skills file not found');
+            return response.text();
+        })
+        .then(data => {
+            skillsSection.innerHTML = data;
+            // Re-initialize components after loading
+            setTimeout(() => {
+                initializeLanguageSkills();
+                initializeSkillProgress();
+            }, 100);
+        })
+        .catch(error => {
+            console.error('Error loading skills section:', error);
+            skillsSection.innerHTML = getFallbackSkillsHTML();
+            initializeLanguageSkills();
+            initializeSkillProgress();
+        });
+}
+
+// Fallback skills HTML with Kotlin and Android progress bars
+function getFallbackSkillsHTML() {
+    return `
+        <section id="skills">
+            <div class="container">
+                <h2>Technical Skills</h2>
+                <p class="section-subtitle">Technologies and tools I work with</p>
+                
+                <h3>Programming Languages</h3>
+                <div id="languageSkills" class="skills">
+                    <div class="skill" data-lang="Java">Java</div>
+                    <div class="skill" data-lang="JavaScript">JavaScript</div>
+                    <div class="skill" data-lang="Python">Python</div>
+                    <div class="skill" data-lang="PHP">PHP</div>
+                    <div class="skill" data-lang="SQL">SQL</div>
+                    <div class="skill" data-lang="Kotlin">Kotlin</div>
+                </div>
+                
+                <div id="langDescription" class="lang-description">
+                    Click on a language to see description
+                </div>
+
+                <!-- Skill Level Progress Bars -->
+                <div class="skill-levels">
+                    <h3>Skill Proficiency Levels</h3>
+                    
+                    <div class="skill-level-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Kotlin</span>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="skill-level-bar">
+                            <div class="level-progress" data-level="75" style="width: 75%; background: linear-gradient(90deg, #7F52FF, #B47CFF);"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-level-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Android Development</span>
+                            <span class="skill-percent">70%</span>
+                        </div>
+                        <div class="skill-level-bar">
+                            <div class="level-progress" data-level="70" style="width: 70%; background: linear-gradient(90deg, #3DDC84, #34A853);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-level-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Java</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-level-bar">
+                            <div class="level-progress" data-level="85" style="width: 85%; background: linear-gradient(90deg, #ED8B00, #FF9800);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-level-item">
+                        <div class="skill-info">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-level-bar">
+                            <div class="level-progress" data-level="80" style="width: 80%; background: linear-gradient(90deg, #F7DF1E, #FFEB3B);"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-level-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="skill-level-bar">
+                            <div class="level-progress" data-level="75" style="width: 75%; background: linear-gradient(90deg, #3776AB, #4B8BBE);"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>Mobile Development</h3>
+                <div class="skills">
+                    <div class="skill">Android Studio</div>
+                    <div class="skill">Kotlin</div>
+                    <div class="skill">Java (Android)</div>
+                    <div class="skill">Material Design</div>
+                    <div class="skill">REST API Integration</div>
+                    <div class="skill">Firebase</div>
+                </div>
+                
+                <h3>Databases</h3>
+                <div class="skills">
+                    <div class="skill">MySQL</div>
+                    <div class="skill">SQLite</div>
+                    <div class="skill">MongoDB</div>
+                    <div class="skill">Room Database</div>
+                </div>
+                
+                <h3>IT Infrastructure</h3>
+                <div class="skills">
+                    <div class="skill">PC Hardware & Assembly</div>
+                    <div class="skill">System Troubleshooting</div>
+                    <div class="skill">Network Configuration</div>
+                    <div class="skill">IT Security Fundamentals</div>
+                </div>
+                
+                <h3>Frameworks & Tools</h3>
+                <div class="skills">
+                    <div class="skill">React</div>
+                    <div class="skill">Node.js</div>
+                    <div class="skill">Git</div>
+                    <div class="skill">Docker</div>
+                    <div class="skill">REST APIs</div>
+                    <div class="skill">Linux</div>
+                    <div class="skill">Android SDK</div>
+                    <div class="skill">Gradle</div>
+                </div>
+            </div>
+        </section>
+    `;
+}
+
+// Initialize language skills functionality with accessibility
 function initializeLanguageSkills() {
     const skills = document.querySelectorAll('#languageSkills .skill');
     const desc = document.getElementById('langDescription');
     
-    if (skills.length > 0 && desc) {
-        console.log('Initializing language skills:', skills.length, 'skills found');
+    if (!skills.length || !desc) {
+        console.log('Language skills elements not found on this page');
+        return;
+    }
+    
+    console.log('Initializing language skills:', skills.length, 'skills found');
+    
+    const descriptions = {
+        'Java': 'Enterprise applications and Android development. Strong in OOP principles and backend systems. Experience with Spring Boot and Android SDK.',
+        'JavaScript': 'Web development and interactive features. Experience with frontend frameworks (React, Vue) and Node.js backend development.',
+        'Python': 'Data science, automation, and web development. Skilled in scripting, ML libraries (scikit-learn), and Django framework.',
+        'PHP': 'Server-side web development. Experience with Laravel and building dynamic websites and RESTful APIs.',
+        'SQL': 'Database management and complex queries. Proficient in database design, optimization, and working with MySQL, SQLite, and MongoDB.',
+        'Kotlin': 'Modern Android development with Kotlin. Experience with coroutines, Jetpack components, and building responsive mobile applications.'
+    };
+    
+    skills.forEach(skill => {
+        // Add keyboard accessibility
+        skill.setAttribute('tabindex', '0');
+        skill.setAttribute('role', 'button');
         
-        const descriptions = {
-            'Java': 'Enterprise applications and Android development. Strong in OOP principles and backend systems.',
-            'JavaScript': 'Web development and interactive features. Experience with frontend frameworks and Node.js.',
-            'Python': 'Data science, automation, and web development. Skilled in scripting and ML libraries.',
-            'PHP': 'Server-side web development. Experience with Laravel and building dynamic websites.',
-            'SQL': 'Database management and complex queries. Proficient in database design and optimization.'
-        };
-        
-        skills.forEach(skill => {
-            skill.onclick = function() {
-                console.log('Language clicked:', this.getAttribute('data-lang'));
-                
-                // Remove active class from all skills
-                skills.forEach(s => s.classList.remove('active'));
-                
-                // Add active class to clicked skill
-                this.classList.add('active');
-                
-                // Update description
-                const lang = this.getAttribute('data-lang');
-                desc.textContent = descriptions[lang] || 'Description available soon.';
-                desc.style.opacity = '1';
-            };
+        skill.addEventListener('click', function() {
+            activateLanguageSkill(this, skills, desc, descriptions);
         });
         
-        // Activate first skill by default if none active
-        const activeSkill = document.querySelector('#languageSkills .skill.active');
-        if (!activeSkill && skills.length > 0) {
-            skills[0].click();
+        skill.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                activateLanguageSkill(this, skills, desc, descriptions);
+            }
+        });
+    });
+    
+    // Activate first skill by default if none active
+    const activeSkill = document.querySelector('#languageSkills .skill.active');
+    if (!activeSkill && skills.length > 0) {
+        activateLanguageSkill(skills[0], skills, desc, descriptions);
+    }
+}
+
+// Helper function for language skill activation
+function activateLanguageSkill(skill, allSkills, descElement, descriptions) {
+    // Remove active class from all skills
+    allSkills.forEach(s => s.classList.remove('active'));
+    
+    // Add active class to clicked skill
+    skill.classList.add('active');
+    
+    // Update description
+    const lang = skill.getAttribute('data-lang');
+    descElement.textContent = descriptions[lang] || 'Description available soon.';
+    descElement.style.opacity = '1';
+}
+
+// ===== TECHNOLOGY TOGGLE FUNCTIONS =====
+
+// Function to initialize technology toggle functionality
+function initializeTechnologyToggle() {
+    const techItems = document.querySelectorAll('.tech-item');
+    
+    if (techItems.length === 0) return;
+    
+    techItems.forEach(item => {
+        const toggle = item.querySelector('.tech-toggle');
+        const description = item.querySelector('.tech-description');
+        
+        if (!toggle || !description) return;
+        
+        item.addEventListener('click', (e) => {
+            // Toggle the show class on the description
+            description.classList.toggle('show');
+            
+            // Change the toggle button text
+            if (description.classList.contains('show')) {
+                toggle.textContent = '-';
+            } else {
+                toggle.textContent = '+';
+            }
+        });
+        
+        // Add keyboard accessibility
+        item.setAttribute('tabindex', '0');
+        item.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                item.click();
+            }
+        });
+    });
+}
+
+// ===== MOBILE FEATURES =====
+
+// Mobile-specific JavaScript with error handling
+function initializeMobileFeatures() {
+    try {
+        // Handle touch events for better mobile experience
+        if ('ontouchstart' in window) {
+            document.body.classList.add('touch-device');
+            
+            // Add touch feedback for interactive elements
+            document.addEventListener('touchstart', function() {}, {passive: true});
+            
+            // Prevent zoom on double tap for interactive elements
+            const interactiveElements = document.querySelectorAll('button, a, .tech-item, .project-card');
+            interactiveElements.forEach(el => {
+                el.style.touchAction = 'manipulation';
+            });
         }
-    } else if (skills.length === 0) {
-        console.log('No language skills found on this page');
+        
+        // Handle viewport height issues on mobile
+        const setViewportHeight = debounce(() => {
+            try {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            } catch (error) {
+                console.warn('Viewport height setting failed:', error);
+            }
+        }, 100);
+        
+        setViewportHeight();
+        window.addEventListener('resize', setViewportHeight);
+        window.addEventListener('orientationchange', setViewportHeight);
+        
+        // Improve scrolling performance on mobile
+        if ('scrollBehavior' in document.documentElement.style) {
+            const smoothScrollElements = document.querySelectorAll('a[href^="#"]');
+            smoothScrollElements.forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+    } catch (error) {
+        console.error('Mobile features initialization failed:', error);
     }
 }
 
@@ -251,56 +378,59 @@ function initializeLanguageSkills() {
 
 // Advanced Typewriter Effect
 function initializeTypewriter() {
-  const texts = [
-    "Full-Stack Developer",
-    "Software Engineer", 
-    "Web Developer",
-    "Problem Solver",
-    "Java Programmer",
-    "JavaScript Developer",
-    "AI Developer",
-    "Network Specialist",
-    "IT Essentials Certified",
-    "IT Graduate",
-    "Seeking Internships"
-  ];
-  
-  const element = document.getElementById('typewriter');
-  if (!element) return;
-  
-  let currentIndex = 0;
-  let currentText = '';
-  let isDeleting = false;
-  let typingSpeed = 100;
-  
-  function type() {
-    const fullText = texts[currentIndex];
+    const texts = [
+        "Full-Stack Developer",
+        "Software Engineer", 
+        "Android Developer",
+        "Kotlin Developer",
+        "Web Developer",
+        "Problem Solver",
+        "Java Programmer",
+        "JavaScript Developer",
+        "AI Developer",
+        "Mobile App Developer",
+        "Network Specialist",
+        "IT Essentials Certified",
+        "IT Graduate",
+        "Seeking Internships"
+    ];
     
-    if (isDeleting) {
-      currentText = fullText.substring(0, currentText.length - 1);
-    } else {
-      currentText = fullText.substring(0, currentText.length + 1);
+    const element = document.getElementById('typewriter');
+    if (!element) return;
+    
+    let currentIndex = 0;
+    let currentText = '';
+    let isDeleting = false;
+    let typingSpeed = 100;
+    
+    function type() {
+        const fullText = texts[currentIndex];
+        
+        if (isDeleting) {
+            currentText = fullText.substring(0, currentText.length - 1);
+        } else {
+            currentText = fullText.substring(0, currentText.length + 1);
+        }
+        
+        element.textContent = currentText;
+        
+        let delta = typingSpeed;
+        
+        if (!isDeleting && currentText === fullText) {
+            delta = 2000; // Pause at end
+            isDeleting = true;
+        } else if (isDeleting && currentText === '') {
+            isDeleting = false;
+            currentIndex = (currentIndex + 1) % texts.length;
+            delta = 500;
+        } else if (isDeleting) {
+            delta = typingSpeed / 2;
+        }
+        
+        setTimeout(type, delta);
     }
     
-    element.textContent = currentText;
-    
-    let delta = typingSpeed;
-    
-    if (!isDeleting && currentText === fullText) {
-      delta = 2000; // Pause at end
-      isDeleting = true;
-    } else if (isDeleting && currentText === '') {
-      isDeleting = false;
-      currentIndex = (currentIndex + 1) % texts.length;
-      delta = 500;
-    } else if (isDeleting) {
-      delta = typingSpeed / 2;
-    }
-    
-    setTimeout(type, delta);
-  }
-  
-  type();
+    type();
 }
 
 // ===== DYNAMIC GREETING FUNCTIONS =====
@@ -457,47 +587,53 @@ function updateThemeButton() {
 // Load footer from sections folder
 function loadFooter() {
     const footerSection = document.getElementById('footer-section');
-    if (footerSection) {
-        fetch('sections/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                footerSection.innerHTML = data;
-            })
-            .catch(error => {
-                console.error('Error loading footer:', error);
-                // Fallback footer
-                footerSection.innerHTML = `
-                    <footer>
-                        <div class="container">
-                            <div class="footer-content">
-                                <p>&copy; 2025 Sidney Mpenyana. All rights reserved.</p>
-                                <p class="footer-quote">"Always learning, always growing"</p>
-                                <div class="footer-links">
-                                    <a href="index.html">Home</a> | 
-                                    <a href="projects.html">Projects</a> | 
-                                    <a href="contact.html">Contact</a>
-                                </div>
+    if (!footerSection) return;
+    
+    fetch('sections/footer.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Footer file not found');
+            return response.text();
+        })
+        .then(data => {
+            footerSection.innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error loading footer:', error);
+            // Fallback footer
+            footerSection.innerHTML = `
+                <footer>
+                    <div class="container">
+                        <div class="footer-content">
+                            <p>&copy; 2025 Sidney Mpenyana. All rights reserved.</p>
+                            <p class="footer-quote">"Always learning, always growing"</p>
+                            <div class="footer-links">
+                                <a href="index.html">Home</a> | 
+                                <a href="projects.html">Projects</a> | 
+                                <a href="contact.html">Contact</a>
                             </div>
                         </div>
-                    </footer>
-                `;
-            });
-    }
+                    </div>
+                </footer>
+            `;
+        });
 }
 
-// Universal Scroll to Top
+// Universal Scroll to Top with debouncing
 function initializeScrollToTop() {
     const scrollBtn = document.getElementById('scrollToTop');
     if (scrollBtn) {
         scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
         
-        window.addEventListener('scroll', () => {
+        // Use debounced scroll handler
+        const scrollHandler = debounce(() => {
             if (window.pageYOffset > 300) {
                 scrollBtn.classList.add('show');
             } else {
                 scrollBtn.classList.remove('show');
             }
-        });
+        }, 100);
+        
+        window.addEventListener('scroll', scrollHandler);
     }
 }
 
@@ -525,102 +661,125 @@ function initializeSmoothScrolling() {
                     window.location.href = 'index.html' + href;
                 }
             }
-            // For external page links, let them work normally
+            // For external page links
         };
     });
 }
 
 // ===== GITHUB PROJECTS FUNCTIONS =====
 
-// Load real projects from GitHub
+// Load real projects from GitHub with caching and timeout
 async function loadGitHubProjects() {
+    const loadingElement = document.getElementById('projects-loading');
+    
     try {
         console.log('Loading GitHub projects...');
         
         // Show loading state
-        const loadingElement = document.getElementById('projects-loading');
         if (loadingElement) {
             loadingElement.style.display = 'block';
+            loadingElement.innerHTML = '<div class="loading-spinner">Loading projects...</div>';
         }
         
-        const response = await fetch('https://api.github.com/users/sidney081/repos?sort=updated&per_page=20');
+        // Check cache first
+        if (githubCache.data && githubCache.timestamp && 
+            (Date.now() - githubCache.timestamp) < githubCache.ttl) {
+            console.log('Using cached GitHub data');
+            processProjects(githubCache.data);
+            return;
+        }
+        
+        // Add timeout for slow connections
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 10000);
+        
+        const response = await fetch('https://api.github.com/users/sidney081/repos?sort=updated&per_page=20', {
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
         
         if (!response.ok) {
             throw new Error(`GitHub API error: ${response.status}`);
         }
         
         const repos = await response.json();
-        console.log('Loaded repos:', repos);
         
-        // Hide loading spinner
-        if (loadingElement) {
-            loadingElement.style.display = 'none';
-        }
+        // Cache the data
+        githubCache.data = repos;
+        githubCache.timestamp = Date.now();
         
-        // Check if we got rate limited or empty response
-        if (repos.message && repos.message.includes('API rate limit')) {
-            console.log('GitHub API rate limited');
-            showFallbackProjects();
-            return;
-        }
-        
-        if (!repos || repos.length === 0) {
-            console.log('No repositories found');
-            showFallbackProjects();
-            return;
-        }
-        
-        const completedProjects = [];
-        const inProgressProjects = [];
-        
-        // Categorize projects
-        repos.forEach(repo => {
-            // Skip forks
-            if (repo.fork) return;
-            
-            // Check for completion indicators
-            const isCompleted = checkIfProjectIsCompleted(repo);
-            
-            if (isCompleted) {
-                completedProjects.push(repo);
-            } else {
-                inProgressProjects.push(repo);
-            }
-        });
-        
-        console.log('Completed projects:', completedProjects.length);
-        console.log('In progress projects:', inProgressProjects.length);
-        
-        // Display projects
-        displayProjects(completedProjects, 'completed');
-        displayProjects(inProgressProjects, 'inprogress');
-        
-        // Show/hide sections based on content
-        const completedSection = document.getElementById('completed-projects');
-        const inprogressSection = document.getElementById('inprogress-projects');
-        
-        if (completedProjects.length > 0 && completedSection) {
-            completedSection.style.display = 'block';
-        }
-        if (inProgressProjects.length > 0 && inprogressSection) {
-            inprogressSection.style.display = 'block';
-        }
-        
-        // If no projects found in either category, show fallback
-        if (completedProjects.length === 0 && inProgressProjects.length === 0) {
-            console.log('No projects found in any category');
-            showFallbackProjects();
-        }
+        processProjects(repos);
         
     } catch (error) {
         console.error('Error loading GitHub projects:', error);
-        
-        // Hide loading and show error
-        const loadingElement = document.getElementById('projects-loading');
+        if (error.name === 'AbortError') {
+            console.log('GitHub request timed out');
+        }
+        showFallbackProjects();
+    } finally {
         if (loadingElement) {
             loadingElement.style.display = 'none';
         }
+    }
+}
+
+// Process projects after loading
+function processProjects(repos) {
+    console.log('Processing repos:', repos);
+    
+    // Check if we got rate limited or empty response
+    if (repos.message && repos.message.includes('API rate limit')) {
+        console.log('GitHub API rate limited');
+        showFallbackProjects();
+        return;
+    }
+    
+    if (!repos || repos.length === 0) {
+        console.log('No repositories found');
+        showFallbackProjects();
+        return;
+    }
+    
+    const completedProjects = [];
+    const inProgressProjects = [];
+    
+    // Categorize projects
+    repos.forEach(repo => {
+        // Skip forks
+        if (repo.fork) return;
         
+        // Check for completion indicators
+        const isCompleted = checkIfProjectIsCompleted(repo);
+        
+        if (isCompleted) {
+            completedProjects.push(repo);
+        } else {
+            inProgressProjects.push(repo);
+        }
+    });
+    
+    console.log('Completed projects:', completedProjects.length);
+    console.log('In progress projects:', inProgressProjects.length);
+    
+    // Display projects
+    displayProjects(completedProjects, 'completed');
+    displayProjects(inProgressProjects, 'inprogress');
+    
+    // Show/hide sections based on content
+    const completedSection = document.getElementById('completed-projects');
+    const inprogressSection = document.getElementById('inprogress-projects');
+    
+    if (completedProjects.length > 0 && completedSection) {
+        completedSection.style.display = 'block';
+    }
+    if (inProgressProjects.length > 0 && inprogressSection) {
+        inprogressSection.style.display = 'block';
+    }
+    
+    // If no projects found in either category, show fallback
+    if (completedProjects.length === 0 && inProgressProjects.length === 0) {
+        console.log('No projects found in any category');
         showFallbackProjects();
     }
 }
@@ -679,8 +838,8 @@ function displayProjects(projects, type) {
             <div class="screenshot-container">
                 <div class="project-screenshot" style="background: linear-gradient(135deg, ${getRandomColor()});"></div>
                 <div class="overlay-links">
-                    ${repo.homepage ? `<a href="${repo.homepage}" class="overlay-link" target="_blank">Live Demo</a>` : ''}
-                    <a href="${repo.html_url}" class="overlay-link" target="_blank">Source Code</a>
+                    ${repo.homepage ? `<a href="${repo.homepage}" class="overlay-link" target="_blank" rel="noopener">Live Demo</a>` : ''}
+                    <a href="${repo.html_url}" class="overlay-link" target="_blank" rel="noopener">Source Code</a>
                 </div>
             </div>
             <p class="repo-description">
@@ -715,7 +874,7 @@ function showFallbackProjects() {
         errorElement.style.display = 'block';
     }
     
-    // Create fallback projects with correct technologies
+    // fallback projects with correct technologies
     const fallbackProjects = [
         {
             name: "Movie Finding Made Easy",
@@ -749,7 +908,8 @@ function showFallbackProjects() {
             html_url: "https://github.com/SIDNEY081/Python_Learning",
             homepage: "#",
             topics: ["python", "learning", "algorithms", "programming", "beginners"]
-        }
+        },
+       
     ];
     
     // Display fallback projects in both sections
@@ -792,6 +952,21 @@ function setupProjectFilters() {
     });
 }
 
+// ===== SKILL PROGRESS BARS =====
+
+// Initialize skill progress bars
+function initializeSkillProgress() {
+    const progressBars = document.querySelectorAll('.level-progress');
+    
+    progressBars.forEach(bar => {
+        const level = bar.getAttribute('data-level');
+        // Animate the progress bar
+        setTimeout(() => {
+            bar.style.width = level + '%';
+        }, 300);
+    });
+}
+
 // ===== HELPER FUNCTIONS =====
 
 // Helper functions
@@ -819,24 +994,4 @@ function formatDate(dateString) {
     return `${Math.floor(diffDays / 30)} months ago`;
 }
 
-
-// Initialize skill progress bars
-function initializeSkillProgress() {
-    const progressBars = document.querySelectorAll('.level-progress');
-    
-    progressBars.forEach(bar => {
-        const level = bar.getAttribute('data-level');
-        bar.style.width = level + '%';
-    });
-}
-
-// Call this function when the page loads
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSkillProgress();
-});
-
-// Also call it when skills section is loaded dynamically
-function initializeSkillFrames() {
-    initializeSkillProgress();
-}
-console.log('Portfolio JS loaded - with skills section loading and improved functionality');
+console.log('Portfolio JS loaded - enhanced with Kotlin/Android skills and progress bars');
