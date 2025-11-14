@@ -1,6 +1,6 @@
-// Enhanced Portfolio JavaScript with improved performance and error handling
+// Enhanced Portfolio JavaScript with live project demos - ALWAYS VISIBLE BUTTONS
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Portfolio loaded - enhanced version');
+    console.log('Portfolio loaded - enhanced with live demos and always visible buttons');
     
     // Initialize all features
     initializeThemeToggle();
@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load Real Projects from GitHub - Only on projects page
     if (document.getElementById('projects-loading')) {
+        console.log('Projects page detected, loading projects...');
         loadGitHubProjects();
     }
     
@@ -75,6 +76,73 @@ const githubCache = {
     data: null,
     timestamp: null,
     ttl: 5 * 60 * 1000 // 5 minutes cache
+};
+
+// ===== PROJECT URLS CONFIGURATION =====
+const PROJECT_URLS = {
+    'AI-Stroke-Shield': {
+        live: 'https://ai-stroke-shield-8yw9ddvstkica4k3fodeep.streamlit.app/',
+        github: 'https://github.com/SIDNEY081/AI-Stroke-Shield',
+        description: 'Healthcare web application for stroke prediction using machine learning algorithms. Provides risk assessment and preventive recommendations.',
+        features: [
+            'Stroke risk assessment using ML models',
+            'Health data analysis and visualization',
+            'Preventive healthcare recommendations',
+            'Interactive health dashboard',
+            'Real-time risk prediction'
+        ],
+        technologies: ['Python', 'Machine Learning', 'Streamlit', 'Data Science', 'Healthcare']
+    },
+    'Movie_Finding_Made_Easy': {
+        live: 'https://sidney081.github.io/Movie_Finding_Made_Easy/',
+        github: 'https://github.com/SIDNEY081/Movie_Finding_Made_Easy',
+        description: 'Interactive movie discovery platform with advanced search and filtering capabilities.',
+        features: [
+            'Advanced movie search and filtering',
+            'User ratings and reviews system',
+            'Personalized recommendations',
+            'Responsive web design'
+        ],
+        technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML/CSS', 'REST API']
+    },
+    'SafeShell': {
+        live: 'https://sidney081.github.io/SafeShell/',
+        github: 'https://github.com/SIDNEY081/SafeShell',
+        appetize: 'https://appetize.io/app/b_oyu6nguofwkxisrlz4pa2tuipq',
+        description: 'Security-focused mobile application providing safe browsing environment and threat protection with real-time security monitoring.',
+        features: [
+            'Safe browsing environment',
+            'Threat detection and protection',
+            'Security monitoring dashboard',
+            'Real-time security alerts',
+            'Mobile-optimized interface'
+        ],
+        technologies: ['Security', 'Mobile Development', 'JavaScript', 'Privacy', 'Android']
+    },
+    'mictseta_recruitment_system': {
+        live: 'https://mictseta-recruitment-system.github.io/mictseta_recruitment_system/',
+        github: 'https://github.com/mictseta-recruitment-system/mictseta_recruitment_system',
+        description: 'Comprehensive recruitment management system for MICT SETA organization.',
+        features: [
+            'Candidate management system',
+            'Job posting and applications',
+            'Interview scheduling',
+            'Recruitment analytics'
+        ],
+        technologies: ['Web Development', 'Database', 'Management System', 'JavaScript']
+    },
+    'Python_Learning': {
+        live: 'https://sidney081.github.io/Python_Learning/',
+        github: 'https://github.com/SIDNEY081/Python_Learning',
+        description: 'Collection of Python projects and learning materials covering various programming concepts.',
+        features: [
+            'Data structures implementation',
+            'Algorithm solutions and examples',
+            'Web scraping projects',
+            'Automation scripts and utilities'
+        ],
+        technologies: ['Python', 'Algorithms', 'Data Structures', 'Automation', 'Learning']
+    }
 };
 
 // ===== SKILLS SECTION FUNCTIONS =====
@@ -190,6 +258,7 @@ function getFallbackSkillsHTML() {
                     <div class="skill">Material Design</div>
                     <div class="skill">REST API Integration</div>
                     <div class="skill">Firebase</div>
+                    <div class="skill">Appetize.io Deployment</div>
                 </div>
                 
                 <h3>Databases</h3>
@@ -218,6 +287,7 @@ function getFallbackSkillsHTML() {
                     <div class="skill">Linux</div>
                     <div class="skill">Android SDK</div>
                     <div class="skill">Gradle</div>
+                    <div class="skill">Streamlit</div>
                 </div>
             </div>
         </section>
@@ -242,7 +312,7 @@ function initializeLanguageSkills() {
         'Python': 'Data science, automation, and web development. Skilled in scripting, ML libraries (scikit-learn), and Django framework.',
         'PHP': 'Server-side web development. Experience with Laravel and building dynamic websites and RESTful APIs.',
         'SQL': 'Database management and complex queries. Proficient in database design, optimization, and working with MySQL, SQLite, and MongoDB.',
-        'Kotlin': 'Modern Android development with Kotlin. Experience with coroutines, Jetpack components, and building responsive mobile applications.'
+        'Kotlin': 'Modern Android development with Kotlin. Experience with coroutines, Jetpack components, and building responsive mobile applications with Appetize.io deployment.'
     };
     
     skills.forEach(skill => {
@@ -724,7 +794,7 @@ async function loadGitHubProjects() {
     }
 }
 
-// Process projects after loading
+// Process projects after loading - FIXED VERSION
 function processProjects(repos) {
     console.log('Processing repos:', repos);
     
@@ -741,46 +811,59 @@ function processProjects(repos) {
         return;
     }
     
+    // DEBUG: Log all repo names to see what we're working with
+    console.log('All repository names:', repos.map(repo => repo.name));
+    
     const completedProjects = [];
     const inProgressProjects = [];
     
-    // Categorize projects
+    // Categorize projects - SIMPLIFIED LOGIC
     repos.forEach(repo => {
         // Skip forks
-        if (repo.fork) return;
+        if (repo.fork) {
+            console.log(`Skipping fork: ${repo.name}`);
+            return;
+        }
         
-        // Check for completion indicators
-        const isCompleted = checkIfProjectIsCompleted(repo);
+        // Check if this is one of our main projects
+        const isMainProject = Object.keys(PROJECT_URLS).includes(repo.name);
         
-        if (isCompleted) {
+        if (isMainProject) {
+            console.log(`Found main project: ${repo.name}`);
             completedProjects.push(repo);
         } else {
-            inProgressProjects.push(repo);
+            // For other repos, use simple completion check
+            const isCompleted = checkIfProjectIsCompleted(repo);
+            if (isCompleted) {
+                completedProjects.push(repo);
+            } else {
+                inProgressProjects.push(repo);
+            }
         }
     });
     
     console.log('Completed projects:', completedProjects.length);
     console.log('In progress projects:', inProgressProjects.length);
     
-    // Display projects
-    displayProjects(completedProjects, 'completed');
-    displayProjects(inProgressProjects, 'inprogress');
-    
-    // Show/hide sections based on content
-    const completedSection = document.getElementById('completed-projects');
-    const inprogressSection = document.getElementById('inprogress-projects');
-    
-    if (completedProjects.length > 0 && completedSection) {
-        completedSection.style.display = 'block';
-    }
-    if (inProgressProjects.length > 0 && inprogressSection) {
-        inprogressSection.style.display = 'block';
-    }
-    
-    // If no projects found in either category, show fallback
+    // Always show fallback projects to ensure main projects are displayed
     if (completedProjects.length === 0 && inProgressProjects.length === 0) {
-        console.log('No projects found in any category');
+        console.log('No projects found, showing fallback');
         showFallbackProjects();
+    } else {
+        // Display projects from GitHub
+        displayProjects(completedProjects, 'completed');
+        displayProjects(inProgressProjects, 'inprogress');
+        
+        // Show/hide sections based on content
+        const completedSection = document.getElementById('completed-projects');
+        const inprogressSection = document.getElementById('inprogress-projects');
+        
+        if (completedProjects.length > 0 && completedSection) {
+            completedSection.style.display = 'block';
+        }
+        if (inProgressProjects.length > 0 && inprogressSection) {
+            inprogressSection.style.display = 'block';
+        }
     }
 }
 
@@ -816,50 +899,107 @@ function checkIfProjectIsCompleted(repo) {
     return false;
 }
 
-// Display projects in the grid
+// Enhanced project display with ALWAYS VISIBLE buttons including Appetize demo
 function displayProjects(projects, type) {
     const containerId = type === 'completed' ? 'completed-projects-grid' : 'inprogress-projects-grid';
     const container = document.getElementById(containerId);
     
-    if (!container || projects.length === 0) return;
+    if (!container) {
+        console.error(`Container not found: ${containerId}`);
+        return;
+    }
     
-    container.innerHTML = projects.map(repo => `
+    if (projects.length === 0) {
+        console.log(`No ${type} projects to display`);
+        container.innerHTML = '<p class="no-projects">No projects found in this category.</p>';
+        return;
+    }
+    
+    console.log(`Displaying ${projects.length} ${type} projects`);
+    
+    container.innerHTML = projects.map(repo => {
+        const projectData = PROJECT_URLS[repo.name] || {
+            live: repo.homepage || '#',
+            github: repo.html_url,
+            description: repo.description || 'A software project demonstrating various development skills and technologies.',
+            features: getDefaultFeatures(repo),
+            technologies: [repo.language || 'Various Technologies']
+        };
+
+        return `
         <div class="project-card show">
             <div class="badge ${type === 'completed' ? 'completed-badge' : 'inprogress-badge'}">
                 ${type === 'completed' ? 'Completed' : 'In Progress'}
             </div>
             <div class="repo-header">
-                <h3>${repo.name}</h3>
+                <h3>${formatProjectName(repo.name)}</h3>
                 <div class="repo-stats">
                     <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
                     <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
                 </div>
             </div>
             <div class="screenshot-container">
-                <div class="project-screenshot" style="background: linear-gradient(135deg, ${getRandomColor()});"></div>
-                <div class="overlay-links">
-                    ${repo.homepage ? `<a href="${repo.homepage}" class="overlay-link" target="_blank" rel="noopener">Live Demo</a>` : ''}
-                    <a href="${repo.html_url}" class="overlay-link" target="_blank" rel="noopener">Source Code</a>
+                <div class="project-screenshot" style="background: linear-gradient(135deg, ${getRandomColor()});">
+                    <div class="screenshot-placeholder">
+                        <i class="fas fa-code"></i>
+                        <p>${formatProjectName(repo.name)}</p>
+                    </div>
                 </div>
             </div>
+            
+            <!-- ALWAYS VISIBLE ACTION BUTTONS -->
+            <div class="project-actions">
+                ${projectData.live && projectData.live !== '#' ? 
+                    `<a href="${projectData.live}" class="action-btn" target="_blank" rel="noopener">
+                        <i class="fas fa-external-link-alt"></i> Live Demo
+                     </a>` : ''}
+                ${projectData.appetize ? 
+                    `<a href="${projectData.appetize}" class="action-btn" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #667eea, #764ba2);">
+                        <i class="fas fa-mobile-alt"></i> Mobile Demo
+                     </a>` : ''}
+                <a href="${projectData.github}" class="action-btn secondary" target="_blank" rel="noopener">
+                    <i class="fab fa-github"></i> Source Code
+                </a>
+            </div>
+            
             <p class="repo-description">
-                ${repo.description || 'No description available.'}
+                ${projectData.description}
             </p>
+            <div class="project-features">
+                <h4><i class="fas fa-list-check"></i> Key Features:</h4>
+                <ul>
+                    ${projectData.features.map(feature => `<li>${feature}</li>`).join('')}
+                </ul>
+            </div>
             <div class="tech-stack">
-                ${repo.language ? `<span class="language-tag">${repo.language}</span>` : ''}
+                ${projectData.technologies.map(tech => `<span class="language-tag">${tech}</span>`).join('')}
                 ${repo.topics ? repo.topics.slice(0, 3).map(topic => `<span class="topic-tag">${topic}</span>`).join('') : ''}
             </div>
             <div class="repo-footer">
-                <span>Updated ${formatDate(repo.updated_at)}</span>
-                <span>${repo.language || 'Various'}</span>
+                <span><i class="fas fa-calendar-alt"></i> Updated ${formatDate(repo.updated_at)}</span>
+                <span><i class="fas fa-code"></i> ${repo.language || 'Multiple Languages'}</span>
             </div>
         </div>
-    `).join('');
+        `;
+    }).join('');
+}
+
+// Helper function for default features
+function getDefaultFeatures(repo) {
+    if (repo.description && repo.description.toLowerCase().includes('movie')) {
+        return ['Movie search functionality', 'User interface', 'Data management', 'Web application'];
+    } else if (repo.description && repo.description.toLowerCase().includes('python')) {
+        return ['Python scripts', 'Code examples', 'Learning materials', 'Programming concepts'];
+    } else if (repo.description && repo.description.toLowerCase().includes('security') || repo.name.toLowerCase().includes('safeshell')) {
+        return ['Security monitoring', 'Threat detection', 'Safe browsing', 'Mobile optimization'];
+    } else {
+        return ['Code implementation', 'Problem solving', 'Software development', 'Technical documentation'];
+    }
 }
 
 // Show fallback projects when GitHub API fails
 function showFallbackProjects() {
-    console.log('🛟 Showing fallback projects');
+    console.log('🛟 Showing enhanced fallback projects with live demos');
     
     const loadingElement = document.getElementById('projects-loading');
     const errorElement = document.getElementById('projects-error');
@@ -874,55 +1014,31 @@ function showFallbackProjects() {
         errorElement.style.display = 'block';
     }
     
-    // fallback projects with correct technologies
-    const fallbackProjects = [
-        {
-            name: "Movie Finding Made Easy",
-            description: "Web application for discovering and searching movies with detailed information, ratings, and recommendations using PHP backend.",
-            language: "PHP",
-            stargazers_count: 7,
-            forks_count: 2,
-            updated_at: new Date().toISOString(),
-            html_url: "https://github.com/SIDNEY081/Movie_Finding_Made_Easy",
-            homepage: "#",
-            topics: ["movies", "web-app", "php", "entertainment", "api-integration"]
-        },
-        {
-            name: "AI-Stroke-Shield",
-            description: "Healthcare application for stroke prediction and prevention using machine learning algorithms and data analysis.",
-            language: "Python",
-            stargazers_count: 12,
-            forks_count: 3,
-            updated_at: new Date().toISOString(),
-            html_url: "#",
-            homepage: "#",
-            topics: ["machine-learning", "healthcare", "python", "data-science"]
-        },
-        {
-            name: "Python Learning",
-            description: "Collection of Python scripts and projects covering fundamentals, data structures, algorithms, and practical applications.",
-            language: "Python",
-            stargazers_count: 5,
-            forks_count: 1,
-            updated_at: new Date().toISOString(),
-            html_url: "https://github.com/SIDNEY081/Python_Learning",
-            homepage: "#",
-            topics: ["python", "learning", "algorithms", "programming", "beginners"]
-        },
-       
-    ];
+    // Create fallback projects using our URL configuration
+    const fallbackProjects = Object.keys(PROJECT_URLS).map(projectName => ({
+        name: projectName,
+        description: PROJECT_URLS[projectName].description,
+        language: PROJECT_URLS[projectName].technologies[0],
+        stargazers_count: Math.floor(Math.random() * 10) + 1,
+        forks_count: Math.floor(Math.random() * 5),
+        updated_at: new Date().toISOString(),
+        html_url: PROJECT_URLS[projectName].github,
+        homepage: PROJECT_URLS[projectName].live,
+        topics: PROJECT_URLS[projectName].technologies.slice(0, 3)
+    }));
     
-    // Display fallback projects in both sections
+    // Display enhanced fallback projects
     if (completedSection) {
         displayProjects(fallbackProjects, 'completed');
         completedSection.style.display = 'block';
     }
     if (inprogressSection) {
+        // Show first 2 projects as "in progress"
         displayProjects(fallbackProjects.slice(0, 2), 'inprogress');
         inprogressSection.style.display = 'block';
     }
     
-    console.log('✅ Fallback projects displayed');
+    console.log('✅ Enhanced fallback projects with live demos displayed');
 }
 
 // Setup project filters
@@ -994,4 +1110,43 @@ function formatDate(dateString) {
     return `${Math.floor(diffDays / 30)} months ago`;
 }
 
-console.log('Portfolio JS loaded - enhanced with Kotlin/Android skills and progress bars');
+function formatProjectName(name) {
+    return name.split('_').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    ).join(' ');
+}
+
+// ===== APPETIZE.IO DEMO TRACKING =====
+
+// Track Appetize demo views
+function trackAppetizeDemo(projectName) {
+    console.log(`Appetize demo viewed for: ${projectName}`);
+    // You can add analytics tracking here
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'appetize_demo_view', {
+            'project_name': projectName,
+            'event_category': 'engagement'
+        });
+    }
+}
+
+// Initialize Appetize demo tracking
+function initializeAppetizeTracking() {
+    const appetizeLinks = document.querySelectorAll('a[href*="appetize.io"]');
+    appetizeLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const projectCard = this.closest('.project-card');
+            const projectName = projectCard ? projectCard.querySelector('h3').textContent : 'Unknown';
+            trackAppetizeDemo(projectName);
+        });
+    });
+}
+
+// Re-initialize tracking when projects are loaded
+const originalDisplayProjects = displayProjects;
+displayProjects = function(projects, type) {
+    originalDisplayProjects(projects, type);
+    setTimeout(initializeAppetizeTracking, 100);
+};
+
+console.log('Portfolio JS loaded - enhanced with live project demos, mobile demos, and always visible buttons');
