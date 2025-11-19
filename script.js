@@ -94,7 +94,7 @@ const PROJECT_URLS = {
         technologies: ['Python', 'Machine Learning', 'Streamlit', 'Data Science', 'Healthcare']
     },
     'Movie_Finding_Made_Easy': {
-        live: 'https://sidney081.github.io/Movie_Finding_Made_Easy/',
+        live: 'https://moviefindingmadeeasy.kesug.com/',
         github: 'https://github.com/SIDNEY081/Movie_Finding_Made_Easy',
         description: 'Interactive movie discovery platform with advanced search and filtering capabilities.',
         features: [
