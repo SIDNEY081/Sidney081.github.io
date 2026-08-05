@@ -1,247 +1,58 @@
-<section id="skills">
-  <div class="container">
-    <h2>Technical Skills</h2>
-    <p class="section-subtitle">Technologies and tools I work with</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skills - Sidney Mpenyana</title>
+  <meta name="description" content="Sidney Mpenyana's technical skills - Data Analytics & AI, programming languages, and tools">
 
-    <h3>Programming Languages</h3>
-    <div id="languageSkills" class="skills">
-      <div class="skill python" data-lang="Python"><i class="fab fa-python"></i> Python</div>
-      <div class="skill java" data-lang="Java"><i class="fab fa-java"></i> Java</div>
-      <div class="skill javascript" data-lang="JavaScript"><i class="fab fa-js-square"></i> JavaScript</div>
-      <div class="skill php" data-lang="PHP"><i class="fab fa-php"></i> PHP</div>
-      <div class="skill sql" data-lang="SQL"><i class="fas fa-database"></i> SQL</div>
-      <div class="skill r" data-lang="R"><i class="fas fa-chart-line"></i> R</div>
-    </div>
+  <!-- CSS Links -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.4.0/css/all.min.css">
+</head>
+<body>
 
-    <div id="langDescription" class="lang-description">
-      Click on a language to see description
-    </div>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+  </button>
 
-    <!-- Category filters - keeps the long skill list from turning into an endless scroll -->
-    <div class="project-filters skill-filters">
-      <button class="active" data-skill-filter="data-ai">Data & AI</button>
-      <button data-skill-filter="web-mobile">Web & Mobile</button>
-      <button data-skill-filter="db-testing">Databases & Testing</button>
-      <button data-skill-filter="it-tools">IT & Tools</button>
-      <button data-skill-filter="certifications">Certifications</button>
-      <button data-skill-filter="all">All</button>
-    </div>
-
-    <div class="skill-category" data-category="data-ai">
-      <h3>Data Analysis & AI</h3>
-      <div class="skills">
-        <div class="skill pandas"><i class="fas fa-table"></i> Pandas</div>
-        <div class="skill numpy"><i class="fas fa-calculator"></i> NumPy</div>
-        <div class="skill sklearn"><i class="fas fa-brain"></i> Scikit-learn</div>
-        <div class="skill matplotlib"><i class="fas fa-chart-bar"></i> Matplotlib</div>
-        <div class="skill seaborn"><i class="fas fa-chart-area"></i> Seaborn</div>
-        <div class="skill powerbi"><i class="fas fa-chart-pie"></i> Power BI</div>
-        <div class="skill tableau"><i class="fas fa-chart-line"></i> Tableau</div>
-        <div class="skill excel"><i class="fas fa-file-excel"></i> Excel</div>
-        <div class="skill jupyter"><i class="fas fa-book"></i> Jupyter Notebook</div>
-      </div>
-
-      <h3>AI & Automation Tools</h3>
-      <div class="skills">
-        <div class="skill chatgpt"><i class="fas fa-robot"></i> ChatGPT</div>
-        <div class="skill claude"><i class="fas fa-robot"></i> Claude</div>
-        <div class="skill copilot"><i class="fas fa-robot"></i> Microsoft Copilot</div>
-        <div class="skill powerautomate"><i class="fas fa-bolt"></i> Power Automate</div>
-        <div class="skill powerapps"><i class="fas fa-th"></i> Power Apps</div>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
       </div>
     </div>
+  </nav>
 
-    <div class="skill-category" data-category="web-mobile" hidden>
-      <h3>Web Development</h3>
-      <div class="skills">
-        <div class="skill html"><i class="fab fa-html5"></i> HTML</div>
-        <div class="skill css"><i class="fab fa-css3-alt"></i> CSS</div>
-      </div>
+  <!-- Skills Section (Loaded from external file) -->
+  <div id="skills-section"></div>
 
-      <h3>Mobile Development</h3>
-      <div class="skills">
-        <div class="skill kotlin"><i class="fas fa-mobile-alt"></i> Kotlin</div>
-        <div class="skill android"><i class="fab fa-android"></i> Android Studio</div>
-        <div class="skill firebase"><i class="fas fa-fire"></i> Firebase</div>
-        <div class="skill material-design"><i class="fas fa-palette"></i> Material Design</div>
-      </div>
+  <!-- Footer -->
+  <div id="footer-section"></div>
 
-      <h3>Frameworks & Environments</h3>
-      <div class="skills">
-        <div class="skill django"><i class="fab fa-python"></i> Django</div>
-      </div>
-    </div>
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
 
-    <div class="skill-category" data-category="db-testing" hidden>
-      <h3>Databases</h3>
-      <div class="skills">
-        <div class="skill mysql"><i class="fas fa-database"></i> MySQL</div>
-        <div class="skill postgresql"><i class="fas fa-database"></i> PostgreSQL</div>
-        <div class="skill sqlite"><i class="fas fa-database"></i> SQLite</div>
-        <div class="skill mariadb"><i class="fas fa-database"></i> MariaDB</div>
-      </div>
-
-      <h3>Testing & Quality Assurance</h3>
-      <div class="skills">
-        <div class="skill selenium"><i class="fas fa-vial"></i> Selenium</div>
-        <div class="skill junit"><i class="fas fa-vial"></i> JUnit</div>
-        <div class="skill testng"><i class="fas fa-vial"></i> TestNG</div>
-        <div class="skill postman"><i class="fas fa-paper-plane"></i> Postman</div>
-        <div class="skill pytest"><i class="fas fa-vial"></i> PyTest</div>
-        <div class="skill jira"><i class="fas fa-bug"></i> JIRA / Bugzilla</div>
-      </div>
-    </div>
-
-    <div class="skill-category" data-category="it-tools" hidden>
-      <h3>IT Infrastructure</h3>
-      <div class="skills">
-        <div class="skill hardware"><i class="fas fa-desktop"></i> PC Hardware & Assembly</div>
-        <div class="skill troubleshooting"><i class="fas fa-tools"></i> System Troubleshooting</div>
-        <div class="skill network"><i class="fas fa-network-wired"></i> Network Configuration</div>
-        <div class="skill security"><i class="fas fa-shield-alt"></i> IT Security Fundamentals</div>
-      </div>
-
-      <h3>Operating Systems</h3>
-      <div class="skills">
-        <div class="skill windows"><i class="fab fa-windows"></i> Windows</div>
-        <div class="skill linux"><i class="fab fa-linux"></i> Linux</div>
-      </div>
-
-      <h3>Development Tools</h3>
-      <div class="skills">
-        <div class="skill git"><i class="fab fa-git-alt"></i> Git</div>
-        <div class="skill github"><i class="fab fa-github"></i> GitHub</div>
-        <div class="skill vscode"><i class="fas fa-code"></i> VS Code</div>
-        <div class="skill netbeans"><i class="fas fa-coffee"></i> NetBeans</div>
-      </div>
-
-      <h3>Development Concepts</h3>
-      <div class="skills">
-        <div class="skill oop"><i class="fas fa-cubes"></i> Object-Oriented Programming</div>
-        <div class="skill responsive"><i class="fas fa-mobile-alt"></i> Responsive Web Design</div>
-        <div class="skill rest"><i class="fas fa-cloud"></i> REST APIs</div>
-        <div class="skill dbdesign"><i class="fas fa-sitemap"></i> Database Design</div>
-        <div class="skill problemsolving"><i class="fas fa-puzzle-piece"></i> Problem Solving</div>
-      </div>
-    </div>
-
-    <div class="skill-category" data-category="certifications" hidden>
-      <h3>Certifications</h3>
-      <div class="skills">
-        <div class="skill google-analytics"><i class="fas fa-certificate"></i> Google Advanced Data Analytics</div>
-        <div class="skill ibm-foundation"><i class="fas fa-certificate"></i> IBM Data Science Foundation</div>
-        <div class="skill ibm-tools"><i class="fas fa-certificate"></i> IBM Data Science Tools</div>
-        <div class="skill networks"><i class="fas fa-certificate"></i> Cisco Introduction to Networks</div>
-        <div class="skill switching"><i class="fas fa-wifi"></i> Cisco Switching, Routing and Wireless Essentials</div>
-        <div class="skill itessentials"><i class="fas fa-certificate"></i> Cisco IT Essentials</div>
-      </div>
-    </div>
-  </div>
-
-
-  <!-- Skill Level Frames -->
-    <div class="skill-levels">
-      <h3>Learning Progress</h3>
-      <p class="section-subtitle">Continuously learning and improving</p>
-      <div class="level-frames">
-        <div class="level-frame" data-skill="Python">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fab fa-python"></i></span>
-            <span class="lang-name">Python</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="85"></div>
-          </div>
-          <span class="level-text">Confident</span>
-        </div>
-
-        <div class="level-frame" data-skill="Data Analysis">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fas fa-chart-bar"></i></span>
-            <span class="lang-name">Pandas / Scikit-learn</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="80"></div>
-          </div>
-          <span class="level-text">Confident</span>
-        </div>
-
-        <div class="level-frame" data-skill="SQL">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fas fa-database"></i></span>
-            <span class="lang-name">SQL</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="75"></div>
-          </div>
-          <span class="level-text">Confident</span>
-        </div>
-
-        <div class="level-frame" data-skill="Java">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fab fa-java"></i></span>
-            <span class="lang-name">Java</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="75"></div>
-          </div>
-          <span class="level-text">Confident</span>
-        </div>
-
-        <div class="level-frame" data-skill="JavaScript">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fab fa-js-square"></i></span>
-            <span class="lang-name">JavaScript</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="75"></div>
-          </div>
-          <span class="level-text">Confident</span>
-        </div>
-
-        <div class="level-frame" data-skill="PHP">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fab fa-php"></i></span>
-            <span class="lang-name">PHP</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="60"></div>
-          </div>
-          <span class="level-text">Learning</span>
-        </div>
-
-        <div class="level-frame" data-skill="Kotlin">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fas fa-mobile-alt"></i></span>
-            <span class="lang-name">Kotlin</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="70"></div>
-          </div>
-          <span class="level-text">Learning</span>
-        </div>
-
-        <div class="level-frame" data-skill="HTML">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fab fa-html5"></i></span>
-            <span class="lang-name">HTML</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="75"></div>
-          </div>
-          <span class="level-text">Confident</span>
-        </div>
-
-        <div class="level-frame" data-skill="CSS">
-          <div class="frame-header">
-            <span class="lang-icon"><i class="fab fa-css3-alt"></i></span>
-            <span class="lang-name">CSS</span>
-          </div>
-          <div class="level-bar">
-            <div class="level-progress" data-level="75"></div>
-          </div>
-          <span class="level-text">Confident</span>
-        </div>
-      </div>
-    </div>
-</section>
+  <!-- JavaScript Links -->
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 100
+    });
+  </script>
+</body>
+</html>

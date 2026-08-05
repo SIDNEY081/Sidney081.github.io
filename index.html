@@ -41,17 +41,12 @@
         <a href="index.html">Home</a>
         <a href="about.html">About</a>
         <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
         <a href="resume.html">Resume</a>
         <a href="contact.html">Contact</a>
       </div>
     </div>
   </nav>
-
-  <!-- Home Page Content - Load About Section -->
-  <div id="home-about-section"></div>
-
-  <!-- Skills Section (Loaded from external file) -->
-  <div id="skills-section"></div>
 
   <!-- Quick Links to Other Pages -->
   <section id="quick-links">
@@ -78,6 +73,15 @@
           <span class="link-arrow">→</span>
         </a>
         
+        <a href="skills.html" class="link-card">
+          <div class="link-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>My Skills</h3>
+          <p>Explore my technical skills and certifications</p>
+          <span class="link-arrow">→</span>
+        </a>
+
         <a href="contact.html" class="link-card">
           <div class="link-icon">
             <i class="fas fa-envelope"></i>
@@ -115,61 +119,13 @@
   <script src="script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
-  <!-- Load external sections -->
+  <!-- Initialize AOS animations -->
   <script>
-    // Initialize AOS animations
-    AOS.init({ 
-      duration: 800, 
+    AOS.init({
+      duration: 800,
       once: true,
-      offset: 100 
+      offset: 100
     });
-
-    // Load about section for home page
-    fetch('about-section.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('home-about-section').innerHTML = data;
-      })
-      .catch(error => {
-        console.error('Error loading about section:', error);
-        document.getElementById('home-about-section').innerHTML = '<div class="container"><p>About section loading failed.</p></div>';
-      });
-
-    // Load skills section
-    fetch('skills.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('skills-section').innerHTML = data;
-        // Re-initialize technology toggle functionality after loading
-        setTimeout(() => {
-          initializeTechnologyToggle();
-          initializeSkillFilters();
-        }, 100);
-      })
-      .catch(error => {
-        console.error('Error loading skills section:', error);
-        document.getElementById('skills-section').innerHTML = '<div class="container"><p>Skills section loading failed. Please check the skills.html file.</p></div>';
-      });
-
-    // Function to initialize technology toggle functionality
-    function initializeTechnologyToggle() {
-      document.querySelectorAll('.tech-item').forEach(item => {
-        const toggle = item.querySelector('.tech-toggle');
-        const description = item.querySelector('.tech-description');
-        
-        item.addEventListener('click', (e) => {
-          // Toggle the show class on the description
-          description.classList.toggle('show');
-          
-          // Change the toggle button text
-          if (description.classList.contains('show')) {
-            toggle.textContent = '-';
-          } else {
-            toggle.textContent = '+';
-          }
-        });
-      });
-    }
   </script>
 </body>
 </html>

@@ -25,6 +25,7 @@
         <a href="index.html">Home</a>
         <a href="about.html" class="active">About</a>
         <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
         <a href="resume.html">Resume</a>
         <a href="contact.html">Contact</a>
       </div>
@@ -60,54 +61,6 @@
     </div>
   </section>
 
-  <!-- Flagship Project Section -->
-  <section id="current-project" class="current-project-section">
-    <div class="container">
-      <h2>🚀 Flagship Project</h2>
-      <div class="project-card">
-        <div class="project-header">
-          <h3>SmartGrid PredictAI</h3>
-          <span class="project-status">Live</span>
-        </div>
-        <div class="project-content">
-          <p class="project-description">
-            Independent data analytics & AI application for utility grid operations: predictive models for transformer failure detection and electricity theft identification, built on synthetic datasets simulating 3,000 transformers, 100,000 meters, and 1,500 feeders.
-          </p>
-          <div class="tech-stack">
-            <span class="tech-tag">Python</span>
-            <span class="tech-tag">Pandas</span>
-            <span class="tech-tag">NumPy</span>
-            <span class="tech-tag">Scikit-learn</span>
-            <span class="tech-tag">Matplotlib</span>
-            <span class="tech-tag">Seaborn</span>
-            <span class="tech-tag">Power BI</span>
-            <span class="tech-tag">Tableau</span>
-          </div>
-          <div class="project-features">
-            <h4>Key Features:</h4>
-            <ul>
-              <li>📊 ROC-AUC and precision-scored risk models for transformers, meters, and feeders</li>
-              <li>🔄 Automated data ingestion, scoring, and CSV output pipeline</li>
-              <li>📈 Power BI / Tableau dashboards for anomaly and failure-risk visualization</li>
-              <li>🔌 Flask dashboard with login, AI assistant, and PDF maintenance reports</li>
-            </ul>
-          </div>
-          <div class="project-links">
-            <a href="https://smartgrid-predictai-0etn.onrender.com" class="project-link" target="_blank">
-              <i class="fas fa-external-link-alt"></i> Live Demo
-            </a>
-            <a href="https://github.com/SIDNEY081/SmartGrid-PredictAI" class="project-link" target="_blank">
-              <i class="fab fa-github"></i> View on GitHub
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section (Loaded from external file) -->
-  <div id="skills-section"></div>
-
   <!-- Footer -->
   <footer>
     <div class="container">
@@ -133,64 +86,12 @@
   <script src="script.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   
-  <!-- Load external sections -->
+  <!-- Initialize AOS animations -->
   <script>
-    // Initialize AOS animations
-    AOS.init({ 
-      duration: 800, 
+    AOS.init({
+      duration: 800,
       once: true,
-      offset: 100 
-    });
-
-    // Load skills section
-    fetch('skills.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('skills-section').innerHTML = data;
-        // Re-initialize technology toggle functionality after loading
-        setTimeout(() => {
-          initializeTechnologyToggle();
-          initializeSkillFilters();
-        }, 100);
-      })
-      .catch(error => {
-        console.error('Error loading skills section:', error);
-        document.getElementById('skills-section').innerHTML = '<div class="container"><p>Skills section loading failed. Please check the skills.html file.</p></div>';
-      });
-
-    // Function to initialize technology toggle functionality
-    function initializeTechnologyToggle() {
-      document.querySelectorAll('.tech-item').forEach(item => {
-        const toggle = item.querySelector('.tech-toggle');
-        const description = item.querySelector('.tech-description');
-        
-        item.addEventListener('click', (e) => {
-          // Toggle the show class on the description
-          description.classList.toggle('show');
-          
-          // Change the toggle button text
-          if (description.classList.contains('show')) {
-            toggle.textContent = '-';
-          } else {
-            toggle.textContent = '+';
-          }
-        });
-      });
-    }
-
-    // Initialize current project animations
-    document.addEventListener('DOMContentLoaded', function() {
-      const projectCard = document.querySelector('.current-project-section .project-card');
-      if (projectCard) {
-        projectCard.style.opacity = '0';
-        projectCard.style.transform = 'translateY(30px)';
-        
-        setTimeout(() => {
-          projectCard.style.transition = 'all 0.6s ease';
-          projectCard.style.opacity = '1';
-          projectCard.style.transform = 'translateY(0)';
-        }, 300);
-      }
+      offset: 100
     });
   </script>
 </body>

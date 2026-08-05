@@ -153,7 +153,7 @@ function loadSkillsSection() {
     const skillsSection = document.getElementById('skills-section');
     if (!skillsSection) return;
     
-    fetch('skills.html')
+    fetch('skills-content.html')
         .then(response => {
             if (!response.ok) throw new Error('Skills file not found');
             return response.text();
