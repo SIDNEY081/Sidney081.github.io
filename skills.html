@@ -17,110 +17,124 @@
       Click on a language to see description
     </div>
 
-    <!-- Data Analysis & AI -->
-    <h3>Data Analysis & AI</h3>
-    <div class="skills">
-      <div class="skill pandas"><i class="fas fa-table"></i> Pandas</div>
-      <div class="skill numpy"><i class="fas fa-calculator"></i> NumPy</div>
-      <div class="skill sklearn"><i class="fas fa-brain"></i> Scikit-learn</div>
-      <div class="skill matplotlib"><i class="fas fa-chart-bar"></i> Matplotlib</div>
-      <div class="skill seaborn"><i class="fas fa-chart-area"></i> Seaborn</div>
-      <div class="skill powerbi"><i class="fas fa-chart-pie"></i> Power BI</div>
-      <div class="skill tableau"><i class="fas fa-chart-line"></i> Tableau</div>
-      <div class="skill excel"><i class="fas fa-file-excel"></i> Excel</div>
-      <div class="skill jupyter"><i class="fas fa-book"></i> Jupyter Notebook</div>
+    <!-- Category filters - keeps the long skill list from turning into an endless scroll -->
+    <div class="project-filters skill-filters">
+      <button class="active" data-skill-filter="data-ai">Data & AI</button>
+      <button data-skill-filter="web-mobile">Web & Mobile</button>
+      <button data-skill-filter="db-testing">Databases & Testing</button>
+      <button data-skill-filter="it-tools">IT & Tools</button>
+      <button data-skill-filter="certifications">Certifications</button>
+      <button data-skill-filter="all">All</button>
     </div>
 
-    <!-- AI & Automation Tools -->
-    <h3>AI & Automation Tools</h3>
-    <div class="skills">
-      <div class="skill chatgpt"><i class="fas fa-robot"></i> ChatGPT</div>
-      <div class="skill claude"><i class="fas fa-robot"></i> Claude</div>
-      <div class="skill copilot"><i class="fas fa-robot"></i> Microsoft Copilot</div>
-      <div class="skill powerautomate"><i class="fas fa-bolt"></i> Power Automate</div>
-      <div class="skill powerapps"><i class="fas fa-th"></i> Power Apps</div>
+    <div class="skill-category" data-category="data-ai">
+      <h3>Data Analysis & AI</h3>
+      <div class="skills">
+        <div class="skill pandas"><i class="fas fa-table"></i> Pandas</div>
+        <div class="skill numpy"><i class="fas fa-calculator"></i> NumPy</div>
+        <div class="skill sklearn"><i class="fas fa-brain"></i> Scikit-learn</div>
+        <div class="skill matplotlib"><i class="fas fa-chart-bar"></i> Matplotlib</div>
+        <div class="skill seaborn"><i class="fas fa-chart-area"></i> Seaborn</div>
+        <div class="skill powerbi"><i class="fas fa-chart-pie"></i> Power BI</div>
+        <div class="skill tableau"><i class="fas fa-chart-line"></i> Tableau</div>
+        <div class="skill excel"><i class="fas fa-file-excel"></i> Excel</div>
+        <div class="skill jupyter"><i class="fas fa-book"></i> Jupyter Notebook</div>
+      </div>
+
+      <h3>AI & Automation Tools</h3>
+      <div class="skills">
+        <div class="skill chatgpt"><i class="fas fa-robot"></i> ChatGPT</div>
+        <div class="skill claude"><i class="fas fa-robot"></i> Claude</div>
+        <div class="skill copilot"><i class="fas fa-robot"></i> Microsoft Copilot</div>
+        <div class="skill powerautomate"><i class="fas fa-bolt"></i> Power Automate</div>
+        <div class="skill powerapps"><i class="fas fa-th"></i> Power Apps</div>
+      </div>
     </div>
 
-    <!-- Mobile Development -->
-    <h3>Mobile Development</h3>
-    <div class="skills">
-      <div class="skill kotlin"><i class="fas fa-mobile-alt"></i> Kotlin</div>
-      <div class="skill android"><i class="fab fa-android"></i> Android Studio</div>
-      <div class="skill firebase"><i class="fas fa-fire"></i> Firebase</div>
-      <div class="skill material-design"><i class="fas fa-palette"></i> Material Design</div>
+    <div class="skill-category" data-category="web-mobile" hidden>
+      <h3>Web Development</h3>
+      <div class="skills">
+        <div class="skill html"><i class="fab fa-html5"></i> HTML</div>
+        <div class="skill css"><i class="fab fa-css3-alt"></i> CSS</div>
+      </div>
+
+      <h3>Mobile Development</h3>
+      <div class="skills">
+        <div class="skill kotlin"><i class="fas fa-mobile-alt"></i> Kotlin</div>
+        <div class="skill android"><i class="fab fa-android"></i> Android Studio</div>
+        <div class="skill firebase"><i class="fas fa-fire"></i> Firebase</div>
+        <div class="skill material-design"><i class="fas fa-palette"></i> Material Design</div>
+      </div>
+
+      <h3>Frameworks & Environments</h3>
+      <div class="skills">
+        <div class="skill django"><i class="fab fa-python"></i> Django</div>
+      </div>
     </div>
 
-    <!-- Web Development -->
-    <h3>Web Development</h3>
-    <div class="skills">
-      <div class="skill html"><i class="fab fa-html5"></i> HTML</div>
-      <div class="skill css"><i class="fab fa-css3-alt"></i> CSS</div>
+    <div class="skill-category" data-category="db-testing" hidden>
+      <h3>Databases</h3>
+      <div class="skills">
+        <div class="skill mysql"><i class="fas fa-database"></i> MySQL</div>
+        <div class="skill postgresql"><i class="fas fa-database"></i> PostgreSQL</div>
+        <div class="skill sqlite"><i class="fas fa-database"></i> SQLite</div>
+        <div class="skill mariadb"><i class="fas fa-database"></i> MariaDB</div>
+      </div>
+
+      <h3>Testing & Quality Assurance</h3>
+      <div class="skills">
+        <div class="skill selenium"><i class="fas fa-vial"></i> Selenium</div>
+        <div class="skill junit"><i class="fas fa-vial"></i> JUnit</div>
+        <div class="skill testng"><i class="fas fa-vial"></i> TestNG</div>
+        <div class="skill postman"><i class="fas fa-paper-plane"></i> Postman</div>
+        <div class="skill pytest"><i class="fas fa-vial"></i> PyTest</div>
+        <div class="skill jira"><i class="fas fa-bug"></i> JIRA / Bugzilla</div>
+      </div>
     </div>
 
-    <!-- Frameworks & Environments -->
-    <h3>Frameworks & Environments</h3>
-    <div class="skills">
-      <div class="skill django"><i class="fab fa-python"></i> Django</div>
+    <div class="skill-category" data-category="it-tools" hidden>
+      <h3>IT Infrastructure</h3>
+      <div class="skills">
+        <div class="skill hardware"><i class="fas fa-desktop"></i> PC Hardware & Assembly</div>
+        <div class="skill troubleshooting"><i class="fas fa-tools"></i> System Troubleshooting</div>
+        <div class="skill network"><i class="fas fa-network-wired"></i> Network Configuration</div>
+        <div class="skill security"><i class="fas fa-shield-alt"></i> IT Security Fundamentals</div>
+      </div>
+
+      <h3>Operating Systems</h3>
+      <div class="skills">
+        <div class="skill windows"><i class="fab fa-windows"></i> Windows</div>
+        <div class="skill linux"><i class="fab fa-linux"></i> Linux</div>
+      </div>
+
+      <h3>Development Tools</h3>
+      <div class="skills">
+        <div class="skill git"><i class="fab fa-git-alt"></i> Git</div>
+        <div class="skill github"><i class="fab fa-github"></i> GitHub</div>
+        <div class="skill vscode"><i class="fas fa-code"></i> VS Code</div>
+        <div class="skill netbeans"><i class="fas fa-coffee"></i> NetBeans</div>
+      </div>
+
+      <h3>Development Concepts</h3>
+      <div class="skills">
+        <div class="skill oop"><i class="fas fa-cubes"></i> Object-Oriented Programming</div>
+        <div class="skill responsive"><i class="fas fa-mobile-alt"></i> Responsive Web Design</div>
+        <div class="skill rest"><i class="fas fa-cloud"></i> REST APIs</div>
+        <div class="skill dbdesign"><i class="fas fa-sitemap"></i> Database Design</div>
+        <div class="skill problemsolving"><i class="fas fa-puzzle-piece"></i> Problem Solving</div>
+      </div>
     </div>
 
-    <h3>Databases</h3>
-    <div class="skills">
-      <div class="skill mysql"><i class="fas fa-database"></i> MySQL</div>
-      <div class="skill postgresql"><i class="fas fa-database"></i> PostgreSQL</div>
-      <div class="skill sqlite"><i class="fas fa-database"></i> SQLite</div>
-      <div class="skill mariadb"><i class="fas fa-database"></i> MariaDB</div>
-    </div>
-
-    <!-- Testing & Quality Assurance -->
-    <h3>Testing & Quality Assurance</h3>
-    <div class="skills">
-      <div class="skill selenium"><i class="fas fa-vial"></i> Selenium</div>
-      <div class="skill junit"><i class="fas fa-vial"></i> JUnit</div>
-      <div class="skill testng"><i class="fas fa-vial"></i> TestNG</div>
-      <div class="skill postman"><i class="fas fa-paper-plane"></i> Postman</div>
-      <div class="skill pytest"><i class="fas fa-vial"></i> PyTest</div>
-      <div class="skill jira"><i class="fas fa-bug"></i> JIRA / Bugzilla</div>
-    </div>
-
-    <h3>IT Infrastructure</h3>
-    <div class="skills">
-      <div class="skill hardware"><i class="fas fa-desktop"></i> PC Hardware & Assembly</div>
-      <div class="skill troubleshooting"><i class="fas fa-tools"></i> System Troubleshooting</div>
-      <div class="skill network"><i class="fas fa-network-wired"></i> Network Configuration</div>
-      <div class="skill security"><i class="fas fa-shield-alt"></i> IT Security Fundamentals</div>
-    </div>
-
-    <h3>Operating Systems</h3>
-    <div class="skills">
-      <div class="skill windows"><i class="fab fa-windows"></i> Windows</div>
-      <div class="skill linux"><i class="fab fa-linux"></i> Linux</div>
-    </div>
-
-    <h3>Development Tools</h3>
-    <div class="skills">
-      <div class="skill git"><i class="fab fa-git-alt"></i> Git</div>
-      <div class="skill github"><i class="fab fa-github"></i> GitHub</div>
-      <div class="skill vscode"><i class="fas fa-code"></i> VS Code</div>
-      <div class="skill netbeans"><i class="fas fa-coffee"></i> NetBeans</div>
-    </div>
-
-    <h3>Development Concepts</h3>
-    <div class="skills">
-      <div class="skill oop"><i class="fas fa-cubes"></i> Object-Oriented Programming</div>
-      <div class="skill responsive"><i class="fas fa-mobile-alt"></i> Responsive Web Design</div>
-      <div class="skill rest"><i class="fas fa-cloud"></i> REST APIs</div>
-      <div class="skill dbdesign"><i class="fas fa-sitemap"></i> Database Design</div>
-      <div class="skill problemsolving"><i class="fas fa-puzzle-piece"></i> Problem Solving</div>
-    </div>
-
-    <h3>Certifications</h3>
-    <div class="skills">
-      <div class="skill google-analytics"><i class="fas fa-certificate"></i> Google Advanced Data Analytics</div>
-      <div class="skill ibm-foundation"><i class="fas fa-certificate"></i> IBM Data Science Foundation</div>
-      <div class="skill ibm-tools"><i class="fas fa-certificate"></i> IBM Data Science Tools</div>
-      <div class="skill networks"><i class="fas fa-certificate"></i> Cisco Introduction to Networks</div>
-      <div class="skill switching"><i class="fas fa-wifi"></i> Cisco Switching, Routing and Wireless Essentials</div>
-      <div class="skill itessentials"><i class="fas fa-certificate"></i> Cisco IT Essentials</div>
+    <div class="skill-category" data-category="certifications" hidden>
+      <h3>Certifications</h3>
+      <div class="skills">
+        <div class="skill google-analytics"><i class="fas fa-certificate"></i> Google Advanced Data Analytics</div>
+        <div class="skill ibm-foundation"><i class="fas fa-certificate"></i> IBM Data Science Foundation</div>
+        <div class="skill ibm-tools"><i class="fas fa-certificate"></i> IBM Data Science Tools</div>
+        <div class="skill networks"><i class="fas fa-certificate"></i> Cisco Introduction to Networks</div>
+        <div class="skill switching"><i class="fas fa-wifi"></i> Cisco Switching, Routing and Wireless Essentials</div>
+        <div class="skill itessentials"><i class="fas fa-certificate"></i> Cisco IT Essentials</div>
+      </div>
     </div>
   </div>
 

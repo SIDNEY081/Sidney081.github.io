@@ -12,7 +12,8 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeMobileFeatures();
     initializeTypewriter();
     initializeLanguageSkills();
-    
+    updateCopyrightYear();
+
     // Load Real Projects from GitHub - Only on projects page
     if (document.getElementById('projects-loading')) {
         console.log('Projects page detected, loading projects...');
@@ -163,6 +164,7 @@ function loadSkillsSection() {
             setTimeout(() => {
                 initializeLanguageSkills();
                 initializeSkillProgress();
+                initializeSkillFilters();
             }, 100);
         })
         .catch(error => {
@@ -170,6 +172,7 @@ function loadSkillsSection() {
             skillsSection.innerHTML = getFallbackSkillsHTML();
             initializeLanguageSkills();
             initializeSkillProgress();
+            initializeSkillFilters();
         });
 }
 
@@ -338,6 +341,25 @@ function initializeLanguageSkills() {
     if (!activeSkill && skills.length > 0) {
         activateLanguageSkill(skills[0], skills, desc, descriptions);
     }
+}
+
+// Skill category filter tabs - keeps the Technical Skills section from
+// stacking a dozen categories into one long scroll; shows one group at a time
+function initializeSkillFilters() {
+    const buttons = document.querySelectorAll('.skill-filters button');
+    const categories = document.querySelectorAll('.skill-category');
+    if (!buttons.length || !categories.length) return;
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
+            const filter = button.getAttribute('data-skill-filter');
+            categories.forEach(cat => {
+                cat.hidden = !(filter === 'all' || cat.getAttribute('data-category') === filter);
+            });
+        });
+    });
 }
 
 // Helper function for language skill activation
@@ -661,6 +683,7 @@ function loadFooter() {
         })
         .then(data => {
             footerSection.innerHTML = data;
+            updateCopyrightYear();
         })
         .catch(error => {
             console.error('Error loading footer:', error);
@@ -669,18 +692,27 @@ function loadFooter() {
                 <footer>
                     <div class="container">
                         <div class="footer-content">
-                            <p>&copy; 2025 Sidney Mpenyana. All rights reserved.</p>
+                            <p class="copyright">&copy; 2025 Sidney Mpenyana. All rights reserved.</p>
                             <p class="footer-quote">"Always learning, always growing"</p>
                             <div class="footer-links">
-                                <a href="index.html">Home</a> | 
-                                <a href="projects.html">Projects</a> | 
+                                <a href="index.html">Home</a> |
+                                <a href="projects.html">Projects</a> |
                                 <a href="contact.html">Contact</a>
                             </div>
                         </div>
                     </div>
                 </footer>
             `;
+            updateCopyrightYear();
         });
+}
+
+// Keeps every footer's copyright year current without needing a yearly edit
+function updateCopyrightYear() {
+    const year = new Date().getFullYear();
+    document.querySelectorAll('.copyright').forEach(el => {
+        el.textContent = el.textContent.replace(/\d{4}/, year);
+    });
 }
 
 // Universal Scroll to Top with debouncing
