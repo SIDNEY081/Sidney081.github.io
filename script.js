@@ -307,12 +307,13 @@ function initializeLanguageSkills() {
     console.log('Initializing language skills:', skills.length, 'skills found');
     
     const descriptions = {
-        'Java': 'Enterprise applications and Android development. Strong in OOP principles and backend systems. Experience with Spring Boot and Android SDK.',
-        'JavaScript': 'Web development and interactive features. Experience with frontend frameworks (React, Vue) and Node.js backend development.',
-        'Python': 'Data science, automation, and web development. Skilled in scripting, ML libraries (scikit-learn), and Django framework.',
-        'PHP': 'Server-side web development. Experience with Laravel and building dynamic websites and RESTful APIs.',
-        'SQL': 'Database management and complex queries. Proficient in database design, optimization, and working with MySQL, SQLite, and MongoDB.',
-        'Kotlin': 'Modern Android development with Kotlin. Experience with coroutines, Jetpack components, and building responsive mobile applications with Appetize.io deployment.'
+        'Python': 'Data science, automation, and web development. Skilled in scripting, ML libraries (Pandas, Scikit-learn), and the Django framework - used to build predictive models for SmartGrid PredictAI.',
+        'Java': 'Enterprise applications and Android development. Strong in object-oriented principles and backend systems, applied in academic and personal projects.',
+        'JavaScript': 'Web development and interactive UI features - DOM manipulation and client-side interactivity, used to build the Movie Finding Made Easy project.',
+        'PHP': 'Server-side web development - dynamic content loading and backend logic, as built for the Movie Finding Made Easy project.',
+        'SQL': 'Database management and complex queries for data validation and backend testing - working with MySQL, PostgreSQL, SQLite, and MariaDB.',
+        'R': 'Statistical computing and data analysis, complementing Python for exploratory data analysis and applied statistics.',
+        'Kotlin': 'Modern Android development with Kotlin, used for the SafeShell security app - custom launcher logic and biometric authentication flows.'
     };
     
     skills.forEach(skill => {
@@ -449,20 +450,14 @@ function initializeMobileFeatures() {
 // Advanced Typewriter Effect
 function initializeTypewriter() {
     const texts = [
+        "Data & AI Developer",
+        "Software Developer",
+        "Data Analytics Specialist",
+        "Python Developer",
+        "Machine Learning Enthusiast",
         "Full-Stack Developer",
-        "Software Engineer", 
-        "Android Developer",
-        "Kotlin Developer",
-        "Web Developer",
-        "Problem Solver",
-        "Java Programmer",
-        "JavaScript Developer",
-        "AI Developer",
-        "Mobile App Developer",
-        "Network Specialist",
-        "IT Essentials Certified",
-        "IT Graduate",
-        "Seeking Internships"
+        "Power BI Developer",
+        "Problem Solver"
     ];
     
     const element = document.getElementById('typewriter');
