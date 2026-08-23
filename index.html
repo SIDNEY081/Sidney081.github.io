@@ -39,20 +39,26 @@
         <span class="header-badge">Google Advanced Data Analytics</span>
       </div>
 
-      <div class="terminal-window">
+      <div class="terminal-window" id="homeTerminal">
         <div class="terminal-titlebar">
           <span class="terminal-dot red"></span>
           <span class="terminal-dot yellow"></span>
           <span class="terminal-dot green"></span>
           <span class="terminal-path">sidney@portfolio:~</span>
         </div>
-        <div class="terminal-body">
+        <div class="terminal-body" id="terminalBody">
           <div><span class="prompt">$</span><span class="cmd">whoami</span></div>
           <div class="out">Sidney Mpenyana — Software Developer | Data & AI</div>
           <div><span class="prompt">$</span><span class="cmd">cat education.txt</span></div>
           <div class="out">Diploma in Information Technology, Vaal University of Technology — Graduated 2026</div>
           <div><span class="prompt">$</span><span class="cmd">cat certifications.txt</span></div>
           <div class="out">Cisco IT Essentials · Google Advanced Data Analytics</div>
+          <div class="out terminal-hint">Type 'help' and press Enter to try this terminal yourself.</div>
+          <div id="terminalHistory"></div>
+          <div class="terminal-input-line">
+            <span class="prompt">$</span>
+            <input type="text" id="terminalInput" class="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal command input">
+          </div>
         </div>
       </div>
 

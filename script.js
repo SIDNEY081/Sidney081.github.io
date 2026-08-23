@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeTypewriter();
     initializeLanguageSkills();
     updateCopyrightYear();
+    initializeInteractiveTerminal();
 
     // Load Real Projects from GitHub - Only on projects page
     if (document.getElementById('projects-loading')) {
@@ -542,6 +543,117 @@ function initializeTypewriter() {
     }
     
     type();
+}
+
+// ===== INTERACTIVE TERMINAL =====
+
+function getNeofetchHTML() {
+    const ascii = [
+        ' ▄▄▄▄▄▄   ▄▄▄     ▄▄▄',
+        '██        ████   ████',
+        ' ▀▀▀▀██   ██ ██ ██ ██',
+        '     ██   ██  ███  ██',
+        '▀██▀▀▀▀   ██   ▀   ██'
+    ].join('\n');
+
+    const specs = [
+        ['OS', 'Sidney Mpenyana Portfolio'],
+        ['Host', 'github.com/SIDNEY081'],
+        ['Kernel', 'Diploma in IT (VUT) - Graduated 2026'],
+        ['Shell', 'Python / JavaScript / SQL'],
+        ['Languages', 'Python, Java, JavaScript, PHP, SQL, R, Kotlin'],
+        ['Frameworks', 'Pandas, Scikit-learn, Power BI, Tableau, Django'],
+        ['Certs', 'Cisco IT Essentials, Google Advanced Data Analytics'],
+        ['Status', 'Open to Software Developer / Data & AI roles']
+    ].map(([label, value]) => `<div><span class="neofetch-label">${label}:</span> ${value}</div>`).join('');
+
+    return `<div class="neofetch-output"><pre class="neofetch-ascii">${ascii}</pre><div class="neofetch-specs">${specs}</div></div>`;
+}
+
+const TERMINAL_COMMANDS = {
+    help: () => [
+        'Available commands:',
+        '  whoami, neofetch, ls, cat education.txt, cat certifications.txt',
+        '  about, projects, skills, resume, contact  (opens that page)',
+        '  clear'
+    ].join('\n'),
+    whoami: () => 'Sidney Mpenyana — Software Developer | Data & AI',
+    neofetch: () => ({ html: getNeofetchHTML() }),
+    ls: () => 'home  about  projects  skills  resume  contact',
+    'cat education.txt': () => 'Diploma in Information Technology, Vaal University of Technology — Graduated 2026',
+    'cat certifications.txt': () => 'Cisco IT Essentials · Google Advanced Data Analytics',
+    about: () => ({ navigate: 'about.html' }),
+    projects: () => ({ navigate: 'projects.html' }),
+    skills: () => ({ navigate: 'skills.html' }),
+    resume: () => ({ navigate: 'resume.html' }),
+    contact: () => ({ navigate: 'contact.html' })
+};
+
+function initializeInteractiveTerminal() {
+    const input = document.getElementById('terminalInput');
+    const history = document.getElementById('terminalHistory');
+    const body = document.getElementById('terminalBody');
+    if (!input || !history || !body) return;
+
+    body.addEventListener('click', () => input.focus());
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key !== 'Enter') return;
+        const raw = input.value;
+        const command = raw.trim();
+        input.value = '';
+
+        const commandLine = document.createElement('div');
+        commandLine.className = 'terminal-line';
+        commandLine.innerHTML = `<span class="prompt">$</span><span class="cmd"></span>`;
+        commandLine.querySelector('.cmd').textContent = raw;
+        history.appendChild(commandLine);
+
+        if (!command) {
+            body.scrollTop = body.scrollHeight;
+            return;
+        }
+
+        if (command === 'clear') {
+            history.innerHTML = '';
+            body.scrollTop = body.scrollHeight;
+            return;
+        }
+
+        if (command.startsWith('sudo')) {
+            appendTerminalError(history, `Permission denied: nice try 😄`);
+        } else if (TERMINAL_COMMANDS[command]) {
+            const result = TERMINAL_COMMANDS[command]();
+            if (result && result.navigate) {
+                appendTerminalOutput(history, `Opening ${result.navigate} ...`);
+                setTimeout(() => { window.location.href = result.navigate; }, 400);
+            } else if (result && result.html) {
+                const wrapper = document.createElement('div');
+                wrapper.innerHTML = result.html;
+                history.appendChild(wrapper);
+            } else {
+                appendTerminalOutput(history, result);
+            }
+        } else {
+            appendTerminalError(history, `command not found: ${command} — type 'help' for available commands`);
+        }
+
+        body.scrollTop = body.scrollHeight;
+    });
+}
+
+function appendTerminalOutput(container, text) {
+    const el = document.createElement('div');
+    el.className = 'out';
+    el.textContent = text;
+    container.appendChild(el);
+}
+
+function appendTerminalError(container, text) {
+    const el = document.createElement('div');
+    el.className = 'terminal-error';
+    el.textContent = text;
+    container.appendChild(el);
 }
 
 // ===== DYNAMIC GREETING FUNCTIONS =====

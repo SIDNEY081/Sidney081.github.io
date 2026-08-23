@@ -264,6 +264,71 @@ header p {
   margin: 0 0 10px 22px;
 }
 
+.terminal-hint {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.terminal-input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  caret-color: var(--accent-color);
+}
+
+.terminal-line {
+  color: var(--text-primary);
+}
+
+.terminal-line .prompt {
+  color: var(--accent-color);
+  margin-right: 8px;
+}
+
+.terminal-error {
+  color: var(--error-color);
+  margin: 0 0 10px 22px;
+}
+
+.neofetch-output {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin: 4px 0 14px 22px;
+  flex-wrap: wrap;
+}
+
+.neofetch-ascii {
+  color: var(--accent-color);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  line-height: 1.1;
+  white-space: pre;
+  margin: 0;
+}
+
+.neofetch-specs {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.7;
+}
+
+.neofetch-specs .neofetch-label {
+  color: var(--accent-color);
+  font-weight: 700;
+}
+
 /* Dynamic Greeting Styles */
 .dynamic-greeting {
   margin-top: 20px;
