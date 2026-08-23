@@ -1,3 +1,65 @@
+/* ===== Page-Turn Navigation (View Transitions API) =====
+   Native browser feature (Chrome/Edge) that animates between full page
+   loads - no JS routing needed. Unsupported browsers just navigate
+   normally, so this is a safe progressive enhancement. */
+@view-transition {
+  navigation: auto;
+}
+
+html {
+  perspective: 1800px;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  animation-fill-mode: both;
+  transform-origin: left center;
+  backface-visibility: hidden;
+}
+
+::view-transition-old(root) {
+  animation-name: page-turn-leave;
+}
+
+::view-transition-new(root) {
+  animation-name: page-turn-enter;
+}
+
+@keyframes page-turn-leave {
+  from {
+    transform: rotateY(0deg);
+    opacity: 1;
+    filter: brightness(1);
+  }
+  to {
+    transform: rotateY(-18deg);
+    opacity: 0;
+    filter: brightness(0.7);
+  }
+}
+
+@keyframes page-turn-enter {
+  from {
+    transform: rotateY(18deg);
+    opacity: 0;
+    filter: brightness(0.7);
+  }
+  to {
+    transform: rotateY(0deg);
+    opacity: 1;
+    filter: brightness(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 /* ===== CSS Variables ===== */
 :root {
   --primary-color: #2563eb;
