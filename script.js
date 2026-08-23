@@ -598,6 +598,28 @@ function initializeInteractiveTerminal() {
 
     body.addEventListener('click', () => input.focus());
 
+    // Command history - Up/Down arrows recall previously entered commands, like a real shell
+    const commandLog = [];
+    let historyIndex = -1;
+    let draftBeforeHistory = '';
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') return;
+        if (commandLog.length === 0) return;
+        e.preventDefault();
+
+        if (e.key === 'ArrowUp') {
+            if (historyIndex === -1) draftBeforeHistory = input.value;
+            if (historyIndex < commandLog.length - 1) historyIndex++;
+        } else {
+            if (historyIndex === -1) return;
+            historyIndex--;
+        }
+
+        input.value = historyIndex === -1 ? draftBeforeHistory : commandLog[commandLog.length - 1 - historyIndex];
+        input.setSelectionRange(input.value.length, input.value.length);
+    });
+
     // A <form>'s submit event (rather than keydown) is what reliably fires for
     // both a physical Enter key and a mobile keyboard's "Go"/"Enter" action.
     form.addEventListener('submit', function(e) {
@@ -605,6 +627,10 @@ function initializeInteractiveTerminal() {
         const raw = input.value;
         const command = raw.trim();
         input.value = '';
+
+        if (command) commandLog.push(raw);
+        historyIndex = -1;
+        draftBeforeHistory = '';
 
         const commandLine = document.createElement('div');
         commandLine.className = 'terminal-line';
