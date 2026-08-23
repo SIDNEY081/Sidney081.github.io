@@ -591,14 +591,17 @@ const TERMINAL_COMMANDS = {
 
 function initializeInteractiveTerminal() {
     const input = document.getElementById('terminalInput');
+    const form = document.getElementById('terminalForm');
     const history = document.getElementById('terminalHistory');
     const body = document.getElementById('terminalBody');
-    if (!input || !history || !body) return;
+    if (!input || !form || !history || !body) return;
 
     body.addEventListener('click', () => input.focus());
 
-    input.addEventListener('keydown', function(e) {
-        if (e.key !== 'Enter') return;
+    // A <form>'s submit event (rather than keydown) is what reliably fires for
+    // both a physical Enter key and a mobile keyboard's "Go"/"Enter" action.
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
         const raw = input.value;
         const command = raw.trim();
         input.value = '';
