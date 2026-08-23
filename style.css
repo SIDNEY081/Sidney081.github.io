@@ -256,7 +256,7 @@ header p {
 }
 
 .terminal-body .cmd {
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .terminal-body .out {
@@ -281,14 +281,14 @@ header p {
   background: transparent;
   border: none;
   outline: none;
-  color: var(--text-primary);
+  color: #ffffff;
   font-family: var(--font-mono);
   font-size: 0.9rem;
   caret-color: var(--accent-color);
 }
 
 .terminal-line {
-  color: var(--text-primary);
+  color: #ffffff;
 }
 
 .terminal-line .prompt {
