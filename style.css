@@ -6,8 +6,13 @@
   navigation: auto;
 }
 
-html {
+::view-transition {
   perspective: 1800px;
+}
+
+::view-transition-group(root),
+::view-transition-image-pair(root) {
+  transform-style: preserve-3d;
 }
 
 ::view-transition-old(root),
