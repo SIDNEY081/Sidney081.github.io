@@ -846,21 +846,6 @@ body.light .skill-level-bar {
   background: var(--border-color);
 }
 
-/* Cisco Certifications Styling */
-.cisco-item i.fa-wifi {
-  color: #28a745;
-}
-
-/* Skills Section - New Certificate */
-.skills .skill.switching {
-  background: linear-gradient(135deg, #28a745, #20c997);
-}
-
-.skills .skill.switching:hover {
-  background: linear-gradient(135deg, #20c997, #28a745);
-  transform: translateY(-3px);
-}
-
 /* Level-specific backgrounds for junior appropriate labels */
 .level-frame[data-skill="Java"] .level-text,
 .level-frame[data-skill="JavaScript"] .level-text,
