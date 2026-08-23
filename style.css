@@ -14,6 +14,7 @@
   --success-color: #10b981;
   --warning-color: #f59e0b;
   --error-color: #ef4444;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 }
 
 .light {
@@ -115,13 +116,85 @@ header p {
 }
 
 .header-badge {
-  background: var(--gradient);
-  color: white;
+  background: var(--surface-color);
+  border: 1px solid var(--accent-color);
+  color: var(--accent-color);
   padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
   font-weight: 600;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+  font-family: var(--font-mono);
+  box-shadow: 0 4px 15px rgba(6, 214, 160, 0.15);
+}
+
+.header-badge::before {
+  content: '<';
+  opacity: 0.6;
+}
+
+.header-badge::after {
+  content: ' />';
+  opacity: 0.6;
+}
+
+/* ===== Terminal Window ===== */
+.terminal-window {
+  max-width: 620px;
+  margin: 28px auto 0;
+  background: #0b1120;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.terminal-titlebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #151d2e;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.terminal-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27c93f; }
+
+.terminal-titlebar span.terminal-path {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.terminal-body {
+  padding: 16px 18px 20px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+
+.terminal-body .prompt {
+  color: var(--accent-color);
+  margin-right: 8px;
+}
+
+.terminal-body .cmd {
+  color: var(--text-primary);
+}
+
+.terminal-body .out {
+  color: var(--text-secondary);
+  margin: 0 0 10px 22px;
 }
 
 /* Dynamic Greeting Styles */
@@ -887,6 +960,31 @@ body.light .skill-level-bar {
 .completed-badge {
   background: var(--success-color);
   color: white;
+}
+
+/* ===== Featured / Flagship Project Card ===== */
+.project-card.featured-card {
+  border: 1px solid var(--accent-color);
+  box-shadow: 0 0 0 1px rgba(6, 214, 160, 0.25), var(--shadow);
+}
+
+.projects-grid .featured-card {
+  grid-column: 1 / -1;
+}
+
+.featured-ribbon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 8px 16px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  z-index: 2;
+  background: var(--accent-color);
+  color: #04241c;
+  box-shadow: 0 4px 15px rgba(6, 214, 160, 0.35);
 }
 
 .repo-header {
@@ -2087,121 +2185,11 @@ body {
   }
 }
 
-/* ===== Current Project Section ===== */
-.current-project-section {
-  padding: 60px 0;
-  background: var(--surface-color);
-}
-
-.project-card {
-  background: var(--background-color);
-  border-radius: 12px;
-  padding: 30px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  border: 1px solid var(--border-color);
-}
-
-.project-header {
-  display: flex;
-  justify-content: between;
-  align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-.project-header h3 {
-  margin: 0;
-  color: var(--text-primary);
-  font-size: 1.5rem;
-}
-
-.project-status {
-  background: #ff6b35;
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: bold;
-}
-
-.project-description {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 25px;
-  color: var(--text-primary);
-}
-
-.tech-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-
-.tech-tag {
-  background: var(--accent-color);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.project-features h4 {
-  margin-bottom: 15px;
-  color: var(--text-primary);
-}
-
-.project-features ul {
-  list-style: none;
-  padding: 0;
-}
-
-.project-features li {
-  padding: 8px 0;
-  color: var(--text-primary);
-}
-
-.project-links {
-  margin-top: 25px;
-}
-
-.project-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--primary-color);
-  color: white;
-  padding: 10px 20px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: transform 0.2s;
-}
-
-.project-link:hover {
-  transform: translateY(-2px);
-  color: white;
-}
-
 /* New skill colors */
 .skill.kotlin { background: #7F52FF; color: white; }
 .skill.android { background: #3DDC84; color: white; }
 .skill.firebase { background: #FFCA28; color: #333; }
 .skill.material-design { background: #6200EE; color: white; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .project-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .tech-stack {
-    justify-content: center;
-  }
-}
 
 /* ===== PROGRAMMING LANGUAGES ===== */
 .skill.java { 

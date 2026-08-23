@@ -80,7 +80,23 @@ const githubCache = {
 };
 
 // ===== PROJECT URLS CONFIGURATION =====
+// GitHub's API doesn't expose a homepage/description rich enough for every repo,
+// so this fills in curated live-demo links, descriptions, and feature bullets -
+// the *list* of projects still comes entirely from the live GitHub fetch below.
 const PROJECT_URLS = {
+    'SmartGrid-PredictAI': {
+        live: 'https://smartgrid-predictai-0etn.onrender.com',
+        github: 'https://github.com/SIDNEY081/SmartGrid-PredictAI',
+        featured: true,
+        description: 'Independent data analytics & AI application for utility grid operations: predictive models for transformer failure detection and electricity theft identification, built on synthetic datasets simulating 3,000 transformers, 100,000 meters, and 1,500 feeders.',
+        features: [
+            'ROC-AUC and precision-scored risk models for transformers, meters, and feeders',
+            'Automated data ingestion, scoring, and CSV output pipeline',
+            'Power BI / Tableau dashboards for anomaly and failure-risk visualization',
+            'Flask dashboard with login, AI assistant, and PDF maintenance reports'
+        ],
+        technologies: ['Python', 'Pandas', 'NumPy', 'Scikit-learn', 'Matplotlib', 'Seaborn', 'Power BI', 'Tableau']
+    },
     'AI-Stroke-Shield': {
         live: 'https://ai-stroke-shield-8yw9ddvstkica4k3fodeep.streamlit.app/',
         github: 'https://github.com/SIDNEY081/AI-Stroke-Shield',
@@ -145,6 +161,9 @@ const PROJECT_URLS = {
         technologies: ['Python', 'Algorithms', 'Data Structures', 'Automation', 'Learning']
     }
 };
+
+// Repos that aren't real projects: the portfolio site itself and the GitHub profile config repo
+const EXCLUDED_REPOS = ['SIDNEY081', 'Sidney081.github.io'];
 
 // ===== SKILLS SECTION FUNCTIONS =====
 
@@ -851,7 +870,13 @@ function processProjects(repos) {
             console.log(`Skipping fork: ${repo.name}`);
             return;
         }
-        
+
+        // Skip the portfolio's own repos and projects already pinned above the grid
+        if (EXCLUDED_REPOS.includes(repo.name)) {
+            console.log(`Skipping excluded repo: ${repo.name}`);
+            return;
+        }
+
         // Check if this is one of our main projects
         const isMainProject = Object.keys(PROJECT_URLS).includes(repo.name);
         
@@ -869,6 +894,11 @@ function processProjects(repos) {
         }
     });
     
+    // Feature the flagship project(s) first
+    const isFeatured = repo => !!(PROJECT_URLS[repo.name] && PROJECT_URLS[repo.name].featured);
+    completedProjects.sort((a, b) => isFeatured(b) - isFeatured(a));
+    inProgressProjects.sort((a, b) => isFeatured(b) - isFeatured(a));
+
     console.log('Completed projects:', completedProjects.length);
     console.log('In progress projects:', inProgressProjects.length);
     
@@ -952,9 +982,11 @@ function displayProjects(projects, type) {
             features: getDefaultFeatures(repo),
             technologies: [repo.language || 'Various Technologies']
         };
+        const featured = !!projectData.featured;
 
         return `
-        <div class="project-card show">
+        <div class="project-card show${featured ? ' featured-card' : ''}">
+            ${featured ? '<div class="featured-ribbon"><i class="fas fa-rocket"></i> Flagship Project</div>' : ''}
             <div class="badge ${type === 'completed' ? 'completed-badge' : 'inprogress-badge'}">
                 ${type === 'completed' ? 'Completed' : 'In Progress'}
             </div>
