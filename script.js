@@ -93,8 +93,9 @@ const PROJECT_URLS = {
     'SmartGrid-PredictAI': {
         live: 'https://smartgrid-predictai-0etn.onrender.com',
         github: 'https://github.com/SIDNEY081/SmartGrid-PredictAI',
+        caseStudy: 'case-study-smartgrid.html',
         featured: true,
-        description: 'Independent data analytics & AI application for utility grid operations: predictive models for transformer failure detection and electricity theft identification, built on synthetic datasets simulating 3,000 transformers, 100,000 meters, and 1,500 feeders.',
+        description: 'Independent data analytics & AI application for utility grid operations: predictive models for transformer failure, electricity theft, and feeder outages, built on synthetic datasets simulating 3,000 transformers, 10,000 meters, and 500 feeders.',
         features: [
             'ROC-AUC and precision-scored risk models for transformers, meters, and feeders',
             'Automated data ingestion, scoring, and CSV output pipeline',
@@ -1192,9 +1193,13 @@ function displayProjects(projects, type) {
                     `<a href="${projectData.live}" class="action-btn" target="_blank" rel="noopener">
                         <i class="fas fa-external-link-alt"></i> Live Demo
                      </a>` : ''}
-                ${projectData.appetize ? 
+                ${projectData.appetize ?
                     `<a href="${projectData.appetize}" class="action-btn" target="_blank" rel="noopener" style="background: linear-gradient(135deg, #667eea, #764ba2);">
                         <i class="fas fa-mobile-alt"></i> Mobile Demo
+                     </a>` : ''}
+                ${projectData.caseStudy ?
+                    `<a href="${projectData.caseStudy}" class="action-btn secondary">
+                        <i class="fas fa-book-open"></i> Case Study
                      </a>` : ''}
                 <a href="${projectData.github}" class="action-btn secondary" target="_blank" rel="noopener">
                     <i class="fab fa-github"></i> Source Code

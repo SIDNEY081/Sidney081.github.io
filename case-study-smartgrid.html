@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartGrid PredictAI Case Study - Sidney Mpenyana</title>
+  <meta name="description" content="How SmartGrid PredictAI predicts transformer failure, electricity theft, and feeder outages for a utility grid - problem, data, model choices, and honest limitations.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="SmartGrid PredictAI Case Study - Sidney Mpenyana">
+  <meta property="og:description" content="How SmartGrid PredictAI predicts transformer failure, electricity theft, and feeder outages for a utility grid - problem, data, model choices, and honest limitations.">
+  <meta property="og:image" content="https://sidney081.github.io/assets/profile.jpg">
+  <meta property="og:url" content="https://sidney081.github.io/case-study-smartgrid.html">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- CSS Links -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+  </button>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Case Study Content -->
+  <section id="case-study">
+    <div class="container">
+      <p class="section-subtitle" style="margin-bottom:6px;"><a href="projects.html">&larr; Back to Projects</a></p>
+      <h2>SmartGrid PredictAI</h2>
+      <p class="section-subtitle">Predicting transformer failure, electricity theft, and feeder outages on a synthetic model of Eskom's distribution network</p>
+
+      <div class="project-links" style="justify-content:center; margin-bottom:40px;">
+        <a href="https://smartgrid-predictai-0etn.onrender.com" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+        <a href="https://github.com/SIDNEY081/SmartGrid-PredictAI" class="project-link" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+      </div>
+
+      <div class="about-content">
+        <h3>The problem</h3>
+        <p>
+          Eskom's distribution network runs on aging, unevenly monitored infrastructure, and three failure modes matter most operationally: transformers failing unexpectedly, electricity theft eating into revenue, and feeders going down. Each needs a different kind of detection - transformer failure has a paper trail of past incidents to learn from, theft is deliberately hidden so confirmed cases are rare and biased toward wherever someone already looked, and feeder outages depend partly on the health of the transformers sitting on that feeder. SmartGrid PredictAI treats these as three related but distinct prediction problems rather than one generic "risk score."
+        </p>
+
+        <h3>The data</h3>
+        <p>
+          Real Eskom data isn't available for a personal project, so the dataset is synthetic but schema-realistic: <strong>3,000 transformers</strong> (capacity, installation year, previous failures, service/oil-replacement history, GPS location, plus 12 months of oil-quality/temperature/load readings per unit), <strong>10,000 meters</strong> (~10% flagged theft), and <strong>500 feeders</strong> (age, vegetation encroachment, protection-equipment age, load, historical outages). Every asset carries substation and feeder relationships so the data behaves like a real grid hierarchy, not disconnected rows.
+        </p>
+
+        <h3>Model choices, and why</h3>
+        <div class="qualifications-grid">
+          <div class="grid-card">
+            <h3>Transformer Failure</h3>
+            <p class="status">Random Forest &middot; ROC-AUC &asymp; 0.86</p>
+            <p>Supervised - Eskom-style data has labeled history of transformers that actually failed, with sensor readings leading up to the event. Random Forest handles mixed-scale tabular features well and its probability output converts directly into a risk tier.</p>
+          </div>
+          <div class="grid-card">
+            <h3>Electricity Theft</h3>
+            <p class="status">Isolation Forest &middot; ROC-AUC &asymp; 0.98</p>
+            <p>Unsupervised - confirmed theft cases are rare and biased toward wherever someone already investigated, so a classifier trained on them would just learn "where we've looked before." Isolation Forest flags statistical outliers in consumption instead. The strongest engineered feature: the ratio between what a transformer fed a connection and what the meter declared - a classic bypass/tampering signature.</p>
+          </div>
+          <div class="grid-card">
+            <h3>Feeder Outages</h3>
+            <p class="status">Gradient Boosting &middot; ROC-AUC &asymp; 0.75</p>
+            <p>Supervised, using each feeder's own condition plus <code>emergency_transformer_count</code> - how many transformers already flagged "emergency" by the failure model sit on that feeder. It's the one place the three models actually talk to each other: a feeder carrying several already-risky transformers is a more plausible near-term outage than one judged on its own attributes alone.</p>
+          </div>
+        </div>
+
+        <h3>An honest weak spot: feeder outages</h3>
+        <p>
+          0.75 ROC-AUC is clearly the weakest of the three, and it's expected to stay that way even with more synthetic feeders. The gap is missing real-world signal this dataset doesn't model - weather, live vegetation growth, crew response time - not a sample-size problem a bigger dataset would fix. Stating that honestly in the README mattered more than tuning the number up artificially.
+        </p>
+
+        <h3>Explainability, not just a score</h3>
+        <p>
+          Every scored row gets a plain-language reason via SHAP's <code>TreeExplainer</code> (e.g. <em>"high age_years, low oil_quality_index, high load_factor"</em>), with a dependency-free z-score fallback if SHAP isn't installed. A risk score without a reason isn't something a maintenance planner can act on with confidence.
+        </p>
+
+        <h3>From notebook to product</h3>
+        <p>
+          The models feed two live surfaces. A <strong>Flask dashboard</strong> sits behind real authentication - password hashing, server-side sessions, and four SQLite-backed roles (Administrator, Maintenance Engineer, Revenue Protection Officer, Field Technician), each enforced server-side on every route, not just hidden nav items - so an engineer sees transformer/feeder risk while an investigator sees meter theft, matching how the work is actually split. A <strong>Streamlit console</strong> covers the same three models with SHAP charts for anyone who just wants to explore the data, no login required. Both export directly into <strong>Power BI / Tableau</strong> - via CSV or, for Power BI Service, a live authenticated API endpoint - with an ordinal severity column so BI tools sort by risk instead of alphabetically.
+        </p>
+
+        <h3>An AI assistant that can't make numbers up</h3>
+        <p>
+          The dashboard's AI Assistant tab uses Claude with real <strong>tool access</strong> rather than free-text generation: every reply function (predict, health, history, compare, generate-report) is wrapped as a typed tool, and the model's job is understanding the question and phrasing the answer - every fact it states comes from an actual tool call against the scored CSVs, never from memory. If no API key is configured, the tab says so plainly instead of failing silently.
+        </p>
+
+        <h3>Keeping it honest</h3>
+        <p>
+          The failure and theft pipelines are deliberately implemented twice - once as notebooks, once as standalone scripts - and kept independent rather than sharing code, because duplicated logic was exactly what caused earlier schema-drift and inflated-metric bugs in this project. A pytest suite now specifically checks for that class of bug: data files still matching what the models expect, no filename collisions between notebook and script outputs, and every capacity-based alert flag firing at roughly its intended rate. Two fields are labeled explicitly as heuristics rather than real statistics - <code>confidence_pct</code> (distance from a 50% decision boundary, not model uncertainty) and <code>remaining_useful_life_years</code> (a rule-of-thumb estimate, not a survival-curve model) - because a number that looks precise but isn't is worse than an honest approximation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-section"></div>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript Links -->
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>
+</html>
