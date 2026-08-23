@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Stroke Shield Case Study - Sidney Mpenyana</title>
+  <meta name="description" content="How AI Stroke Shield predicts stroke risk from health indicators using XGBoost - data prep, class imbalance handling, evaluation, and deployment.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="AI Stroke Shield Case Study - Sidney Mpenyana">
+  <meta property="og:description" content="How AI Stroke Shield predicts stroke risk from health indicators using XGBoost - data prep, class imbalance handling, evaluation, and deployment.">
+  <meta property="og:image" content="https://sidney081.github.io/assets/profile.jpg">
+  <meta property="og:url" content="https://sidney081.github.io/case-study-stroke-shield.html">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- CSS Links -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+  </button>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Case Study Content -->
+  <section id="case-study">
+    <div class="container">
+      <p class="section-subtitle" style="margin-bottom:6px;"><a href="projects.html">&larr; Back to Projects</a></p>
+      <h2>AI Stroke Shield</h2>
+      <p class="section-subtitle">Predicting stroke risk from everyday health indicators with a gradient-boosted classifier</p>
+
+      <div class="project-links" style="justify-content:center; margin-bottom:40px;">
+        <a href="https://ai-stroke-shield-8yw9ddvstkica4k3fodeep.streamlit.app/" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+        <a href="https://github.com/SIDNEY081/AI-Stroke-Shield" class="project-link" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+      </div>
+
+      <div class="about-content">
+        <h3>The problem</h3>
+        <p>
+          Stroke risk is driven by a handful of measurable, everyday indicators - age, BMI, glucose level, smoking status, hypertension, and heart disease history - but connecting those dots quickly usually depends on a clinician manually weighing each factor. AI Stroke Shield turns that into a fast, structured risk estimate: enter a patient's indicators, get a prediction and probability back immediately, aimed at supporting earlier detection rather than replacing clinical judgment.
+        </p>
+
+        <h3>The data</h3>
+        <p>
+          Trained on the public <a href="https://www.kaggle.com/datasets/fedesoriano/stroke-prediction-dataset" target="_blank" rel="noopener">Kaggle stroke-prediction dataset</a>, using gender, age, hypertension, heart disease, marital status, work type, residence type, average glucose level, BMI, and smoking status. Missing BMI values were handled with mean imputation. The dataset is heavily imbalanced - most patients in the data haven't had a stroke - so the minority (stroke) class was resampled before training rather than left as-is, which matters here: an untouched imbalanced dataset lets a model score well by mostly predicting "no stroke," which is exactly the wrong failure mode for a screening tool.
+        </p>
+
+        <h3>Why XGBoost</h3>
+        <p>
+          XGBoost was chosen for the same reason it's a common default on structured/tabular clinical data like this: it handles a mix of continuous (glucose, BMI, age) and categorical (work type, smoking status) features without heavy preprocessing, and it's fast enough to retrain and iterate on during development. The model was trained on an 80/20 split and serialized with <code>joblib</code> for reuse in the deployed app rather than retraining on every prediction.
+        </p>
+
+        <h3>Evaluating a screening tool honestly</h3>
+        <p>
+          Accuracy alone is a weak metric for an imbalanced medical dataset, so evaluation includes precision, recall, and F1-score alongside it, plus a confusion matrix, ROC curve, precision-recall curve, and a feature-importance plot to see which indicators actually drove predictions. For a tool like this, recall on the positive class matters more than raw accuracy - missing an at-risk patient is a worse failure than a false alarm that gets double-checked.
+        </p>
+
+        <h3>From notebook to app</h3>
+        <p>
+          The trained model is wrapped in a Streamlit interface: dropdowns and numeric fields for each indicator, a "Predict Stroke" action, and a result that shows both the prediction and its probability - not just a bare yes/no, so the number carries as much information as the label does.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-section"></div>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript Links -->
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>
+</html>

@@ -107,6 +107,7 @@ const PROJECT_URLS = {
     'AI-Stroke-Shield': {
         live: 'https://ai-stroke-shield-8yw9ddvstkica4k3fodeep.streamlit.app/',
         github: 'https://github.com/SIDNEY081/AI-Stroke-Shield',
+        caseStudy: 'case-study-stroke-shield.html',
         description: 'Healthcare web application for stroke prediction using machine learning algorithms. Provides risk assessment and preventive recommendations.',
         features: [
             'Stroke risk assessment using ML models',
