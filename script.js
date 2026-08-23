@@ -19,6 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Projects page detected, loading projects...');
         loadGitHubProjects();
     }
+
+    // Load Real GitHub Profile Stats - Only on projects page
+    if (document.getElementById('githubStatsGrid')) {
+        loadGitHubProfileStats();
+    }
     
     // Project Filters - Only on projects page
     setTimeout(() => {
@@ -783,6 +788,40 @@ function initializeSmoothScrolling() {
 }
 
 // ===== GITHUB PROJECTS FUNCTIONS =====
+
+// Load real profile stats (public repos, followers, total stars) straight from
+// the GitHub API - no third-party stats-card service, so nothing to go down.
+async function loadGitHubProfileStats() {
+    const repoEl = document.getElementById('statPublicRepos');
+    const starEl = document.getElementById('statStars');
+    const followerEl = document.getElementById('statFollowers');
+
+    try {
+        const [userRes, reposRes] = await Promise.all([
+            fetch('https://api.github.com/users/sidney081'),
+            fetch('https://api.github.com/users/sidney081/repos?per_page=100')
+        ]);
+
+        if (!userRes.ok || !reposRes.ok) {
+            throw new Error('GitHub API error');
+        }
+
+        const user = await userRes.json();
+        const repos = await reposRes.json();
+
+        const totalStars = Array.isArray(repos)
+            ? repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0)
+            : 0;
+
+        if (repoEl) repoEl.textContent = user.public_repos ?? '-';
+        if (starEl) starEl.textContent = totalStars;
+        if (followerEl) followerEl.textContent = user.followers ?? '-';
+    } catch (error) {
+        console.error('Error loading GitHub profile stats:', error);
+        const grid = document.getElementById('githubStatsGrid');
+        if (grid) grid.style.display = 'none';
+    }
+}
 
 // Load real projects from GitHub with caching and timeout
 async function loadGitHubProjects() {

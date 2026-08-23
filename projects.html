@@ -5,7 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Projects - Sidney Mpenyana</title>
   <meta name="description" content="Explore Sidney Mpenyana's software development projects and portfolio">
-  
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="My Projects - Sidney Mpenyana">
+  <meta property="og:description" content="Explore Sidney Mpenyana's software development projects and portfolio">
+  <meta property="og:image" content="https://sidney081.github.io/assets/profile.jpg">
+  <meta property="og:url" content="https://sidney081.github.io/projects.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
   <!-- CSS Links -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css">
@@ -38,6 +47,22 @@
     <div class="container">
       <h2>My Projects</h2>
       <p class="section-subtitle">Live from GitHub - fetched directly from my repositories</p>
+
+      <div class="github-stats-grid" id="githubStatsGrid">
+        <div class="stat-tile">
+          <span class="stat-value" id="statPublicRepos">-</span>
+          <span class="stat-label">Public Repos</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-value" id="statStars">-</span>
+          <span class="stat-label">Total Stars</span>
+        </div>
+        <div class="stat-tile">
+          <span class="stat-value" id="statFollowers">-</span>
+          <span class="stat-label">Followers</span>
+        </div>
+      </div>
+      <img class="github-contribution-chart" src="https://ghchart.rshah.org/06d6a0/SIDNEY081" alt="Sidney Mpenyana's GitHub contribution graph" loading="lazy">
 
       <div class="project-filters">
         <button class="active" data-filter="all">All Projects</button>
