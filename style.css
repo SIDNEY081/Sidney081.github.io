@@ -278,12 +278,14 @@ header p {
 .terminal-input {
   flex: 1;
   min-width: 0;
-  background: transparent;
-  border: none;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
   outline: none;
-  color: #ffffff;
+  color: #0f172a;
   font-family: var(--font-mono);
   font-size: 0.9rem;
+  padding: 4px 8px;
   caret-color: var(--accent-color);
 }
 
