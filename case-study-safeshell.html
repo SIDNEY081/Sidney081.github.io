@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SafeShell Case Study - Sidney Mpenyana</title>
+  <meta name="description" content="How SafeShell protects you during a phone robbery or hijacking with a one-tap decoy Android launcher that hides banking apps behind biometric authentication.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <!-- Open Graph / Social Preview -->
+  <meta property="og:title" content="SafeShell Case Study - Sidney Mpenyana">
+  <meta property="og:description" content="How SafeShell protects you during a phone robbery or hijacking with a one-tap decoy Android launcher that hides banking apps behind biometric authentication.">
+  <meta property="og:image" content="https://sidney081.github.io/assets/profile.jpg">
+  <meta property="og:url" content="https://sidney081.github.io/case-study-safeshell.html">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- CSS Links -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome@6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">🌙</span> <span id="themeText">Dark Mode</span>
+  </button>
+
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <div class="nav-container">
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="projects.html">Projects</a>
+        <a href="skills.html">Skills</a>
+        <a href="resume.html">Resume</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Case Study Content -->
+  <section id="case-study">
+    <div class="container">
+      <p class="section-subtitle" style="margin-bottom:6px;"><a href="projects.html">&larr; Back to Projects</a></p>
+      <h2>SafeShell</h2>
+      <p class="section-subtitle">A one-tap decoy home screen that hides your banking apps if you're ever forced to hand over your phone</p>
+
+      <div class="project-links" style="justify-content:center; margin-bottom:40px;">
+        <a href="https://sidney081.github.io/SafeShell/" class="project-link" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+        <a href="https://github.com/SIDNEY081/SafeShell" class="project-link" target="_blank"><i class="fab fa-github"></i> Source Code</a>
+      </div>
+
+      <div class="about-content">
+        <h3>The problem</h3>
+        <p>
+          If someone forces you to unlock your phone - a robbery, a hijacking - your banking apps are usually one home-screen tap away. SafeShell exists for that specific moment: a way to hand over a phone that looks normal but doesn't give an attacker a route to your money.
+        </p>
+
+        <h3>How it works</h3>
+        <p>
+          SafeShell replaces the phone's home screen with a custom Android launcher. Under duress, switching into the decoy desktop is a single tap - deliberately frictionless, because a multi-step gesture or a PIN you have to think about isn't realistic when someone is threatening you. Once active, the decoy launcher hides banking apps entirely and blocks access to the Play Store, so an attacker can't install something to work around what's missing either.
+        </p>
+
+        <h3>Why the asymmetry matters</h3>
+        <p>
+          Getting into the decoy is instant on purpose; getting back out isn't. Returning to the real home screen and your actual apps requires the app's Firebase-backed authentication with biometric login (fingerprint or face). That asymmetry is the actual security property: an attacker holding the phone can't simply "undo" the decoy even if they suspect it's there, because reversing it needs your fingerprint or face, not just persistence.
+        </p>
+
+        <h3>Built on</h3>
+        <p>
+          Kotlin, with the launcher-replacement behavior as the core custom logic - overriding what Android treats as the device's home screen isn't a standard app feature, it's built specifically for this. Authentication runs on Firebase Auth with the Android Biometric API, and the interface uses Material Design 3 components. Minimum SDK 26 (Android 8.0), targeting SDK 34 (Android 14).
+        </p>
+
+        <h3>Where it stands</h3>
+        <p>
+          The authentication and biometric-login flow is documented and working end to end. The decoy-launcher behavior described above - the one-tap switch, hiding banking apps, blocking the Play Store - is the actual design and functionality of the app; it isn't yet written up in the project's own README, which currently only documents the login/biometric side.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-section"></div>
+
+  <!-- Scroll to Top -->
+  <button class="scroll-to-top" id="scrollToTop">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- JavaScript Links -->
+  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+</body>
+</html>

@@ -134,15 +134,16 @@ const PROJECT_URLS = {
         live: 'https://sidney081.github.io/SafeShell/',
         github: 'https://github.com/SIDNEY081/SafeShell',
         appetize: 'https://appetize.io/app/b_oyu6nguofwkxisrlz4pa2tuipq',
-        description: 'Security-focused mobile application providing safe browsing environment and threat protection with real-time security monitoring.',
+        caseStudy: 'case-study-safeshell.html',
+        description: 'Personal-safety Android app: a one-tap decoy launcher hides banking apps and blocks the Play Store if you’re ever forced to hand over your phone, with the real home screen protected behind Firebase biometric authentication.',
         features: [
-            'Safe browsing environment',
-            'Threat detection and protection',
-            'Security monitoring dashboard',
-            'Real-time security alerts',
-            'Mobile-optimized interface'
+            'One-tap switch into a decoy home screen under duress',
+            'Hides banking apps and blocks Play Store access while active',
+            'Custom Android launcher-replacement logic',
+            'Firebase authentication with biometric (fingerprint/face) login',
+            'Material Design 3 interface'
         ],
-        technologies: ['Security', 'Mobile Development', 'JavaScript', 'Privacy', 'Android']
+        technologies: ['Kotlin', 'Android', 'Firebase Auth', 'Biometric API', 'Security']
     },
     'mictseta_recruitment_system': {
         live: 'https://mictseta-recruitment-system.github.io/mictseta_recruitment_system/',
